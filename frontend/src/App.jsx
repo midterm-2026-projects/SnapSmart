@@ -1,13 +1,17 @@
-import Dashboard from "./components/Dashboard";
-import SummaryCards from "./components/SummaryCards";
 import Navigation from "./components/Navigation";
+import SummaryCards from "./components/SummaryCards";
+import FinancialSummary from "./components/FinancialSummary";
+import BookingTrends from "./components/BookingTrends";
+import RecentBookings from "./components/RecentBookings";
 
 function App() {
   return (
     <>
       <Navigation />
-      <Dashboard />
       <SummaryCards />
+      <FinancialSummary />
+      <BookingTrends />
+      <RecentBookings />
     </>
   );
 }

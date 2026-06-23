@@ -1,10 +1,29 @@
-import { describe, test, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, test, expect, afterEach } from "vitest";
+import { render, screen, cleanup } from "@testing-library/react";
 import SummaryCards from "../components/SummaryCards";
 
+afterEach(() => {
+  cleanup();
+});
+
 describe("SummaryCards Component", () => {
-  test("displays data correctly", () => {
-    render(<SummaryCards totalBookings={10} />);
-    expect(screen.getByText("10")).toBeDefined();
+  test("shows default booking value when no data exists", () => {
+    render(<SummaryCards />);
+
+    expect(
+      screen.getByText("Total Bookings: 0")
+    ).toBeTruthy();
+  });
+
+  test("shows booking value when data exists", () => {
+    render(
+      <SummaryCards
+        bookings={24}
+      />
+    );
+
+    expect(
+      screen.getByText("Total Bookings: 24")
+    ).toBeTruthy();
   });
 });

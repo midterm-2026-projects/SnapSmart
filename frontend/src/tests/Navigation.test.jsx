@@ -1,10 +1,25 @@
-import { describe, test, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, test, expect, afterEach } from "vitest";
+import { render, screen, cleanup } from "@testing-library/react";
 import Navigation from "../components/Navigation";
 
+afterEach(() => {
+  cleanup();
+});
+
 describe("Navigation Component", () => {
-  test("functions correctly", () => {
+  test("renders navigation title", () => {
     render(<Navigation />);
-    expect(screen.getByText("Dashboard")).toBeDefined();
+
+    expect(
+      screen.getByText("Navigation")
+    ).toBeTruthy();
+  });
+
+  test("renders dashboard menu", () => {
+    render(<Navigation />);
+
+    expect(
+      screen.getByText("Dashboard")
+    ).toBeTruthy();
   });
 });
