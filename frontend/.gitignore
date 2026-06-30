@@ -1,29 +1,5 @@
-<<<<<<< HEAD
-node_modules/ 
-=======
 node_modules/
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
->>>>>>> 07060f04640e1c04b7022f8964e3b8448c8ade57
+dist/
+coverage/
+.vscode/
+.env
