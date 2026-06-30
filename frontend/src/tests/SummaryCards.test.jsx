@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom/vitest";
 import { describe, test, expect, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import SummaryCards from "../components/SummaryCards";
@@ -12,18 +13,16 @@ describe("SummaryCards Component", () => {
 
     expect(
       screen.getByText("Total Bookings: 0")
-    ).toBeTruthy();
+    ).toBeInTheDocument();
   });
 
   test("shows booking value when data exists", () => {
     render(
-      <SummaryCards
-        bookings={24}
-      />
+      <SummaryCards bookings={24} />
     );
 
     expect(
       screen.getByText("Total Bookings: 24")
-    ).toBeTruthy();
+    ).toBeInTheDocument();
   });
 });

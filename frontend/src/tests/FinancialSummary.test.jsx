@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom/vitest";
 import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import FinancialSummary from "../components/FinancialSummary";
@@ -8,16 +9,14 @@ describe("FinancialSummary Component", () => {
 
     expect(
       screen.getByText("No financial data available")
-    ).toBeTruthy();
+    ).toBeInTheDocument();
   });
 
   test("shows financial data when data exists", () => {
-    render(
-      <FinancialSummary thisMonth={12500} />
-    );
+    render(<FinancialSummary thisMonth={12500} />);
 
     expect(
       screen.getByText("This Month: ₱12500")
-    ).toBeTruthy();
+    ).toBeInTheDocument();
   });
 });

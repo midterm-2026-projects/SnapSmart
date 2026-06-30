@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom/vitest";
 import { describe, test, expect, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import RecentBookings from "../components/RecentBookings";
@@ -12,7 +13,7 @@ describe("RecentBookings Component", () => {
 
     expect(
       screen.getByText("No bookings available")
-    ).toBeTruthy();
+    ).toBeInTheDocument();
   });
 
   test("displays booking table columns correctly", () => {
@@ -28,9 +29,9 @@ describe("RecentBookings Component", () => {
       />
     );
 
-    expect(screen.getByText("Client")).toBeTruthy();
-    expect(screen.getByText("Service")).toBeTruthy();
-    expect(screen.getByText("Status")).toBeTruthy();
+    expect(screen.getByText("Client")).toBeInTheDocument();
+    expect(screen.getByText("Service")).toBeInTheDocument();
+    expect(screen.getByText("Status")).toBeInTheDocument();
   });
 
   test("displays booking data correctly", () => {
@@ -46,8 +47,8 @@ describe("RecentBookings Component", () => {
       />
     );
 
-    expect(screen.getByText("Juan Dela Cruz")).toBeTruthy();
-    expect(screen.getByText("Wedding Package")).toBeTruthy();
-    expect(screen.getByText("Confirmed")).toBeTruthy();
+    expect(screen.getByText("Juan Dela Cruz")).toBeInTheDocument();
+    expect(screen.getByText("Wedding Package")).toBeInTheDocument();
+    expect(screen.getByText("Confirmed")).toBeInTheDocument();
   });
 });

@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom/vitest";
 import { describe, test, expect, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import Navigation from "../components/Navigation";
@@ -12,7 +13,7 @@ describe("Navigation Component", () => {
 
     expect(
       screen.getByText("Navigation")
-    ).toBeTruthy();
+    ).toBeInTheDocument();
   });
 
   test("renders dashboard menu", () => {
@@ -20,6 +21,6 @@ describe("Navigation Component", () => {
 
     expect(
       screen.getByText("Dashboard")
-    ).toBeTruthy();
+    ).toBeInTheDocument();
   });
 });
