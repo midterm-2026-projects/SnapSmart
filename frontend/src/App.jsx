@@ -1,12 +1,8 @@
 import "./App.css";
-import BookingForm from "./components/BookingForm";
+import NotificationInterface from "./components/NotificationInterface";
 
 function App() {
-  return (
-    <div>
-      <BookingForm />
-    </div>
-  );
+  return <NotificationInterface />;
 }
 
 export default App;
