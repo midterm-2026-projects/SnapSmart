@@ -1,10 +1,10 @@
 import "./App.css";
-import BookingForm from "./components/BookingForm";
+import ChatbotInterface from "./components/ChatbotInterface.jsx";
 
 function App() {
   return (
     <div>
-      <BookingForm />
+      <ChatbotInterface />
     </div>
   );
 }
