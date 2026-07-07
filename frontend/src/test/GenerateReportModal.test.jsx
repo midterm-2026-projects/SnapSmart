@@ -24,4 +24,12 @@ describe("GenerateReportModal Component", () => {
       screen.getByRole("button", { name: "Generate" })
     ).toBeInTheDocument();
   });
+
+  test("does not render when modal is closed", () => {
+    render(<GenerateReportModal isOpen={false} />);
+
+    expect(
+      screen.queryByText("Generate Report")
+    ).not.toBeInTheDocument();
+  });
 });

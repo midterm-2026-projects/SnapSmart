@@ -14,4 +14,14 @@ describe("FinancialSummaryCard Component", () => {
     expect(screen.getByText("Total Revenue")).toBeInTheDocument();
     expect(screen.getByText("₱120,000")).toBeInTheDocument();
   });
+
+  test("shows empty state when value is missing", () => {
+    render(
+      <FinancialSummaryCard
+        title="Total Revenue"
+      />
+    );
+
+    expect(screen.getByText("No data available")).toBeInTheDocument();
+  });
 });

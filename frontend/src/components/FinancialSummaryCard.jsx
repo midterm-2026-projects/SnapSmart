@@ -11,7 +11,8 @@ function FinancialSummaryCard({ title, value }) {
       }}
     >
       <h3>{title}</h3>
-      <h2>{value}</h2>
+
+      <h2>{value ? value : "No data available"}</h2>
     </div>
   );
 }
