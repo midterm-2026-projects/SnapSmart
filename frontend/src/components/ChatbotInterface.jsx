@@ -1,50 +1,99 @@
 import { useState } from "react";
-import MessageDisplay from "./MessageDisplay";
-import UserInput from "./UserInput";
+
+function MessageDisplay({ messages }) {
+  return (
+    <div data-testid="message-display">
+      {messages.length === 0 ? (
+        <p data-testid="empty-message">
+          No messages yet.
+        </p>
+      ) : (
+        messages.map((message) => (
+          <div 
+            key={message.id}
+            data-testid="message-item"
+          >
+            <strong>{message.sender}:</strong>{" "}
+            {message.text}
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+
+function UserInput({ onSend }) {
+  const [input, setInput] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!input.trim()) return;
+
+    onSend(input.trim());
+    setInput("");
+  };
+
+  return (
+    <form 
+      data-testid="user-input-form"
+      onSubmit={handleSubmit}
+    >
+      <input
+        data-testid="user-input"
+        placeholder="Type your message..."
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+
+      <button
+        data-testid="send-button"
+        type="submit"
+      >
+        Send
+      </button>
+    </form>
+  );
+}
+
 
 export default function ChatbotInterface() {
   const [messages, setMessages] = useState([]);
 
   const handleSend = (text) => {
-    const trimmedText = text.trim();
-
-    // Prevent empty messages
-    if (!trimmedText) {
-      return;
-    }
-
-    const userMessage = {
-      id: Date.now(),
-      sender: "User",
-      text: trimmedText,
-    };
-
-    const botMessage = {
-      id: Date.now() + 1,
-      sender: "Bot",
-      text: "Message received!",
-    };
+    if (!text.trim()) return;
 
     setMessages((previousMessages) => [
       ...previousMessages,
-      userMessage,
-      botMessage,
+
+      {
+        id: Date.now(),
+        sender: "User",
+        text: text,
+      },
+
+      {
+        id: Date.now() + 1,
+        sender: "Bot",
+        text: "Message received!",
+      },
     ]);
   };
+
 
   return (
     <div 
       data-testid="chatbot-interface"
-      className="chatbot-container"
     >
       <h1>Chatbot</h1>
 
       <MessageDisplay 
-        messages={messages} 
+        messages={messages}
       />
 
       <UserInput 
-        onSend={handleSend} 
+        onSend={handleSend}
       />
     </div>
   );
