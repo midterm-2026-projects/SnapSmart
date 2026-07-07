@@ -2,6 +2,7 @@ function GalleryNavigation({
   onPrevious = () => {},
   onNext = () => {},
 }) {
+  
   return (
     <nav>
       <button

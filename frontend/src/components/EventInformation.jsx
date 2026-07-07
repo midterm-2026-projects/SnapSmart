@@ -6,6 +6,7 @@ setEvent,
 errors,
 setErrors,
 }) {
+  
 const [message, setMessage] = useState("");
 
 const handleSubmit = () => {

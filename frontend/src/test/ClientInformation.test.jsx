@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, test, expect, vi, it } from "vitest";
 import ClientInformation from "../components/ClientInformation";
 
+
 const mockClient = {
   fullName: "",
   email: "",

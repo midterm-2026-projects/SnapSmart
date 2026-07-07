@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, test, expect } from "vitest";
 import ImageGrid from "../components/ImageGrid";
 
+
 describe("ImageGrid Component", () => {
   test("renders images correctly", () => {
     render(<ImageGrid />);

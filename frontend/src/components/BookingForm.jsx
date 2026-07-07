@@ -25,6 +25,7 @@ function BookingForm() {
     });
   };
 
+  
   return (
     <div>
       <h2>Booking Form</h2>

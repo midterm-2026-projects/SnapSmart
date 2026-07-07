@@ -6,6 +6,7 @@ function ClientInformation({
   errors,
   setErrors,
 }) {
+  
   const [message, setMessage] = useState("");
 
   const handleSubmit = () => {

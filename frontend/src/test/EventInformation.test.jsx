@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, test, expect, vi } from "vitest";
 import EventInformation from "../components/EventInformation";
 
+
 describe("EventInformation Component", () => {
   const mockEvent = {
     eventType: "",

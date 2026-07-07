@@ -1,5 +1,6 @@
 function ImageGrid() {
   const images = [
+    
     {
       id: 1,
       src: "/image1.jpg",
