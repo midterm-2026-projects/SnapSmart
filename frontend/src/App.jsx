@@ -9,7 +9,6 @@ import GeneratedReportsTable from "./components/GeneratedReportsTable";
 import GenerateReportModal from "./components/GenerateReportModal";
 
 function App() {
-  // Week 1 Components
   const trends = [
     { month: "January", bookings: 15 },
     { month: "February", bookings: 22 },
@@ -33,7 +32,6 @@ function App() {
     },
   ];
 
-  // Week 2 Components
   const reports = [
     {
       name: "Sales Report",
