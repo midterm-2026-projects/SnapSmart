@@ -1,8 +1,8 @@
 import "./App.css";
-import NotificationInterface from "./components/NotificationInterface";
+import BotMessage from "./components/BotMessage";
 
 function App() {
-  return <NotificationInterface />;
+  return <BotMessage message="Hello from Bot!" />;
 }
 
 export default App;
