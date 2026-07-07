@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
-const SendNotificationModal = ({ isOpen, onClose }) => {
+const SendNotificationModal = ({ isOpen, onClose, onSend }) => {
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   if (!isOpen) return null;
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!title.trim() || !message.trim()) {
+      setError("Title and message are required");
+      return;
+    }
+
+    onSend({
+      title,
+      message,
+    });
+
+    setTitle("");
+    setMessage("");
+    setError("");
+  };
+
 
   return (
     <div
@@ -12,22 +35,34 @@ const SendNotificationModal = ({ isOpen, onClose }) => {
 
       <h2>Send Notification</h2>
 
-      <form>
+      <form onSubmit={handleSubmit}>
 
         <input
           type="text"
           placeholder="Notification title"
-          data-testid="notification-title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
+
 
         <textarea
           placeholder="Notification message"
-          data-testid="notification-message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
+
+
+        {error && (
+          <p data-testid="error-message">
+            {error}
+          </p>
+        )}
+
 
         <button type="submit">
           Send
         </button>
+
 
         <button
           type="button"
@@ -41,5 +76,6 @@ const SendNotificationModal = ({ isOpen, onClose }) => {
     </div>
   );
 };
+
 
 export default SendNotificationModal;
