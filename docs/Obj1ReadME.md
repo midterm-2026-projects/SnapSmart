@@ -49,123 +49,163 @@ SnapSmart is an AI-Powered Booking and Business Analytics System for Toni Photog
 
 ---
 
-## Week 3 - Day 1
+## Week 2 - Day 2
 ### Create Booking Summary Components
 
 #### Sub-Tasks
-- Create PackageSummary Component
-- Create EventSummary Component
-- Create ClientSummary Component
+- Create PackageSelection Component
+- Create BookingStatusBadge Component
+- Create BookingActionButton Component
 
 #### Deliverables
-- PackageSummary Component
-- EventSummary Component
-- ClientSummary Component
+- PackageSelection Component
+- BookingStatusBadge Component
+- BookingActionButton Component
 
 #### Test Suite / PR Acceptance Criteria
-- PackageSummary component displays selected package correctly
-- EventSummary component displays event details correctly
-- ClientSummary component displays client details correctly
+- PackageSelection component allows users to select a package correctly
+- BookingStatusBadge component displays the correct booking status
+- BookingActionButton component triggers the correct booking action
+
+---
+
+## Week 3 - Day 1
+### Unit Testing - Booking Service
+
+#### Sub-Tasks
+- Test createBooking() validation
+- Test getBookingById()
+- Test updateBookingStatus()
+
+#### Deliverables
+- Booking Service Unit Tests
+- Validation Test Cases
+- Status Update Test Cases
+
+#### Test Suite / PR Acceptance Criteria
+- createBooking() passes validation input tests
+- getBookingById() returns the expected booking information
+- updateBookingStatus() updates booking status correctly
 
 ---
 
 ## Week 3 - Day 2
-### Integrate Booking Components
+### Integration Testing - Booking API
 
 #### Sub-Tasks
-- Integrate BookingForm Component
-- Integrate EventInformation Component
-- Integrate ClientInformation Component
+- Test POST /bookings
+- Test GET /bookings/:id
+- Test PUT /bookings/:id/status
 
 #### Deliverables
-- BookingForm Integration
-- EventInformation Integration
-- ClientInformation Integration
+- Booking API Integration Tests
+- API Response Validation
+- Database Verification
 
 #### Test Suite / PR Acceptance Criteria
-- BookingForm integration works correctly
-- EventInformation integration works correctly
-- ClientInformation integration works correctly
+- POST request creates booking successfully
+- GET request retrieves booking information correctly
+- PUT request updates booking status successfully
 
 ---
 
 ## Week 4 - Day 1
-### Create Booking Validation Features
+### Unit Testing - Gallery Service
 
 #### Sub-Tasks
-- Create FormValidation Module
-- Create RequiredField Validation
-- Create ErrorMessage Component
+- Test createGallery()
+- Test getGalleryById()
+- Test deleteGallery()
 
 #### Deliverables
-- FormValidation Module
-- RequiredField Validation
-- ErrorMessage Component
+- Gallery Service Unit Tests
+- Gallery Retrieval Test Cases
+- Gallery Deletion Test Cases
 
 #### Test Suite / PR Acceptance Criteria
-- FormValidation validates inputs correctly
-- RequiredField validation detects missing inputs correctly
-- ErrorMessage component displays validation errors correctly
+- createGallery() validates gallery input correctly
+- getGalleryById() retrieves gallery information correctly
+- deleteGallery() removes gallery successfully
 
 ---
 
 ## Week 4 - Day 2
-### Create Booking Routes and Services
+### Integration Testing - Gallery API
 
 #### Sub-Tasks
-- Create Booking Routes
-- Create Booking Services
-- Connect Routes and Services
+- Test POST /gallery
+- Test GET /gallery/:id
+- Test DELETE /gallery/:id
 
 #### Deliverables
-- BookingRoutes Module
-- BookingServices Module
-- RouteServiceIntegration Module
+- Gallery API Integration Tests
+- API Response Validation
+- Gallery Database Verification
 
 #### Test Suite / PR Acceptance Criteria
-- Booking routes function correctly
-- Booking services process requests correctly
-- Route-service integration works correctly
+- POST request uploads gallery successfully
+- GET request retrieves gallery information correctly
+- DELETE request removes gallery successfully
 
 ---
 
 ## Week 5 - Day 1
-### Connect Booking Module to Backend
+### Unit Testing - Photo Management Service
 
 #### Sub-Tasks
-- Connect Booking Submission API
-- Connect Booking Retrieval API
-- Handle API Responses
+- Test uploadPhoto()
+- Test getPhotosByGallery()
+- Test deletePhoto()
 
 #### Deliverables
-- BookingSubmission Integration
-- BookingRetrieval Integration
-- APIResponseHandler Module
+- Photo Management Unit Tests
+- Photo Retrieval Test Cases
+- Photo Deletion Test Cases
 
 #### Test Suite / PR Acceptance Criteria
-- Booking submission works correctly
-- Booking retrieval works correctly
-- API responses are handled correctly
+- uploadPhoto() validates photo upload correctly
+- getPhotosByGallery() retrieves gallery photos correctly
+- deletePhoto() removes selected photo successfully
+
+---
+
+## Week 5 - Day 2
+### Integration Testing - Photo Management API
+
+#### Sub-Tasks
+- Test POST /gallery/:id/photos
+- Test GET /gallery/:id/photos
+- Test DELETE /photos/:id
+
+#### Deliverables
+- Photo Management API Integration Tests
+- API Response Validation
+- Photo Database Verification
+
+#### Test Suite / PR Acceptance Criteria
+- POST request uploads photo successfully
+- GET request retrieves uploaded photos correctly
+- DELETE request removes selected photo successfully
 
 ---
 
 ## Week 6 - Day 1
-### Perform End-to-End Testing
+### Unit Testing - Booking & Gallery Validation
 
 #### Sub-Tasks
-- Test Booking Workflow
-- Test Gallery Workflow
-- Fix Identified Issues
+- Test booking input validation
+- Test gallery ownership validation
+- Test duplicate booking validation
 
 #### Deliverables
-- Booking E2E Test Report
-- Gallery E2E Test Report
-- Issue Resolution Log
+- Booking Validation Unit Tests
+- Gallery Validation Test Cases
+- Duplicate Booking Test Cases
 
 #### Test Suite / PR Acceptance Criteria
-- Booking workflow passes end-to-end testing
-- Gallery workflow passes end-to-end testing
-- Identified issues are resolved successfully
+- Booking validation prevents invalid booking data
+- Gallery ownership validation works correctly
+- Duplicate booking validation prevents duplicate booking records
 
 ---
 
@@ -174,6 +214,7 @@ SnapSmart is an AI-Powered Booking and Business Analytics System for Toni Photog
 ## Frontend
 - React
 - Vite
+- JavaScript
 - CSS
 
 ## Testing
@@ -188,7 +229,9 @@ SnapSmart is an AI-Powered Booking and Business Analytics System for Toni Photog
 
 # Development Approach
 
-This project follows the Test-Driven Development (TDD) process:
+This project follows the **Test-Driven Development (TDD)** methodology.
+
+Development process:
 
 1. Write a failing test.
 2. Implement the minimum code required.
@@ -198,21 +241,71 @@ This project follows the Test-Driven Development (TDD) process:
 
 ---
 
+# Components Developed
+
+## Booking Module
+- BookingForm
+- ClientInformation
+- EventInformation
+- PackageSelection
+- BookingStatusBadge
+- BookingActionButton
+
+## Gallery Module
+- GalleryLayout
+- ImageGrid
+- GalleryNavigation
+
+---
+
 # Running the Project
+
+Install the project dependencies.
 
 ```bash
 npm install
+```
+
+Start the development server.
+
+```bash
 npm run dev
 ```
 
+---
+
 # Running Tests
+
+Run all unit tests.
 
 ```bash
 npm test
 ```
 
+or
+
+```bash
+npm run test
+```
+
+---
+
 # Build Project
+
+Generate the production build.
 
 ```bash
 npm run build
 ```
+
+---
+
+# Repository Owner
+
+**Mar Franklin I. Caraig**
+
+---
+
+# License
+
+This project is developed for academic purposes as part of the BSIT Capstone Project of Toni Photography's **SnapSmart - AI-Powered Booking and Business Analytics System**.
