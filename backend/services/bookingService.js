@@ -1,40 +1,27 @@
-import { bookings } from "../config/db.js";
+import * as bookingModel from "../models/bookingModel.js";
 
 export function createBooking(data) {
+  if (!data.clientName) {
+    throw new Error("Client Name is required");
+  }
 
-    if (!data.clientName)
-        throw new Error("Client Name is required");
+  if (!data.eventDate) {
+    throw new Error("Event Date is required");
+  }
 
-    if (!data.eventDate)
-        throw new Error("Event Date is required");
-
-    const booking = {
-        id: bookings.length + 1,
-        ...data,
-        status: "Pending"
-    };
-
-    bookings.push(booking);
-
-    return booking;
+  return bookingModel.createBooking(data);
 }
 
 export function getBookingById(id) {
-
-    return bookings.find(
-        booking => booking.id === Number(id)
-    );
-
+  return bookingModel.getBookingById(id);
 }
 
 export function updateBookingStatus(id, status) {
+  const booking = bookingModel.getBookingById(id);
 
-    const booking = getBookingById(id);
+  if (!booking) {
+    throw new Error("Booking not found");
+  }
 
-    if (!booking)
-        throw new Error("Booking not found");
-
-    booking.status = status;
-
-    return booking;
+  return bookingModel.updateBookingStatus(id, status);
 }
