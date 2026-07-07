@@ -27,6 +27,42 @@ function BookingForm() {
   };
 
   const handleConfirmBooking = () => {
+    setMessage("");
+
+    const clientFields = [
+      client.fullName.trim(),
+      client.email.trim(),
+      client.contactNumber.trim(),
+    ];
+
+    const eventFields = [
+      event.eventType.trim(),
+      event.eventDate,
+      event.venue.trim(),
+    ];
+
+    const allFields = [...clientFields, ...eventFields];
+
+    const allEmpty = allFields.every(
+      (field) => field === ""
+    );
+
+    const allComplete = allFields.every(
+      (field) => field !== ""
+    );
+
+    if (allEmpty) {
+      setMessage("Please complete all required fields.");
+      return;
+    }
+
+    if (!allComplete) {
+      setMessage(
+        "Please complete all required fields before confirming your booking."
+      );
+      return;
+    }
+
     setMessage("Booking Confirmed Successfully!");
   };
 
@@ -59,11 +95,7 @@ function BookingForm() {
         Confirm Booking
       </button>
 
-      {message && (
-        <p className="success">
-          {message}
-        </p>
-      )}
+      {message && <p>{message}</p>}
     </div>
   );
 }

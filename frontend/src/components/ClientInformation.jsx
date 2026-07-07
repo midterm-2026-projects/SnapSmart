@@ -6,7 +6,6 @@ function ClientInformation({
   errors,
   setErrors,
 }) {
-  
   const [message, setMessage] = useState("");
 
   const handleSubmit = () => {
@@ -21,7 +20,8 @@ function ClientInformation({
     }
 
     if (!client.contactNumber.trim()) {
-      newErrors.contactNumber = "Contact Number is required";
+      newErrors.contactNumber =
+        "Contact Number is required";
     }
 
     setErrors((prev) => ({
@@ -29,12 +29,33 @@ function ClientInformation({
       ...newErrors,
     }));
 
-    if (Object.keys(newErrors).length > 0) {
-      setMessage("Please complete all Client Information fields.");
+    const allEmpty =
+      !client.fullName.trim() &&
+      !client.email.trim() &&
+      !client.contactNumber.trim();
+
+    const allComplete =
+      client.fullName.trim() &&
+      client.email.trim() &&
+      client.contactNumber.trim();
+
+    if (allEmpty) {
+      setMessage(
+        "Please complete all Client Information fields."
+      );
       return;
     }
 
-    setMessage("Client Information Submitted Successfully!");
+    if (!allComplete) {
+      setMessage(
+        "Please complete the missing Client Information fields."
+      );
+      return;
+    }
+
+    setMessage(
+      "Client Information Submitted Successfully!"
+    );
   };
 
   return (
@@ -64,7 +85,9 @@ function ClientInformation({
         />
 
         {errors.fullName && (
-          <p className="error">{errors.fullName}</p>
+          <p className="error">
+            {errors.fullName}
+          </p>
         )}
       </div>
 
@@ -91,7 +114,9 @@ function ClientInformation({
         />
 
         {errors.email && (
-          <p className="error">{errors.email}</p>
+          <p className="error">
+            {errors.email}
+          </p>
         )}
       </div>
 
@@ -118,11 +143,16 @@ function ClientInformation({
         />
 
         {errors.contactNumber && (
-          <p className="error">{errors.contactNumber}</p>
+          <p className="error">
+            {errors.contactNumber}
+          </p>
         )}
       </div>
 
-      <button type="button" onClick={handleSubmit}>
+      <button
+        type="button"
+        onClick={handleSubmit}
+      >
         Submit Client Information
       </button>
 

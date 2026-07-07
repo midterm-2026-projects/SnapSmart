@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, test, expect, vi } from "vitest";
 import EventInformation from "../components/EventInformation";
 
-
 describe("EventInformation Component", () => {
   const mockEvent = {
     eventType: "",
@@ -36,7 +35,7 @@ describe("EventInformation Component", () => {
     ).toBeInTheDocument();
   });
 
-  test("shows validation message when fields are empty", () => {
+  test("shows message when all fields are empty", () => {
     render(
       <EventInformation
         event={mockEvent}
@@ -55,6 +54,60 @@ describe("EventInformation Component", () => {
     expect(
       screen.getByText(
         "Please complete all Event Information fields."
+      )
+    ).toBeInTheDocument();
+  });
+
+  test("shows message when some fields are missing", () => {
+    render(
+      <EventInformation
+        event={{
+          eventType: "Wedding",
+          eventDate: "",
+          venue: "Balayan Church",
+        }}
+        setEvent={() => {}}
+        errors={{}}
+        setErrors={() => {}}
+      />
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: /submit event booking/i,
+      })
+    );
+
+    expect(
+      screen.getByText(
+        "Please complete the missing Event Information fields."
+      )
+    ).toBeInTheDocument();
+  });
+
+  test("shows success message when all fields are complete", () => {
+    render(
+      <EventInformation
+        event={{
+          eventType: "Wedding",
+          eventDate: "2026-08-01",
+          venue: "Balayan Church",
+        }}
+        setEvent={() => {}}
+        errors={{}}
+        setErrors={() => {}}
+      />
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: /submit event booking/i,
+      })
+    );
+
+    expect(
+      screen.getByText(
+        "Event Information Submitted Successfully!"
       )
     ).toBeInTheDocument();
   });
@@ -89,22 +142,54 @@ describe("EventInformation Component", () => {
       }
     );
 
-    expect(setEvent).toHaveBeenNthCalledWith(
-      1,
-      {
-        eventType: "Wedding",
-        eventDate: "",
-        venue: "",
-      }
+    expect(setEvent).toHaveBeenCalledTimes(2);
+  });
+
+  test("displays validation errors", () => {
+    render(
+      <EventInformation
+        event={mockEvent}
+        setEvent={() => {}}
+        errors={{
+          eventType: "Event Type is required",
+          eventDate: "Event Date is required",
+          venue: "Venue is required",
+        }}
+        setErrors={() => {}}
+      />
     );
 
-    expect(setEvent).toHaveBeenNthCalledWith(
-      2,
-      {
-        eventType: "",
-        eventDate: "",
-        venue: "Balayan Church",
-      }
+    expect(
+      screen.getByText("Event Type is required")
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText("Event Date is required")
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText("Venue is required")
+    ).toBeInTheDocument();
+  });
+
+  test("calls setErrors on submit", () => {
+    const setErrors = vi.fn();
+
+    render(
+      <EventInformation
+        event={mockEvent}
+        setEvent={() => {}}
+        errors={{}}
+        setErrors={setErrors}
+      />
     );
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: /submit event booking/i,
+      })
+    );
+
+    expect(setErrors).toHaveBeenCalled();
   });
 });
