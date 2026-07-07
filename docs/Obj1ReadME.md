@@ -1,4 +1,3 @@
-# SnapSmart - Booking and Gallery Management Module
 
 ## Project Overview
 
