@@ -136,6 +136,7 @@ describe("BookingForm Component", () => {
       }
     );
 
+    
     fireEvent.change(
       screen.getByPlaceholderText("Event Type"),
       {
