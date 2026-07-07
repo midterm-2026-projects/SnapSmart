@@ -1,5 +1,7 @@
 import "./App.css";
 
+import BookingForm from "./components/BookingForm";
+
 import TotalClients from "./components/TotalClients";
 import BookingTrends from "./components/BookingTrends";
 import RecentBookings from "./components/RecentBookings";
@@ -9,6 +11,7 @@ import GeneratedReportsTable from "./components/GeneratedReportsTable";
 import GenerateReportModal from "./components/GenerateReportModal";
 
 function App() {
+  // Week 1 Components
   const trends = [
     { month: "January", bookings: 15 },
     { month: "February", bookings: 22 },
@@ -32,6 +35,7 @@ function App() {
     },
   ];
 
+  // Week 2 Components
   const reports = [
     {
       name: "Sales Report",
@@ -47,6 +51,13 @@ function App() {
 
   return (
     <div style={{ padding: "20px" }}>
+      <h1>Booking Form</h1>
+
+      <BookingForm />
+
+      <hr />
+      <hr />
+
       <h1>Week 1 Dashboard UI</h1>
 
       <TotalClients totalClients={35} />
