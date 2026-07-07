@@ -16,6 +16,7 @@ function BookingForm() {
   });
 
   const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState("");
 
   const clearError = (field) => {
     setErrors((prev) => {
@@ -25,7 +26,10 @@ function BookingForm() {
     });
   };
 
-  
+  const handleConfirmBooking = () => {
+    setMessage("Booking Confirmed Successfully!");
+  };
+
   return (
     <div>
       <h2>Booking Form</h2>
@@ -45,6 +49,21 @@ function BookingForm() {
         setErrors={setErrors}
         clearError={clearError}
       />
+
+      <br />
+
+      <button
+        type="button"
+        onClick={handleConfirmBooking}
+      >
+        Confirm Booking
+      </button>
+
+      {message && (
+        <p className="success">
+          {message}
+        </p>
+      )}
     </div>
   );
 }
