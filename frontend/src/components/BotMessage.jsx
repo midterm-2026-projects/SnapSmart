@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 const BotMessage = ({ message }) => {
   return (
@@ -13,8 +12,5 @@ const BotMessage = ({ message }) => {
   );
 };
 
-BotMessage.propTypes = {
-  message: PropTypes.string.isRequired,
-};
 
 export default BotMessage;
