@@ -8,7 +8,6 @@ describe("Booking API Integration Test", () => {
     bookings.length = 0;
   });
 
-  
   test("POST /bookings should create a booking", async () => {
     const response = await request(app)
       .post("/bookings")

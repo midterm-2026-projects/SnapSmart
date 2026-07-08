@@ -18,6 +18,7 @@ export function getBookingById(id) {
   return bookings.find((booking) => booking.id === Number(id));
 }
 
+
 export function updateBookingStatus(id, status) {
   const booking = getBookingById(id);
 

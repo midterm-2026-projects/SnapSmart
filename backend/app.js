@@ -5,6 +5,7 @@ const app = express();
 
 app.use(express.json());
 
+// POST /bookings
 app.post("/bookings", (req, res) => {
   try {
     const booking = bookingService.createBooking(req.body);
@@ -17,6 +18,7 @@ app.post("/bookings", (req, res) => {
   }
 });
 
+// GET /bookings/:id
 app.get("/bookings/:id", (req, res) => {
   const booking = bookingService.getBookingById(req.params.id);
 
@@ -29,6 +31,7 @@ app.get("/bookings/:id", (req, res) => {
   res.status(200).json(booking);
 });
 
+// PUT /bookings/:id/status
 app.put("/bookings/:id/status", (req, res) => {
   try {
     const booking = bookingService.updateBookingStatus(
@@ -46,6 +49,7 @@ app.put("/bookings/:id/status", (req, res) => {
 
 export default app;
 
+// Prevent server from starting during tests
 if (process.env.NODE_ENV !== "test") {
   app.listen(3000, () => {
     console.log("Server running on port 3000");

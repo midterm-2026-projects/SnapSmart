@@ -24,6 +24,7 @@ describe("Booking Service", () => {
     test("should create a booking when valid data is provided", () => {
       bookingModel.createBooking.mockReturnValue({
         id: 1,
+        
         clientName: "Franklin",
         eventDate: "2026-07-20",
         status: "Pending",

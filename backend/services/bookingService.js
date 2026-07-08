@@ -14,6 +14,7 @@ export function createBooking(data) {
   return bookingModel.createBooking(data);
 }
 
+
 export function getBookingById(id) {
   return bookingModel.getBookingById(id);
 }
