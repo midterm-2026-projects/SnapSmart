@@ -7,6 +7,7 @@ export function createBooking(data) {
     status: "Pending",
   };
 
+  
   bookings.push(booking);
 
   return booking;
