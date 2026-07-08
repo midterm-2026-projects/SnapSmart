@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 const UserMessage = ({ message }) => {
   return (
@@ -13,8 +12,5 @@ const UserMessage = ({ message }) => {
   );
 };
 
-UserMessage.propTypes = {
-  message: PropTypes.string.isRequired,
-};
 
 export default UserMessage;
