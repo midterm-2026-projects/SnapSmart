@@ -4,9 +4,8 @@ import {
   createBooking,
   getBookingById,
   updateBookingStatus,
+  bookings,
 } from "../models/bookingModel.js";
-
-import bookings from "../config/db.js";
 
 describe("Booking Model", () => {
   beforeEach(() => {
@@ -47,7 +46,6 @@ describe("Booking Model", () => {
     });
   });
 
-  
   describe("updateBookingStatus()", () => {
     test("should update booking status successfully", () => {
       createBooking({
