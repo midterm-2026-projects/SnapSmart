@@ -1,5 +1,4 @@
 import "./App.css";
-
 import BookingForm from "./components/BookingForm";
 
 import PerformanceMetrics from "./components/PerformanceMetrics";
@@ -50,29 +49,8 @@ function App() {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Booking Form</h1>
-
+    <div>
       <BookingForm />
-
-      <hr />
-      <hr />
-
-      <h1>Week 2 Day 2 Analytics UI</h1>
-
-      <PerformanceMetrics metrics={metrics} />
-
-      <hr />
-
-      <RevenueAnalyticsChart data={revenueData} />
-
-      <hr />
-
-      <ReportActionButtons
-        onGenerate={handleGenerate}
-        onDownload={handleDownload}
-        onExport={handleExport}
-      />
     </div>
   );
 }

@@ -12,6 +12,8 @@ import {
 
 import BookingForm from "../components/BookingForm";
 
+
+
 describe("BookingForm Component", () => {
   test("renders booking form title", () => {
     render(<BookingForm />);

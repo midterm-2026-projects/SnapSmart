@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 
 const TypingIndicator = ({ isTyping }) => {
   if (!isTyping) return null;
@@ -16,9 +16,6 @@ const TypingIndicator = ({ isTyping }) => {
   );
 };
 
-TypingIndicator.propTypes = {
-  isTyping: PropTypes.bool,
-};
 
 TypingIndicator.defaultProps = {
   isTyping: false,
