@@ -7,7 +7,7 @@ SnapSmart is an AI-Powered Booking and Business Analytics System for Toni Photog
 ---
 
 # Development Plan
-# Owner - Charlie Villacoba
+# Owner - Jhon Charlie Villacoba
 
 ## Week 1 - Day 1
 ### Create Chatbot UI Components
