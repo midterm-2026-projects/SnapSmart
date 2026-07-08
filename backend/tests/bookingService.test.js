@@ -8,6 +8,7 @@ import {
   updateBookingStatus,
 } from "../services/bookingService.js";
 
+
 vi.mock("../models/bookingModel.js", () => ({
   createBooking: vi.fn(),
   getBookingById: vi.fn(),

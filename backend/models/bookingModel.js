@@ -13,6 +13,7 @@ export function createBooking(data) {
   return booking;
 }
 
+
 export function getBookingById(id) {
   return bookings.find((booking) => booking.id === Number(id));
 }

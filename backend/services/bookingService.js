@@ -5,11 +5,12 @@ export function createBooking(data) {
     throw new Error("Client Name is required");
   }
 
-  
+
   if (!data.eventDate) {
     throw new Error("Event Date is required");
   }
 
+  
   return bookingModel.createBooking(data);
 }
 

@@ -11,6 +11,7 @@ describe("Booking Model", () => {
   beforeEach(() => {
     bookings.length = 0;
   });
+  
 
   describe("createBooking()", () => {
     test("should create a booking with valid data", () => {
