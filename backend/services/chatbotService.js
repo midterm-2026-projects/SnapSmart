@@ -12,4 +12,4 @@ const getChatbotResponse = async (message) => {
 
 export default {
     getChatbotResponse
-};
+};git
