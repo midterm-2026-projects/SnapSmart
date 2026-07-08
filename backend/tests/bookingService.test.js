@@ -6,11 +6,8 @@ import {
   createBooking,
   getBookingById,
   updateBookingStatus,
-
   getDashboardSummary,
   getBookingTrends,
-  getPerformanceMetrics,
-
 } from "../services/bookingService.js";
 
 // Mock the Model
@@ -22,15 +19,12 @@ vi.mock("../models/bookingModel.js", () => ({
 }));
 
 describe("Booking Service", () => {
-
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   describe("createBooking()", () => {
-
     test("should create booking with valid data", () => {
-
       bookingModel.createBooking.mockReturnValue({
         id: 1,
         clientName: "Franklin",
@@ -49,35 +43,27 @@ describe("Booking Service", () => {
         clientName: "Franklin",
         eventDate: "2026-07-20",
       });
-
     });
 
     test("should throw error when client name is missing", () => {
-
       expect(() =>
         createBooking({
           eventDate: "2026-07-20",
         })
       ).toThrow("Client Name is required");
-
     });
 
     test("should throw error when event date is missing", () => {
-
       expect(() =>
         createBooking({
           clientName: "Franklin",
         })
       ).toThrow("Event Date is required");
-
     });
-
   });
 
   describe("getBookingById()", () => {
-
     test("should return booking when found", () => {
-
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         clientName: "Franklin",
@@ -89,11 +75,9 @@ describe("Booking Service", () => {
       expect(booking.id).toBe(1);
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(1);
-
     });
 
     test("should return undefined when booking does not exist", () => {
-
       bookingModel.getBookingById.mockReturnValue(undefined);
 
       const booking = getBookingById(999);
@@ -101,15 +85,11 @@ describe("Booking Service", () => {
       expect(booking).toBeUndefined();
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(999);
-
     });
-
   });
 
   describe("updateBookingStatus()", () => {
-
     test("should update booking status successfully", () => {
-
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         status: "Pending",
@@ -130,11 +110,9 @@ describe("Booking Service", () => {
         1,
         "Approved"
       );
-
     });
 
     test("should throw error when booking is not found", () => {
-
       bookingModel.getBookingById.mockReturnValue(null);
 
       expect(() =>
@@ -142,11 +120,8 @@ describe("Booking Service", () => {
       ).toThrow("Booking not found");
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(99);
-
     });
-
   });
-
 });
 
 /* =====================================================
@@ -155,6 +130,10 @@ describe("Booking Service", () => {
 ===================================================== */
 
 describe("Analytics Service", () => {
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
   describe("getDashboardSummary()", () => {
 
@@ -188,6 +167,8 @@ describe("Analytics Service", () => {
         totalRevenue: 48500,
       });
 
+      expect(bookingModel.getAllBookings).toHaveBeenCalled();
+
     });
 
   });
@@ -216,28 +197,7 @@ describe("Analytics Service", () => {
         { month: "Jun", bookings: 0 },
       ]);
 
-    });
-
-  });
-
-  describe("getPerformanceMetrics()", () => {
-
-    test("should return performance metrics", () => {
-
-      bookingModel.getAllBookings.mockReturnValue([
-        { status: "Completed" },
-        { status: "Completed" },
-        { status: "Pending" },
-      ]);
-
-      const result = getPerformanceMetrics();
-
-      expect(result).toEqual({
-        bookingCompletionRate: 67,
-        clientSatisfaction: 92,
-        revenueGrowth: 68,
-        serviceQualityScore: 88,
-      });
+      expect(bookingModel.getAllBookings).toHaveBeenCalled();
 
     });
 

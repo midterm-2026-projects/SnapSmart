@@ -38,6 +38,7 @@ export function updateBookingStatus(id, status) {
    Objective 2 - Week 3 Day 1
 ===================================================== */
 
+// Dashboard Summary
 export function getDashboardSummary() {
   const bookings = bookingModel.getAllBookings();
 
@@ -61,6 +62,7 @@ export function getDashboardSummary() {
   };
 }
 
+// Booking Trends
 export function getBookingTrends() {
   const bookings = bookingModel.getAllBookings();
 
@@ -72,24 +74,4 @@ export function getBookingTrends() {
       (booking) => booking.month === month
     ).length,
   }));
-}
-
-export function getPerformanceMetrics() {
-  const bookings = bookingModel.getAllBookings();
-
-  const completed = bookings.filter(
-    (booking) => booking.status === "Completed"
-  ).length;
-
-  const completionRate =
-    bookings.length === 0
-      ? 0
-      : Math.round((completed / bookings.length) * 100);
-
-  return {
-    bookingCompletionRate: completionRate,
-    clientSatisfaction: 92,
-    revenueGrowth: 68,
-    serviceQualityScore: 88,
-  };
 }
