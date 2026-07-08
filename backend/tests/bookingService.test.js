@@ -8,9 +8,10 @@ import {
   updateBookingStatus,
   getDashboardSummary,
   getBookingTrends,
+  getPerformanceMetrics,
 } from "../services/bookingService.js";
 
-// Mock the Model
+// Mock Booking Model
 vi.mock("../models/bookingModel.js", () => ({
   createBooking: vi.fn(),
   getBookingById: vi.fn(),
@@ -26,22 +27,39 @@ describe("Booking Service", () => {
   describe("createBooking()", () => {
     test("should create booking with valid data", () => {
       bookingModel.createBooking.mockReturnValue({
-        id: 1,
+        id: 4,
         clientName: "Franklin",
         eventDate: "2026-07-20",
+        month: "Jul",
+        amount: 5000,
+        rating: 5,
         status: "Pending",
       });
 
       const booking = createBooking({
         clientName: "Franklin",
         eventDate: "2026-07-20",
+        month: "Jul",
+        amount: 5000,
+        rating: 5,
       });
 
-      expect(booking.clientName).toBe("Franklin");
+      expect(booking).toEqual({
+        id: 4,
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        month: "Jul",
+        amount: 5000,
+        rating: 5,
+        status: "Pending",
+      });
 
       expect(bookingModel.createBooking).toHaveBeenCalledWith({
         clientName: "Franklin",
         eventDate: "2026-07-20",
+        month: "Jul",
+        amount: 5000,
+        rating: 5,
       });
     });
 
@@ -67,7 +85,7 @@ describe("Booking Service", () => {
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         clientName: "Franklin",
-        status: "Pending",
+        status: "Completed",
       });
 
       const booking = getBookingById(1);
@@ -126,34 +144,42 @@ describe("Booking Service", () => {
 
 /* =====================================================
    Analytics Service Unit Tests
-   Objective 2 - Week 3 Day 1
 ===================================================== */
 
 describe("Analytics Service", () => {
-
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   describe("getDashboardSummary()", () => {
-
     test("should return dashboard summary", () => {
-
       bookingModel.getAllBookings.mockReturnValue([
         {
-          status: "Completed",
-          amount: 30000,
+          id: 1,
+          clientName: "Franklin",
+          eventDate: "2026-01-15",
           month: "Jan",
-        },
-        {
+          amount: 30000,
+          rating: 5,
           status: "Completed",
-          amount: 15000,
-          month: "Feb",
         },
         {
-          status: "Pending",
-          amount: 3500,
+          id: 2,
+          clientName: "Jeric",
+          eventDate: "2026-02-10",
+          month: "Feb",
+          amount: 15000,
+          rating: 4,
+          status: "Completed",
+        },
+        {
+          id: 3,
+          clientName: "Mark",
+          eventDate: "2026-03-08",
           month: "Mar",
+          amount: 3500,
+          rating: 5,
+          status: "Pending",
         },
       ]);
 
@@ -167,16 +193,12 @@ describe("Analytics Service", () => {
         totalRevenue: 48500,
       });
 
-      expect(bookingModel.getAllBookings).toHaveBeenCalled();
-
+      expect(bookingModel.getAllBookings).toHaveBeenCalledTimes(1);
     });
-
   });
 
   describe("getBookingTrends()", () => {
-
     test("should return booking trends", () => {
-
       bookingModel.getAllBookings.mockReturnValue([
         { month: "Jan" },
         { month: "Jan" },
@@ -197,10 +219,35 @@ describe("Analytics Service", () => {
         { month: "Jun", bookings: 0 },
       ]);
 
-      expect(bookingModel.getAllBookings).toHaveBeenCalled();
-
+      expect(bookingModel.getAllBookings).toHaveBeenCalledTimes(1);
     });
-
   });
 
+  describe("getPerformanceMetrics()", () => {
+    test("should return performance metrics", () => {
+      bookingModel.getAllBookings.mockReturnValue([
+        {
+          status: "Completed",
+          rating: 5,
+        },
+        {
+          status: "Completed",
+          rating: 4,
+        },
+        {
+          status: "Pending",
+          rating: 5,
+        },
+      ]);
+
+      const result = getPerformanceMetrics();
+
+      expect(result).toEqual({
+        bookingCompletionRate: 67,
+        clientSatisfaction: 5,
+      });
+
+      expect(bookingModel.getAllBookings).toHaveBeenCalledTimes(1);
+    });
+  });
 });

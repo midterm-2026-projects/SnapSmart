@@ -4,7 +4,6 @@ import * as bookingModel from "../models/bookingModel.js";
 // Booking Service
 // ==============================
 
-// Create Booking
 export function createBooking(data) {
   if (!data.clientName) {
     throw new Error("Client Name is required");
@@ -17,12 +16,10 @@ export function createBooking(data) {
   return bookingModel.createBooking(data);
 }
 
-// Get Booking by ID
 export function getBookingById(id) {
   return bookingModel.getBookingById(id);
 }
 
-// Update Booking Status
 export function updateBookingStatus(id, status) {
   const booking = bookingModel.getBookingById(id);
 
@@ -33,12 +30,10 @@ export function updateBookingStatus(id, status) {
   return bookingModel.updateBookingStatus(id, status);
 }
 
-/* =====================================================
-   Analytics Service Functions
-   Objective 2 - Week 3 Day 1
-===================================================== */
+/* ==============================
+   Analytics Service
+============================== */
 
-// Dashboard Summary
 export function getDashboardSummary() {
   const bookings = bookingModel.getAllBookings();
 
@@ -56,13 +51,12 @@ export function getDashboardSummary() {
     totalClients: bookings.length,
 
     totalRevenue: bookings.reduce(
-      (total, booking) => total + (booking.amount || 0),
+      (total, booking) => total + booking.amount,
       0
     ),
   };
 }
 
-// Booking Trends
 export function getBookingTrends() {
   const bookings = bookingModel.getAllBookings();
 
@@ -74,4 +68,32 @@ export function getBookingTrends() {
       (booking) => booking.month === month
     ).length,
   }));
+}
+
+export function getPerformanceMetrics() {
+  const bookings = bookingModel.getAllBookings();
+
+  const completed = bookings.filter(
+    (booking) => booking.status === "Completed"
+  ).length;
+
+  const bookingCompletionRate =
+    bookings.length === 0
+      ? 0
+      : Math.round((completed / bookings.length) * 100);
+
+  const clientSatisfaction =
+    bookings.length === 0
+      ? 0
+      : Math.round(
+          bookings.reduce(
+            (total, booking) => total + booking.rating,
+            0
+          ) / bookings.length
+        );
+
+  return {
+    bookingCompletionRate,
+    clientSatisfaction,
+  };
 }
