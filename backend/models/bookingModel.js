@@ -32,7 +32,7 @@ export function updateBookingStatus(id, status) {
   return booking;
 }
 
-// NEW
+// Analytics Support
 export function getAllBookings() {
   return bookings;
 }
