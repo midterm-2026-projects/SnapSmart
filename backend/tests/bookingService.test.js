@@ -1,13 +1,13 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
 
 import * as bookingModel from "../models/bookingModel.js";
-
 import {
   createBooking,
   getBookingById,
   updateBookingStatus,
 } from "../services/bookingService.js";
 
+// Mock the Model
 vi.mock("../models/bookingModel.js", () => ({
   createBooking: vi.fn(),
   getBookingById: vi.fn(),
@@ -20,7 +20,7 @@ describe("Booking Service", () => {
   });
 
   describe("createBooking()", () => {
-    test("should create a booking when valid data is provided", () => {
+    test("should create booking with valid data", () => {
       bookingModel.createBooking.mockReturnValue({
         id: 1,
         clientName: "Franklin",
@@ -28,19 +28,20 @@ describe("Booking Service", () => {
         status: "Pending",
       });
 
-      const result = createBooking({
+      const booking = createBooking({
         clientName: "Franklin",
         eventDate: "2026-07-20",
       });
 
-      expect(result.clientName).toBe("Franklin");
+      expect(booking.clientName).toBe("Franklin");
+
       expect(bookingModel.createBooking).toHaveBeenCalledWith({
         clientName: "Franklin",
         eventDate: "2026-07-20",
       });
     });
 
-    test("should throw an error when client name is missing", () => {
+    test("should throw error when client name is missing", () => {
       expect(() =>
         createBooking({
           eventDate: "2026-07-20",
@@ -48,7 +49,7 @@ describe("Booking Service", () => {
       ).toThrow("Client Name is required");
     });
 
-    test("should throw an error when event date is missing", () => {
+    test("should throw error when event date is missing", () => {
       expect(() =>
         createBooking({
           clientName: "Franklin",
@@ -58,24 +59,27 @@ describe("Booking Service", () => {
   });
 
   describe("getBookingById()", () => {
-    test("should return booking when ID exists", () => {
+    test("should return booking when found", () => {
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         clientName: "Franklin",
+        status: "Pending",
       });
 
-      const result = getBookingById(1);
+      const booking = getBookingById(1);
 
-      expect(result.id).toBe(1);
+      expect(booking.id).toBe(1);
+
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(1);
     });
 
-    test("should return undefined when ID does not exist", () => {
+    test("should return undefined when booking does not exist", () => {
       bookingModel.getBookingById.mockReturnValue(undefined);
 
-      const result = getBookingById(999);
+      const booking = getBookingById(999);
 
-      expect(result).toBeUndefined();
+      expect(booking).toBeUndefined();
+
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(999);
     });
   });
@@ -92,9 +96,9 @@ describe("Booking Service", () => {
         status: "Approved",
       });
 
-      const result = updateBookingStatus(1, "Approved");
+      const booking = updateBookingStatus(1, "Approved");
 
-      expect(result.status).toBe("Approved");
+      expect(booking.status).toBe("Approved");
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(1);
 
@@ -104,14 +108,14 @@ describe("Booking Service", () => {
       );
     });
 
-    test("should throw an error when booking does not exist", () => {
+    test("should throw error when booking is not found", () => {
       bookingModel.getBookingById.mockReturnValue(null);
 
       expect(() =>
-        updateBookingStatus(999, "Approved")
+        updateBookingStatus(99, "Approved")
       ).toThrow("Booking not found");
 
-      expect(bookingModel.getBookingById).toHaveBeenCalledWith(999);
+      expect(bookingModel.getBookingById).toHaveBeenCalledWith(99);
     });
   });
 });
