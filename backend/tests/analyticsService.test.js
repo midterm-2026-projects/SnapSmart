@@ -1,30 +1,45 @@
-import { describe, it, expect, vi } from "vitest";
-import analyticsModel from "../models/analyticsModel.js";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+
+import * as bookingModel from "../models/bookingModel.js";
 import analyticsService from "../services/analyticsService.js";
 
-vi.mock("../models/analyticsModel.js");
+vi.mock("../models/bookingModel.js");
 
 describe("Analytics Service", () => {
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
 
     describe("getDashboardSummary()", () => {
 
         it("should return dashboard summary", () => {
 
-            analyticsModel.getDashboardSummary.mockReturnValue({
-                totalBookings: 24,
-                completed: 18,
-                pending: 4,
-                totalClients: 35,
-                totalRevenue: 48500
-            });
+            bookingModel.getAllBookings.mockReturnValue([
+                {
+                    status: "Completed",
+                    amount: 30000,
+                    month: "Jan"
+                },
+                {
+                    status: "Completed",
+                    amount: 15000,
+                    month: "Feb"
+                },
+                {
+                    status: "Pending",
+                    amount: 3500,
+                    month: "Mar"
+                }
+            ]);
 
             const result = analyticsService.getDashboardSummary();
 
             expect(result).toEqual({
-                totalBookings: 24,
-                completed: 18,
-                pending: 4,
-                totalClients: 35,
+                totalBookings: 3,
+                completed: 2,
+                pending: 1,
+                totalClients: 3,
                 totalRevenue: 48500
             });
 
@@ -36,18 +51,24 @@ describe("Analytics Service", () => {
 
         it("should return booking trends", () => {
 
-            analyticsModel.getBookingTrends.mockReturnValue([
-                { month: "Jan", bookings: 12 },
-                { month: "Feb", bookings: 18 },
-                { month: "Mar", bookings: 15 }
+            bookingModel.getAllBookings.mockReturnValue([
+                { month: "Jan" },
+                { month: "Jan" },
+                { month: "Feb" },
+                { month: "Mar" },
+                { month: "Mar" },
+                { month: "Mar" }
             ]);
 
             const result = analyticsService.getBookingTrends();
 
             expect(result).toEqual([
-                { month: "Jan", bookings: 12 },
-                { month: "Feb", bookings: 18 },
-                { month: "Mar", bookings: 15 }
+                { month: "Jan", bookings: 2 },
+                { month: "Feb", bookings: 1 },
+                { month: "Mar", bookings: 3 },
+                { month: "Apr", bookings: 0 },
+                { month: "May", bookings: 0 },
+                { month: "Jun", bookings: 0 }
             ]);
 
         });
@@ -58,17 +79,16 @@ describe("Analytics Service", () => {
 
         it("should return performance metrics", () => {
 
-            analyticsModel.getPerformanceMetrics.mockReturnValue({
-                bookingCompletionRate: 85,
-                clientSatisfaction: 92,
-                revenueGrowth: 68,
-                serviceQualityScore: 88
-            });
+            bookingModel.getAllBookings.mockReturnValue([
+                { status: "Completed" },
+                { status: "Completed" },
+                { status: "Pending" }
+            ]);
 
             const result = analyticsService.getPerformanceMetrics();
 
             expect(result).toEqual({
-                bookingCompletionRate: 85,
+                bookingCompletionRate: 67,
                 clientSatisfaction: 92,
                 revenueGrowth: 68,
                 serviceQualityScore: 88

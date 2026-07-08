@@ -31,3 +31,8 @@ export function updateBookingStatus(id, status) {
 
   return booking;
 }
+
+// NEW
+export function getAllBookings() {
+  return bookings;
+}
