@@ -1,14 +1,15 @@
 import { describe, test, expect, beforeEach } from "vitest";
 
 import {
+  bookings,
   createBooking,
   getBookingById,
   updateBookingStatus,
-  bookings,
 } from "../models/bookingModel.js";
 
 describe("Booking Model", () => {
   beforeEach(() => {
+    // Reset mock database before every test
     bookings.length = 0;
   });
 
@@ -19,10 +20,14 @@ describe("Booking Model", () => {
         eventDate: "2026-07-20",
       });
 
-      expect(booking.clientName).toBe("Franklin");
-      expect(booking.eventDate).toBe("2026-07-20");
-      expect(booking.status).toBe("Pending");
-      expect(booking.id).toBe(1);
+      expect(booking).toEqual({
+        id: 1,
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        status: "Pending",
+      });
+
+      expect(bookings.length).toBe(1);
     });
   });
 
@@ -37,6 +42,7 @@ describe("Booking Model", () => {
 
       expect(booking.id).toBe(1);
       expect(booking.clientName).toBe("Franklin");
+      expect(booking.status).toBe("Pending");
     });
 
     test("should return undefined when ID does not exist", () => {
@@ -56,6 +62,7 @@ describe("Booking Model", () => {
       const booking = updateBookingStatus(1, "Approved");
 
       expect(booking.status).toBe("Approved");
+      expect(bookings[0].status).toBe("Approved");
     });
 
     test("should return null when booking does not exist", () => {

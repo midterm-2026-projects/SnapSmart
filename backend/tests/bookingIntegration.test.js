@@ -8,58 +8,98 @@ describe("Booking API Integration Test", () => {
     bookings.length = 0;
   });
 
-  test("POST /bookings should create a booking", async () => {
-    const response = await request(app)
-      .post("/bookings")
-      .send({
-        clientName: "Franklin",
-        eventDate: "2026-07-20",
-      });
+  describe("POST /bookings", () => {
+    test("should create a booking successfully", async () => {
+      const response = await request(app)
+        .post("/bookings")
+        .send({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+        });
 
-    expect(response.status).toBe(201);
+      expect(response.status).toBe(201);
 
-    expect(response.body.clientName).toBe("Franklin");
+      expect(response.body.message).toBe(
+        "Booking created successfully"
+      );
 
-    expect(response.body.status).toBe("Pending");
+      expect(response.body.data.clientName).toBe("Franklin");
 
-    expect(bookings.length).toBe(1);
+      expect(response.body.data.status).toBe("Pending");
+
+      expect(bookings.length).toBe(1);
+    });
   });
 
-  test("GET /bookings/:id should return booking", async () => {
-    await request(app)
-      .post("/bookings")
-      .send({
-        clientName: "Franklin",
-        eventDate: "2026-07-20",
-      });
+  describe("GET /bookings/:id", () => {
+    test("should return booking by ID", async () => {
+      await request(app)
+        .post("/bookings")
+        .send({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+        });
 
-    const response = await request(app).get("/bookings/1");
+      const response = await request(app)
+        .get("/bookings/1");
 
-    expect(response.status).toBe(200);
+      expect(response.status).toBe(200);
 
-    expect(response.body.id).toBe(1);
+      expect(response.body.message).toBe(
+        "Booking retrieved successfully"
+      );
 
-    expect(response.body.clientName).toBe("Franklin");
+      expect(response.body.data.id).toBe(1);
+
+      expect(response.body.data.clientName).toBe("Franklin");
+    });
+
+    test("should return 404 when booking does not exist", async () => {
+      const response = await request(app)
+        .get("/bookings/99");
+
+      expect(response.status).toBe(404);
+
+      expect(response.body.message).toBe("Booking not found");
+    });
   });
 
-  test("PUT /bookings/:id/status should update booking status", async () => {
-    await request(app)
-      .post("/bookings")
-      .send({
-        clientName: "Franklin",
-        eventDate: "2026-07-20",
-      });
+  describe("PUT /bookings/:id/status", () => {
+    test("should update booking status", async () => {
+      await request(app)
+        .post("/bookings")
+        .send({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+        });
 
-    const response = await request(app)
-      .put("/bookings/1/status")
-      .send({
-        status: "Approved",
-      });
+      const response = await request(app)
+        .put("/bookings/1/status")
+        .send({
+          status: "Approved",
+        });
 
-    expect(response.status).toBe(200);
+      expect(response.status).toBe(200);
 
-    expect(response.body.status).toBe("Approved");
+      expect(response.body.message).toBe(
+        "Booking status updated successfully"
+      );
 
-    expect(bookings[0].status).toBe("Approved");
+      expect(response.body.data.status).toBe("Approved");
+
+      expect(bookings[0].status).toBe("Approved");
+    });
+
+    test("should return 404 when booking is not found", async () => {
+      const response = await request(app)
+        .put("/bookings/99/status")
+        .send({
+          status: "Approved",
+        });
+
+      expect(response.status).toBe(404);
+
+      expect(response.body.message).toBe("Booking not found");
+    });
   });
 });
