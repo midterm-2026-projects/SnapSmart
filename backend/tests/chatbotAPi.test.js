@@ -1,43 +1,59 @@
 import request from "supertest";
+import { describe, test, expect } from "vitest";
 import app from "../app.js";
 
 
-describe("Chatbot API Integration Test", () => {
+describe("Chatbot API Integration Test",()=>{
 
 
-    test("POST /api/chatbot/message returns chatbot response", async () => {
-
-        const response = await request(app)
-            .post("/api/chatbot/message")
-            .send({
-                message: "Hello"
-            });
+test("POST /api/chatbot/message", async()=>{
 
 
-        expect(response.statusCode)
-            .toBe(200);
+    const response =
+    await request(app)
+    .post("/api/chatbot/message")
+    .send({
 
-
-        expect(response.body)
-            .toHaveProperty("botResponse");
+        message:"hello"
 
     });
 
 
 
-    test("POST /api/chatbot/message rejects empty message", async () => {
-
-        const response = await request(app)
-            .post("/api/chatbot/message")
-            .send({
-                message: ""
-            });
+    expect(response.statusCode)
+    .toBe(200);
 
 
-        expect(response.statusCode)
-            .toBe(400);
+
+    expect(response.body)
+    .toHaveProperty(
+        "botResponse"
+    );
+
+
+});
+
+
+
+test("reject empty chatbot message", async()=>{
+
+
+    const response =
+    await request(app)
+    .post("/api/chatbot/message")
+    .send({
+
+        message:""
 
     });
+
+
+
+    expect(response.statusCode)
+    .toBe(400);
+
+
+});
 
 
 });

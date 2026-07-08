@@ -1,18 +1,29 @@
-const chatbotService =
-require("../services/chatbotService");
+import chatbotService from "../services/chatbotService.js";
 
 
-// POST /api/chatbot/message
+const sendMessage = async (req, res) => {
 
-const sendMessage = async(req,res)=>{
+    try {
 
-    try{
+        const { message } = req.body;
 
-        const {message} = req.body;
+
+        const isValid =
+            chatbotService.validateUserMessage(message);
+
+
+        if (!isValid) {
+
+            return res.status(400).json({
+                message: "Invalid chatbot message"
+            });
+
+        }
 
 
         const response =
-        await chatbotService.getChatbotResponse(message);
+            await chatbotService.getChatbotResponse(message);
+
 
 
         res.status(200).json({
@@ -23,39 +34,12 @@ const sendMessage = async(req,res)=>{
         });
 
 
-    }catch(error){
 
-        res.status(400).json({
-
-            error:error.message
-
-        });
-
-    }
-
-};
-
-
-
-
-// GET /api/chatbot/responses
-
-const getResponses = async(req,res)=>{
-
-    try{
-
-        const responses =
-        await chatbotService.getAllResponses();
-
-
-        res.status(200).json(responses);
-
-
-    }catch(error){
+    } catch(error) {
 
         res.status(500).json({
 
-            error:error.message
+            error: error.message
 
         });
 
@@ -65,9 +49,6 @@ const getResponses = async(req,res)=>{
 
 
 
-module.exports = {
-
-    sendMessage,
-    getResponses
-
+export default {
+    sendMessage
 };
