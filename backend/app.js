@@ -1,5 +1,7 @@
 import express from "express";
+
 import bookingRoutes from "./routes/bookingRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 const app = express();
 
@@ -7,6 +9,9 @@ app.use(express.json());
 
 // Booking Routes
 app.use("/", bookingRoutes);
+
+// Dashboard Routes
+app.use("/", dashboardRoutes);
 
 export default app;
 

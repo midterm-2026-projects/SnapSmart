@@ -1,102 +1,262 @@
-# Objective 2 – Week 3 Day 1
-## Unit Testing – Analytics Service
+# Objective 2 – Dashboard Module
 
-### Student
-**Name:** Jeric De Castro
+## Overview
 
-### Branch
-`analytics-service-unit-testing`
+The Dashboard Module provides analytics and reporting features for the SnapSmart Booking System. It retrieves booking records from the Booking Model, processes the data through the Dashboard Service, and exposes the analytics using REST API endpoints. This module follows a layered architecture consisting of Routes, Controllers, Services, and Models.
 
 ---
 
-# Objective
+# Week 1 – Dashboard UI Components
 
-The objective of this task is to implement **unit tests** for the Analytics Service module using **Vitest**. The tests verify that each analytics function returns the expected data independently of the database by using mocked model functions.
+## Day 1 – Create Dashboard UI Components
+
+### Objective
+
+Develop reusable Dashboard UI components using a component-based architecture and Test-Driven Development (TDD).
+
+### Subtasks
+
+- Create Dashboard layout component
+- Develop Summary Cards component
+- Implement Navigation component
+- Create reusable Dashboard UI structure
+- Perform unit testing using Vitest
+
+### Deliverables
+
+- Dashboard Component
+- Summary Cards Component
+- Navigation Component
+- Unit Test Cases
+- Documentation
+
+### Test Suite
+
+- Verify Dashboard renders successfully
+- Verify Summary Cards display correctly
+- Verify Navigation renders correctly
 
 ---
 
-# Task Description
+## Day 2 – Dashboard Functional Components
 
-Implement unit testing for the Analytics Service.
+### Objective
 
-The following service functions were tested:
+Implement functional Dashboard components by integrating booking analytics into the user interface.
 
-- getDashboardSummary()
-- getBookingTrends()
-- getPerformanceMetrics()
+### Subtasks
+
+- Connect Summary Cards to booking analytics
+- Display booking statistics
+- Display dashboard metrics
+- Render booking overview dynamically
+- Validate functional behavior
+
+### Deliverables
+
+- Functional Dashboard Components
+- Analytics Display
+- Updated Dashboard UI
+- Documentation
+
+### Test Suite
+
+- Verify booking statistics display correctly
+- Verify dashboard metrics update correctly
+- Verify analytics are rendered successfully
 
 ---
 
-# Files Created
+# Week 2 – Dashboard API Preparation
+
+## Day 1 – Dashboard Analytics Service
+
+### Objective
+
+Develop backend business logic for dashboard analytics using booking data.
+
+### Subtasks
+
+- Retrieve booking records from Booking Model
+- Compute dashboard summary
+- Compute booking trends
+- Compute performance metrics
+
+### Deliverables
+
+- Dashboard Service
+- Dashboard Analytics Functions
+- Documentation
+
+### Test Suite
+
+- Verify dashboard summary computation
+- Verify booking trends computation
+- Verify performance metrics computation
+
+---
+
+## Day 2 – Dashboard API Design
+
+### Objective
+
+Design REST API endpoints required for Dashboard analytics integration.
+
+### API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/dashboard/summary` | Returns dashboard summary |
+| GET | `/dashboard/trends` | Returns monthly booking trends |
+| GET | `/dashboard/performance` | Returns dashboard performance metrics |
+
+### Deliverables
+
+- Dashboard API Design
+- Endpoint Structure
+- Documentation
+
+---
+
+# Week 3 – Dashboard Backend Integration
+
+## Day 1 – Dashboard Analytics Unit Testing
+
+### Objective
+
+Validate dashboard analytics business logic through unit testing.
+
+### Subtasks
+
+- Test Dashboard Summary computation
+- Test Booking Trends computation
+- Test Performance Metrics computation
+
+### Deliverables
+
+- Updated Booking Model
+- Dashboard Analytics Logic
+- Unit Test Cases
+- Documentation
+
+### Test Suite
+
+- Verify dashboard summary calculations
+- Verify booking trends calculations
+- Verify performance metrics calculations
+
+---
+
+## Day 2 – Dashboard Backend Integration
+
+### Objective
+
+Integrate Dashboard backend components with the Booking Module and expose analytics through REST API endpoints.
+
+### Backend Architecture
 
 ```
-backend/
-│
-├── models/
-│   └── analyticsModel.js
-│
-├── services/
-│   └── analyticsService.js
-│
-└── tests/
-    └── analyticsService.test.js
+Client
+   │
+   ▼
+Dashboard Routes
+   │
+   ▼
+Dashboard Controller
+   │
+   ▼
+Dashboard Service
+   │
+   ▼
+Booking Model
+   │
+   ▼
+JSON Response
 ```
 
 ---
 
-# File Description
+## Components Developed
 
-## analyticsModel.js
+### Dashboard Service
 
-Contains the analytics data source.
+Responsible for processing booking data and generating dashboard analytics.
 
-For this activity, the model returns **mock analytics data** instead of retrieving information from the database.
+Implemented Functions:
 
-Functions:
-
-- getDashboardSummary()
-- getBookingTrends()
-- getPerformanceMetrics()
+- `getDashboardSummary()`
+- `getBookingTrends()`
+- `getPerformanceMetrics()`
 
 ---
 
-## analyticsService.js
+### Dashboard Controller
 
-Contains the business logic for the Analytics module.
+Handles incoming HTTP requests and returns JSON responses.
 
-The service receives requests and calls the corresponding functions from the Analytics Model.
+Implemented Functions:
 
-Functions:
-
-- getDashboardSummary()
-- getBookingTrends()
-- getPerformanceMetrics()
+- `getDashboardSummary()`
+- `getBookingTrends()`
+- `getPerformanceMetrics()`
 
 ---
 
-## analyticsService.test.js
+### Dashboard Routes
 
-Contains the unit tests for the Analytics Service using **Vitest**.
+Configured the following REST API endpoints:
 
-The Analytics Model is mocked using:
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/dashboard/summary` | Retrieve dashboard summary |
+| GET | `/dashboard/trends` | Retrieve booking trends |
+| GET | `/dashboard/performance` | Retrieve performance metrics |
+
+---
+
+### Express Application
+
+Registered Dashboard Routes inside the Express application.
 
 ```javascript
-vi.mock("../models/analyticsModel.js");
+app.use("/", dashboardRoutes);
 ```
-
-This allows the service logic to be tested without depending on the database.
 
 ---
 
-# Unit Tests Implemented
+## Integration Flow
 
-## 1. getDashboardSummary()
+```
+Client Request
 
-Purpose:
+↓
 
-Verifies that the Analytics Service returns the correct dashboard summary.
+Dashboard Routes
 
-Expected Output:
+↓
+
+Dashboard Controller
+
+↓
+
+Dashboard Service
+
+↓
+
+Booking Model
+
+↓
+
+JSON Response
+```
+
+---
+
+## Dashboard Analytics
+
+### Dashboard Summary
+
+Computes:
 
 - Total Bookings
 - Completed Bookings
@@ -104,109 +264,121 @@ Expected Output:
 - Total Clients
 - Total Revenue
 
-Status:
+---
 
-✔ Passed
+### Booking Trends
+
+Computes monthly booking counts for:
+
+- January
+- February
+- March
+- April
+- May
+- June
 
 ---
 
-## 2. getBookingTrends()
+### Performance Metrics
 
-Purpose:
-
-Verifies that the Analytics Service returns the expected booking trend data.
-
-Expected Output:
-
-- Monthly booking records
-- Correct month labels
-- Correct booking values
-
-Status:
-
-✔ Passed
-
----
-
-## 3. getPerformanceMetrics()
-
-Purpose:
-
-Verifies that the Analytics Service returns the expected performance metrics.
-
-Expected Output:
+Computes:
 
 - Booking Completion Rate
-- Client Satisfaction
-- Revenue Growth
-- Service Quality Score
-
-Status:
-
-✔ Passed
+- Client Satisfaction Rating
 
 ---
 
-# Test Result
+# Integration Testing
 
-Command:
+## Success Test Cases
 
-```bash
-npx vitest run
+### Dashboard Summary
+
+- Retrieve dashboard summary successfully
+
+### Booking Trends
+
+- Retrieve booking trends successfully
+
+### Performance Metrics
+
+- Retrieve performance metrics successfully
+
+---
+
+## Error Test Cases
+
+### Dashboard Summary
+
+- Return **404** when no booking data exists
+
+### Booking Trends
+
+- Return **404** when no booking data exists
+
+### Performance Metrics
+
+- Return **404** when no booking data exists
+
+---
+
+# Files Modified
+
+```
+backend/
+│
+├── app.js
+│
+├── controllers/
+│   └── dashboardController.js
+│
+├── routes/
+│   └── dashboardRoutes.js
+│
+├── services/
+│   ├── bookingService.js
+│   └── dashboardService.js
+│
+├── models/
+│   └── bookingModel.js
+│
+└── tests/
+    ├── bookingModel.test.js
+    ├── bookingService.test.js
+    └── dashboardIntegration.test.js
 ```
 
-Result:
+---
 
-```text
-✓ tests/bookingService.test.js (7 tests)
-✓ tests/analyticsService.test.js (3 tests)
+# Test Results
 
-Test Files  2 passed (2)
-Tests      10 passed (10)
 ```
+✓ bookingModel.test.js
 
----
+✓ bookingService.test.js
 
-# Test Suite / Acceptance Criteria
+✓ bookingIntegration.test.js
 
-| Acceptance Criteria | Status |
-|---------------------|--------|
-| getDashboardSummary() returns correct summary | ✔ Passed |
-| getBookingTrends() returns expected analytics data | ✔ Passed |
-| getPerformanceMetrics() calculates metrics correctly | ✔ Passed |
+✓ dashboardIntegration.test.js
 
----
-
-# Technologies Used
-
-- JavaScript (ES Modules)
-- Node.js
-- Vitest
+23 Tests Passed
+```
 
 ---
 
 # Summary
 
-The Analytics Service was successfully unit tested using mocked model functions. The service correctly returned dashboard summaries, booking trends, and performance metrics. All unit tests passed successfully, confirming that the Analytics Service business logic works as expected without relying on a live database.
+The Dashboard Backend Integration successfully connects the Dashboard Module with the Booking Module through the Service Layer. Dashboard analytics are generated using booking records from the Booking Model and exposed through REST API endpoints. Integration testing validates both successful responses and error handling, ensuring reliable communication between backend components.
 
 ---
 
-# Sprint Reference
+## Completion Status
 
-**Objective 2**
-
-**Week 3 – Day 1**
-
-Task:
-
-> Unit Testing – Analytics Service
-
-Deliverables:
-
-- Dashboard Summary Unit Tests
-- Booking Trends Unit Tests
-- Performance Metrics Unit Tests
-
-Status:
-
-**Completed**
+| Week | Day | Task | Status |
+|------|-----|------|--------|
+| Week 1 | Day 1 | Dashboard UI Components | ✅ Completed |
+| Week 1 | Day 2 | Dashboard Functional Components | ✅ Completed |
+| Week 2 | Day 1 | Dashboard Analytics Service | ✅ Completed |
+| Week 2 | Day 2 | Dashboard API Design | ✅ Completed |
+| Week 3 | Day 1 | Dashboard Analytics Unit Testing | ✅ Completed |
+| Week 3 | Day 2 | Dashboard Backend Integration | ✅ Completed |
