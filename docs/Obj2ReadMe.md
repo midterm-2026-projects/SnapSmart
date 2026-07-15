@@ -9,6 +9,7 @@ Objective 2 focuses on implementing and testing backend business logic using uni
 # Week 1 - Booking Model Unit Testing
 
 ## Task
+
 Create unit tests for the Booking Model.
 
 ### Implemented Functions
@@ -41,6 +42,7 @@ Create unit tests for the Booking Model.
 # Week 2 - Booking Service Unit Testing
 
 ## Task
+
 Create unit tests for the Booking Service business logic.
 
 ### Implemented Functions
@@ -137,6 +139,66 @@ No hardcoded dashboard values are used.
 
 ---
 
+# Week 4 - Report Service Unit Testing
+
+## Task
+
+Create unit tests for the Report Service that generates reports using booking records.
+
+The report service retrieves booking data from the Booking Model to generate reports dynamically. No fixed or hardcoded values are used.
+
+### Implemented Functions
+
+- generateReport()
+- getGeneratedReports()
+- downloadReport()
+
+### Data Source
+
+Report data is generated from:
+
+```
+Booking Model
+      ↓
+Booking Service
+      ↓
+Report Service
+```
+
+All report values are calculated dynamically using booking records.
+
+### Test Coverage
+
+#### generateReport()
+
+- Generate report successfully using booking data
+- Calculate total bookings
+- Calculate completed bookings
+- Calculate pending bookings
+- Calculate cancelled bookings
+- Calculate total revenue
+- Generate report when no booking data exists
+
+#### getGeneratedReports()
+
+- Return generated report list successfully
+
+#### downloadReport()
+
+- Download report successfully
+- Throw error when report is not found
+
+### Expected Output
+
+- Reports are generated correctly from booking data.
+- Generated reports are retrieved successfully.
+- Existing reports are downloaded successfully.
+- Invalid report IDs are handled properly.
+- Empty booking data is handled correctly.
+- All report values are dynamically generated from booking records.
+
+---
+
 # Testing Tools
 
 - Vitest
@@ -147,12 +209,13 @@ No hardcoded dashboard values are used.
 
 # Summary
 
-Objective 2 demonstrates backend unit testing for both booking management and dashboard analytics.
+Objective 2 demonstrates backend unit testing for booking management, dashboard analytics, and report generation.
 
 Completed Deliverables:
 
 - Week 1 - Booking Model Unit Testing
 - Week 2 - Booking Service Unit Testing
 - Week 3 - Dashboard Service Unit Testing
+- Week 4 - Report Service Unit Testing
 
-All implemented functions are verified through unit tests to ensure correctness, validation, and reliable backend business logic.
+All implemented functions are verified through unit tests to ensure correctness, validation, dynamic data processing, and reliable backend business logic.
