@@ -1,212 +1,158 @@
-# Objective 2 – Week 3 Day 1
-## Unit Testing – Analytics Service
+# Objective 2 - Backend Unit Testing
 
-### Student
-**Name:** Jeric De Castro
+## Overview
 
-### Branch
-`analytics-service-unit-testing`
+Objective 2 focuses on implementing and testing backend business logic using unit testing. The goal is to verify that backend services and models behave correctly under different scenarios before integrating them into the complete system.
 
 ---
 
-# Objective
+# Week 1 - Booking Model Unit Testing
 
-The objective of this task is to implement **unit tests** for the Analytics Service module using **Vitest**. The tests verify that each analytics function returns the expected data independently of the database by using mocked model functions.
+## Task
+Create unit tests for the Booking Model.
+
+### Implemented Functions
+
+- createBooking()
+- getBookingById()
+- updateBookingStatus()
+- getAllBookings()
+
+### Test Coverage
+
+- Create booking successfully
+- Generate unique booking ID
+- Retrieve booking by existing ID
+- Return undefined for non-existing booking
+- Update booking status
+- Return null when booking does not exist
+- Retrieve all bookings
+
+### Expected Output
+
+- Booking is created correctly.
+- Booking data is stored properly.
+- Booking information is retrieved correctly.
+- Booking status updates successfully.
+- Invalid booking IDs are handled properly.
 
 ---
 
-# Task Description
+# Week 2 - Booking Service Unit Testing
 
-Implement unit testing for the Analytics Service.
+## Task
+Create unit tests for the Booking Service business logic.
 
-The following service functions were tested:
+### Implemented Functions
+
+- createBooking()
+- getBookingById()
+- updateBookingStatus()
+
+### Test Coverage
+
+#### createBooking()
+
+- Create booking successfully
+- Throw error when client name is missing
+- Throw error when event date is missing
+
+#### getBookingById()
+
+- Return booking when ID exists
+- Return undefined when booking does not exist
+
+#### updateBookingStatus()
+
+- Update booking status successfully
+- Throw error when booking is not found
+
+### Expected Output
+
+- Booking validation works correctly.
+- Invalid input throws proper errors.
+- Booking retrieval works correctly.
+- Booking status updates correctly.
+
+---
+
+# Week 3 - Dashboard Service Unit Testing
+
+## Task
+
+Create unit tests for the Dashboard Service that generates dashboard analytics using booking records.
+
+The dashboard service does not use fixed or hardcoded values. All analytics are generated from the booking data stored in the Booking Model.
+
+### Implemented Functions
 
 - getDashboardSummary()
 - getBookingTrends()
 - getPerformanceMetrics()
 
----
+### Data Source
 
-# Files Created
+Dashboard analytics are generated from:
 
 ```
-backend/
-│
-├── models/
-│   └── analyticsModel.js
-│
-├── services/
-│   └── analyticsService.js
-│
-└── tests/
-    └── analyticsService.test.js
+Booking Model
+      ↓
+Booking Service
+      ↓
+Dashboard Service
 ```
 
----
+No hardcoded dashboard values are used.
 
-# File Description
+### Test Coverage
 
-## analyticsModel.js
+#### getDashboardSummary()
 
-Contains the analytics data source.
+- Returns dashboard summary successfully
+- Calculates total bookings
+- Calculates completed bookings
+- Calculates pending bookings
+- Throws error when no booking data exists
 
-For this activity, the model returns **mock analytics data** instead of retrieving information from the database.
+#### getBookingTrends()
 
-Functions:
+- Returns monthly booking statistics
+- Groups bookings correctly by month
+- Throws error when no booking data exists
 
-- getDashboardSummary()
-- getBookingTrends()
-- getPerformanceMetrics()
+#### getPerformanceMetrics()
 
----
+- Calculates total revenue
+- Calculates average customer rating
+- Calculates completed booking percentage
+- Throws error when no booking data exists
 
-## analyticsService.js
+### Expected Output
 
-Contains the business logic for the Analytics module.
-
-The service receives requests and calls the corresponding functions from the Analytics Model.
-
-Functions:
-
-- getDashboardSummary()
-- getBookingTrends()
-- getPerformanceMetrics()
-
----
-
-## analyticsService.test.js
-
-Contains the unit tests for the Analytics Service using **Vitest**.
-
-The Analytics Model is mocked using:
-
-```javascript
-vi.mock("../models/analyticsModel.js");
-```
-
-This allows the service logic to be tested without depending on the database.
+- Dashboard summary is generated correctly.
+- Booking trends are calculated correctly.
+- Performance metrics are calculated correctly.
+- Empty booking data is handled properly.
+- All dashboard values are dynamically generated from booking records.
 
 ---
 
-# Unit Tests Implemented
+# Testing Tools
 
-## 1. getDashboardSummary()
-
-Purpose:
-
-Verifies that the Analytics Service returns the correct dashboard summary.
-
-Expected Output:
-
-- Total Bookings
-- Completed Bookings
-- Pending Bookings
-- Total Clients
-- Total Revenue
-
-Status:
-
-✔ Passed
-
----
-
-## 2. getBookingTrends()
-
-Purpose:
-
-Verifies that the Analytics Service returns the expected booking trend data.
-
-Expected Output:
-
-- Monthly booking records
-- Correct month labels
-- Correct booking values
-
-Status:
-
-✔ Passed
-
----
-
-## 3. getPerformanceMetrics()
-
-Purpose:
-
-Verifies that the Analytics Service returns the expected performance metrics.
-
-Expected Output:
-
-- Booking Completion Rate
-- Client Satisfaction
-- Revenue Growth
-- Service Quality Score
-
-Status:
-
-✔ Passed
-
----
-
-# Test Result
-
-Command:
-
-```bash
-npx vitest run
-```
-
-Result:
-
-```text
-✓ tests/bookingService.test.js (7 tests)
-✓ tests/analyticsService.test.js (3 tests)
-
-Test Files  2 passed (2)
-Tests      10 passed (10)
-```
-
----
-
-# Test Suite / Acceptance Criteria
-
-| Acceptance Criteria | Status |
-|---------------------|--------|
-| getDashboardSummary() returns correct summary | ✔ Passed |
-| getBookingTrends() returns expected analytics data | ✔ Passed |
-| getPerformanceMetrics() calculates metrics correctly | ✔ Passed |
-
----
-
-# Technologies Used
-
-- JavaScript (ES Modules)
-- Node.js
 - Vitest
+- Node.js
+- JavaScript (ES Modules)
 
 ---
 
 # Summary
 
-The Analytics Service was successfully unit tested using mocked model functions. The service correctly returned dashboard summaries, booking trends, and performance metrics. All unit tests passed successfully, confirming that the Analytics Service business logic works as expected without relying on a live database.
+Objective 2 demonstrates backend unit testing for both booking management and dashboard analytics.
 
----
+Completed Deliverables:
 
-# Sprint Reference
+- Week 1 - Booking Model Unit Testing
+- Week 2 - Booking Service Unit Testing
+- Week 3 - Dashboard Service Unit Testing
 
-**Objective 2**
-
-**Week 3 – Day 1**
-
-Task:
-
-> Unit Testing – Analytics Service
-
-Deliverables:
-
-- Dashboard Summary Unit Tests
-- Booking Trends Unit Tests
-- Performance Metrics Unit Tests
-
-Status:
-
-**Completed**
+All implemented functions are verified through unit tests to ensure correctness, validation, and reliable backend business logic.
