@@ -1,14 +1,13 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
 
 import * as bookingModel from "../models/bookingModel.js";
-
 import {
   createBooking,
   getBookingById,
   updateBookingStatus,
 } from "../services/bookingService.js";
 
-// Mock Booking Model
+// Mock the Model
 vi.mock("../models/bookingModel.js", () => ({
   createBooking: vi.fn(),
   getBookingById: vi.fn(),
@@ -53,6 +52,8 @@ describe("Booking Service", () => {
         status: "Pending",
       });
 
+      expect(booking.clientName).toBe("Franklin");
+
       expect(bookingModel.createBooking).toHaveBeenCalledWith({
         clientName: "Franklin",
         eventDate: "2026-07-20",
@@ -92,7 +93,7 @@ describe("Booking Service", () => {
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         clientName: "Franklin",
-        status: "Completed",
+        status: "Pending",
       });
 
       const booking = getBookingById(1);
