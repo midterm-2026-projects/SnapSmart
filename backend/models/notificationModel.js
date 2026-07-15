@@ -6,8 +6,9 @@ const notificationModel = {
 
         const notification = {
             id: notifications.length + 1,
+            customerId: data.customerId,
+            recipient: data.recipient, // "admin" or "customer"
             message: data.message,
-            recipient: data.recipient,
             isRead: false,
             createdAt: new Date()
         };
@@ -15,12 +16,27 @@ const notificationModel = {
         notifications.push(notification);
 
         return notification;
+
     },
 
 
-    findAll: async () => {
+    findByCustomerId: async (customerId) => {
 
-        return notifications;
+        return notifications.filter(
+            (notification) =>
+                notification.customerId === Number(customerId) &&
+                notification.recipient === "customer"
+        );
+
+    },
+
+
+    findAdminNotifications: async () => {
+
+        return notifications.filter(
+            (notification) =>
+                notification.recipient === "admin"
+        );
 
     },
 
@@ -28,14 +44,12 @@ const notificationModel = {
     markAsRead: async (id) => {
 
         const notification = notifications.find(
-            (item) => item.id === Number(id)
+            (notification) => notification.id === Number(id)
         );
-
 
         if (!notification) {
             return null;
         }
-
 
         notification.isRead = true;
 
@@ -44,6 +58,5 @@ const notificationModel = {
     }
 
 };
-
 
 export default notificationModel;

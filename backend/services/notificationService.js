@@ -1,49 +1,63 @@
 import notificationModel from "../models/notificationModel.js";
 
 
-export const createNotification = async(data)=>{
+// Create Notification
+export const createNotification = async (data) => {
 
-
-    if(!data.message || !data.recipient){
+    if (
+        !data.customerId ||
+        !data.message ||
+        !data.recipient
+    ) {
 
         throw new Error(
-            "Message and recipient are required"
+            "Customer ID, recipient, and message are required"
         );
 
     }
-
 
     return await notificationModel.create(data);
 
 };
 
 
+// Get Customer Notifications
+export const getNotificationsByCustomer = async (customerId) => {
 
-export const getNotifications = async()=>{
+    if (!customerId) {
 
+        throw new Error(
+            "Customer ID is required"
+        );
 
-    return await notificationModel.findAll();
+    }
 
+    return await notificationModel.findByCustomerId(customerId);
 
 };
 
 
+// Mark Notification as Read
+export const markAsRead = async (id) => {
 
-export const markAsRead = async(id)=>{
+    if (!id) {
 
+        throw new Error(
+            "Notification ID is required"
+        );
+
+    }
 
     const notification =
         await notificationModel.markAsRead(id);
 
-
-    if(!notification){
+    if (!notification) {
 
         throw new Error(
             "Notification not found"
         );
 
     }
-
 
     return notification;
 

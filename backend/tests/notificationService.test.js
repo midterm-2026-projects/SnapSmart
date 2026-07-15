@@ -1,102 +1,129 @@
 import {
     describe,
     test,
-    expect
+    expect,
+    vi,
+    beforeEach
 } from "vitest";
+
+
+import notificationModel from "../models/notificationModel.js";
 
 
 import {
     createNotification,
-    getNotifications,
+    getNotificationsByCustomer,
     markAsRead
 } from "../services/notificationService.js";
 
 
 
-describe(
-"Notification Service Unit Testing",
-()=>{
+// Mock notificationModel
+vi.mock("../models/notificationModel.js", () => ({
+    default: {
+
+        create: vi.fn(),
+
+        findByCustomerId: vi.fn(),
+
+        markAsRead: vi.fn()
+
+    }
+}));
 
 
-test(
-"createNotification() should create notification",
-async()=>{
+
+beforeEach(() => {
+
+    vi.clearAllMocks();
+
+});
 
 
-    const result =
-        await createNotification({
 
-            message:"Booking confirmed",
 
-            recipient:"customer@test.com"
+// CREATE NOTIFICATION
+
+describe("createNotification()", () => {
+
+
+    test("should create notification successfully", async () => {
+
+
+        notificationModel.create.mockResolvedValue({
+
+            id: 1,
+
+            customerId: 1,
+
+            recipient: "customer",
+
+            message: "Your booking has been created",
+
+            isRead: false
 
         });
 
 
 
-    expect(result)
-        .toHaveProperty("id");
+        const result =
+            await createNotification({
 
+                customerId: 1,
 
-    expect(result.message)
-        .toBe("Booking confirmed");
+                recipient: "customer",
 
+                message: "Your booking has been created"
 
-    expect(result.isRead)
-        .toBe(false);
-
-
-
-});
+            });
 
 
 
-
-test(
-"getNotifications() should return notifications",
-async()=>{
-
-
-    const result =
-        await getNotifications();
+        expect(notificationModel.create)
+            .toHaveBeenCalledOnce();
 
 
 
-    expect(Array.isArray(result))
-        .toBe(true);
+        expect(result.id)
+            .toBe(1);
 
 
 
-});
+        expect(result.message)
+            .toBe(
+                "Your booking has been created"
+            );
 
 
 
-
-
-test(
-"markAsRead() should update notification status",
-async()=>{
-
-
-    const notification =
-        await createNotification({
-
-            message:"New booking",
-
-            recipient:"admin@test.com"
-
-        });
+        expect(result.isRead)
+            .toBe(false);
 
 
 
-    const result =
-        await markAsRead(notification.id);
+    });
 
 
 
-    expect(result.isRead)
-        .toBe(true);
+    test("should throw error if required fields are missing", async () => {
 
+
+        await expect(
+
+            createNotification({
+
+                message:"Test notification"
+
+            })
+
+        )
+        .rejects
+        .toThrow(
+            "Customer ID, recipient, and message are required"
+        );
+
+
+    });
 
 
 });
@@ -105,21 +132,149 @@ async()=>{
 
 
 
-test(
-"markAsRead() should throw error for invalid id",
-async()=>{
+// GET CUSTOMER NOTIFICATIONS
+
+describe("getNotificationsByCustomer()", () => {
 
 
-    await expect(
-        markAsRead(999)
-    )
-    .rejects
-    .toThrow(
-        "Notification not found"
-    );
+
+    test("should return customer's notifications", async () => {
+
+
+        notificationModel.findByCustomerId
+            .mockResolvedValue([
+
+                {
+
+                    id:1,
+
+                    customerId:1,
+
+                    message:"Booking confirmed",
+
+                    isRead:false
+
+                }
+
+            ]);
+
+
+
+        const result =
+            await getNotificationsByCustomer(1);
+
+
+
+        expect(notificationModel.findByCustomerId)
+            .toHaveBeenCalledWith(1);
+
+
+
+        expect(Array.isArray(result))
+            .toBe(true);
+
+
+
+        expect(result.length)
+            .toBe(1);
+
+
+
+    });
+
+
+
+
+    test("should throw error if customer id is missing", async () => {
+
+
+        await expect(
+
+            getNotificationsByCustomer()
+
+        )
+        .rejects
+        .toThrow(
+            "Customer ID is required"
+        );
+
+
+    });
+
 
 
 });
+
+
+
+
+
+// MARK AS READ
+
+describe("markAsRead()", () => {
+
+
+
+    test("should update notification status", async () => {
+
+
+
+        notificationModel.markAsRead
+            .mockResolvedValue({
+
+                id:1,
+
+                message:"Booking confirmed",
+
+                isRead:true
+
+            });
+
+
+
+        const result =
+            await markAsRead(1);
+
+
+
+        expect(notificationModel.markAsRead)
+            .toHaveBeenCalledWith(1);
+
+
+
+        expect(result.isRead)
+            .toBe(true);
+
+
+
+    });
+
+
+
+
+    test("should throw error if notification does not exist", async () => {
+
+
+
+        notificationModel.markAsRead
+            .mockResolvedValue(null);
+
+
+
+        await expect(
+
+            markAsRead(999)
+
+        )
+        .rejects
+        .toThrow(
+            "Notification not found"
+        );
+
+
+
+    });
+
 
 
 });
