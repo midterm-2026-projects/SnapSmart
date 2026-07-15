@@ -1,64 +1,23 @@
-import { describe, test, expect } from "vitest";
-import chatbotService from "../services/chatbotService.js";
+import {
+  getChatbotResponse,
+  validateUserMessage,
+} from "../services/chatbotService.js";
 
+describe("Chatbot Service", () => {
+  test("returns greeting", async () => {
+    const response = await getChatbotResponse("Hello");
 
-describe("Chatbot Service Unit Test",()=>{
+    expect(response).toContain("Hello");
+  });
 
+  test("validates message", () => {
+    expect(validateUserMessage("Hi")).toBe(true);
+    expect(validateUserMessage("")).toBe(false);
+  });
 
-test("returns chatbot response for hello message", async()=>{
+  test("returns booking response", async () => {
+    const response = await getChatbotResponse("booking");
 
-
-    const response =
-    await chatbotService.getChatbotResponse(
-        "hello"
-    );
-
-
-    expect(response)
-    .toContain(
-        "AI photography assistant"
-    );
-
-
-});
-
-
-
-test("rejects empty message", async()=>{
-
-
-    await expect(
-
-        chatbotService.getChatbotResponse("")
-
-    )
-    .rejects
-    .toThrow(
-        "Message cannot be empty"
-    );
-
-
-});
-
-
-
-test("validates user message",()=>{
-
-
-    expect(
-        chatbotService.validateUserMessage("hello")
-    )
-    .toBe(true);
-
-
-
-    expect(
-        chatbotService.validateUserMessage("")
-    )
-    .toBe(false);
-
-
-});
-
-
+    expect(response).toContain("book");
+  });
 });

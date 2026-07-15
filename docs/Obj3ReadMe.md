@@ -4,17 +4,17 @@
 
 This project focuses on the development and testing of a chatbot and notification system. The implementation includes reusable frontend components, chatbot interaction features, notification interfaces, backend services, API testing, and complete system validation.
 
-The project follows a structured software testing approach where system components are developed first, followed by integration testing, unit testing, and end-to-end testing.
+The project follows a structured software testing approach where system components are developed first, followed by integration testing, service validation, and end-to-end testing.
 
 The main objectives of this project are:
 
-* Develop chatbot user interface components.
-* Implement chatbot message interaction features.
-* Create notification management components.
-* Perform API integration testing.
-* Perform unit testing on backend services and functions.
-* Validate system functionality and error handling.
-* Perform end-to-end testing to ensure complete system workflow.
+- Develop chatbot user interface components.
+- Implement chatbot message interaction features.
+- Create notification management components.
+- Perform chatbot API integration testing.
+- Perform notification service and validation testing.
+- Validate chatbot and notification workflows.
+- Perform end-to-end testing to ensure complete system functionality.
 
 ---
 
@@ -24,19 +24,19 @@ The main objectives of this project are:
 
 ## Components Developed
 
-* ChatbotInterface Component
-* MessageDisplay Component
-* UserInput Component
+- ChatbotInterface Component
+- MessageDisplay Component
+- UserInput Component
 
 ## Description
 
-The first stage focuses on developing the main chatbot interface and supporting components. These components handle chatbot layout, message display, and user input interaction.
+The first stage focuses on developing the main chatbot interface and supporting components. These components manage the chatbot layout, display conversation messages, and allow users to send messages.
 
 ## Testing Criteria
 
-* ChatbotInterface component renders correctly.
-* MessageDisplay component displays messages correctly.
-* UserInput component accepts valid input correctly.
+- ChatbotInterface component renders correctly.
+- MessageDisplay component displays messages correctly.
+- UserInput component accepts valid input correctly.
 
 ---
 
@@ -44,19 +44,19 @@ The first stage focuses on developing the main chatbot interface and supporting 
 
 ## Components Developed
 
-* BotMessage Component
-* UserMessage Component
-* TypingIndicator Component
+- BotMessage Component
+- UserMessage Component
+- TypingIndicator Component
 
 ## Description
 
-This stage improves chatbot interaction by separating user messages, bot responses, and loading indicators into reusable components.
+This stage improves chatbot interaction by separating bot responses, user messages, and typing indicators into reusable components.
 
 ## Testing Criteria
 
-* BotMessage displays bot responses correctly.
-* UserMessage displays user messages correctly.
-* TypingIndicator appears while waiting for chatbot responses.
+- BotMessage displays bot responses correctly.
+- UserMessage displays user messages correctly.
+- TypingIndicator appears while waiting for chatbot responses.
 
 ---
 
@@ -64,19 +64,19 @@ This stage improves chatbot interaction by separating user messages, bot respons
 
 ## Components Developed
 
-* NotificationList Component
-* NotificationCard Component
-* SendNotificationModal Component
+- NotificationList Component
+- NotificationCard Component
+- SendNotificationModal Component
 
 ## Description
 
-This stage focuses on creating the notification interface where users can view notifications, display notification details, and access notification actions.
+This stage focuses on building the notification interface where users can view notifications and manage notification actions.
 
 ## Testing Criteria
 
-* NotificationList displays notifications correctly.
-* NotificationCard displays notification information correctly.
-* SendNotificationModal displays required fields correctly.
+- NotificationList displays notifications correctly.
+- NotificationCard displays notification details correctly.
+- SendNotificationModal displays required form fields correctly.
 
 ---
 
@@ -84,25 +84,25 @@ This stage focuses on creating the notification interface where users can view n
 
 ## Tests Implemented
 
-* Test `POST /api/chatbot/message`
-* Test chatbot response handling.
-* Test invalid chatbot requests.
+- Test `POST /api/chatbot`
+- Test chatbot response handling.
+- Test invalid chatbot requests.
 
 ## Test Categories
 
-* Chatbot API Integration Tests
-* API Response Validation
-* Error Handling Tests
+- Chatbot API Integration Tests
+- API Response Validation
+- Error Handling Tests
 
 ## Testing Objectives
 
-This stage verifies that the chatbot API route, backend service, and response handling work correctly together.
+This stage verifies that the chatbot API endpoint, controller, and service communicate correctly and return valid responses.
 
 ## Expected Results
 
-* Chatbot message endpoint returns a valid response.
-* User messages are processed correctly.
-* Invalid requests return proper error responses.
+- Chatbot API returns valid responses.
+- User messages are processed correctly.
+- Invalid requests return appropriate error responses.
 
 ---
 
@@ -110,25 +110,25 @@ This stage verifies that the chatbot API route, backend service, and response ha
 
 ## Tests Implemented
 
-* Test `createNotification()`
-* Test `getNotifications()`
-* Test `markAsRead()`
+- Test `createNotification()`
+- Test `getNotifications()`
+- Test `markAsRead()`
 
 ## Test Categories
 
-* Notification Creation Unit Tests
-* Notification Retrieval Unit Tests
-* Read Status Unit Tests
+- Notification Creation Unit Tests
+- Notification Retrieval Unit Tests
+- Read Status Unit Tests
 
 ## Testing Objectives
 
-This stage validates individual notification service functions independently.
+This stage validates notification service functions independently.
 
 ## Expected Results
 
-* `createNotification()` creates notifications correctly.
-* `getNotifications()` retrieves notification records correctly.
-* `markAsRead()` updates notification status correctly.
+- `createNotification()` creates notifications successfully.
+- `getNotifications()` retrieves notification records correctly.
+- `markAsRead()` updates notification status successfully.
 
 ---
 
@@ -136,15 +136,15 @@ This stage validates individual notification service functions independently.
 
 ## Tests Implemented
 
-* Test `POST /notifications`
-* Test `GET /notifications`
-* Test `PATCH /notifications/:id/read`
+- Test `POST /notifications`
+- Test `GET /notifications`
+- Test `PATCH /notifications/:id/read`
 
 ## Test Categories
 
-* Notification API Integration Tests
-* API Response Validation
-* Service Communication Tests
+- Notification API Integration Tests
+- API Response Validation
+- Service Communication Tests
 
 ## Testing Objectives
 
@@ -152,61 +152,61 @@ This stage verifies communication between notification routes, services, and app
 
 ## Expected Results
 
-* Notification creation endpoint works correctly.
-* Notification list endpoint returns notification data.
-* Notification update endpoint processes requests successfully.
+- Notification creation endpoint works correctly.
+- Notification list endpoint returns notification data.
+- Notification update endpoint processes requests successfully.
 
 ---
 
-# Week 4 - Day 2: Chatbot Knowledge Base Unit Testing
+# Week 4 - Day 2: Chatbot Response Validation Testing
 
 ## Tests Implemented
 
-* Test `createResponse()`
-* Test `updateResponse()`
-* Test `deleteResponse()`
+- Test chatbot response generation.
+- Test user message validation.
+- Test fallback chatbot responses.
 
 ## Test Categories
 
-* Response Creation Unit Tests
-* Response Update Unit Tests
-* Response Deletion Unit Tests
+- Chatbot Service Tests
+- Response Validation Tests
+- Input Validation Tests
 
 ## Testing Objectives
 
-This stage tests chatbot knowledge base functions independently.
+This stage validates chatbot response generation and message validation without relying on a database.
 
 ## Expected Results
 
-* `createResponse()` creates chatbot responses correctly.
-* `updateResponse()` updates existing responses.
-* `deleteResponse()` removes responses successfully.
+- Valid user messages generate appropriate chatbot responses.
+- Invalid user messages are rejected.
+- Unknown messages return fallback responses.
 
 ---
 
-# Week 5 - Day 1: Chatbot Management API Testing
+# Week 5 - Day 1: Chatbot API Response Testing
 
 ## Tests Implemented
 
-* Test `POST /chatbot/responses`
-* Test `PUT /chatbot/responses/:id`
-* Test `DELETE /chatbot/responses/:id`
+- Test chatbot responses for different user inputs.
+- Test chatbot response consistency.
+- Test API response format.
 
 ## Test Categories
 
-* Chatbot Management API Tests
-* API Response Validation
-* Data Processing Tests
+- Chatbot Response Tests
+- API Response Validation
+- Response Consistency Tests
 
 ## Testing Objectives
 
-This stage validates chatbot response management through API communication.
+This stage verifies that the chatbot API consistently returns valid responses for different user scenarios.
 
 ## Expected Results
 
-* Response creation endpoint works correctly.
-* Response update endpoint modifies existing data.
-* Response deletion endpoint removes chatbot responses successfully.
+- Chatbot responses are returned successfully.
+- API response structure remains consistent.
+- Different user inputs receive appropriate responses.
 
 ---
 
@@ -214,25 +214,25 @@ This stage validates chatbot response management through API communication.
 
 ## Tests Implemented
 
-* Test notification input validation.
-* Test recipient validation.
-* Test empty notification message handling.
+- Test notification input validation.
+- Test recipient validation.
+- Test empty notification message handling.
 
 ## Test Categories
 
-* Notification Validation Unit Tests
-* Input Validation Test Cases
-* Error Handling Tests
+- Notification Validation Unit Tests
+- Input Validation Tests
+- Error Handling Tests
 
 ## Testing Objectives
 
-This stage ensures that invalid notification inputs are detected before processing.
+This stage ensures invalid notification data is detected before processing.
 
 ## Expected Results
 
-* Invalid notification input is rejected.
-* Invalid recipients are handled properly.
-* Empty notification messages are prevented.
+- Invalid notification input is rejected.
+- Invalid recipients are handled correctly.
+- Empty notification messages are prevented.
 
 ---
 
@@ -240,20 +240,20 @@ This stage ensures that invalid notification inputs are detected before processi
 
 ## Tests Implemented
 
-* Test complete chatbot workflow.
-* Test complete notification workflow.
-* Test user interaction scenarios.
-* Test system error handling.
+- Test complete chatbot workflow.
+- Test complete notification workflow.
+- Test user interaction scenarios.
+- Test system error handling.
 
 ## Test Categories
 
-* End-to-End System Tests
-* User Workflow Validation
-* Complete Application Flow Testing
+- End-to-End System Tests
+- User Workflow Validation
+- Complete Application Flow Testing
 
 ## Testing Objectives
 
-This stage validates the complete system workflow from the user's perspective by testing frontend components, backend services, APIs, and system interactions.
+This stage validates the complete system workflow by testing frontend components, backend services, APIs, and interactions from the user's perspective.
 
 ## Chatbot Workflow
 
@@ -261,80 +261,85 @@ The following workflow will be tested:
 
 1. User opens the chatbot interface.
 2. User enters a message.
-3. Frontend sends the request to the backend API.
-4. Backend processes the chatbot request.
+3. Frontend sends the request to the chatbot API.
+4. Backend validates the request.
 5. Chatbot service generates a response.
-6. Response is displayed to the user.
+6. Response is returned to the frontend.
+7. Chatbot response is displayed to the user.
 
 ## Notification Workflow
 
 The following workflow will be tested:
 
-1. User/admin creates a notification.
+1. User or administrator creates a notification.
 2. Notification request is submitted.
-3. Backend processes and validates the request.
-4. Notification is stored.
-5. User receives and views the notification.
+3. Backend validates the request.
+4. Notification is processed and stored.
+5. Notification is displayed to the user.
 
 ## Expected Results
 
-* Chatbot workflow completes successfully.
-* Chatbot responses are displayed correctly.
-* Notifications are created and received successfully.
-* System functions correctly from the user's perspective.
-* System error handling works properly.
+- Complete chatbot workflow executes successfully.
+- Chatbot responses are displayed correctly.
+- Notifications are created successfully.
+- Notifications are displayed correctly.
+- All integrated system features work as expected.
 
 ---
 
 # Testing Approach
 
-The project follows a layered testing approach:
+The project follows a layered software testing approach.
 
-## 1. Unit Testing
+## 1. Integration Testing
 
-Unit testing focuses on testing individual functions and services independently.
+Integration testing verifies communication between different application modules.
 
-Examples:
+### Examples
 
-* Notification service functions.
-* Chatbot knowledge base functions.
-* Input validation functions.
+- Chatbot API communication.
+- Notification API communication.
+- Backend routes and services interaction.
 
-Purpose:
+### Purpose
 
-* Verify internal logic correctness.
-* Detect errors at the function level.
+- Ensure integrated modules communicate correctly.
+- Validate API request and response handling.
 
 ---
 
-## 2. Integration Testing
+## 2. Unit Testing
 
-Integration testing verifies communication between different system components.
+Unit testing validates individual services and validation functions independently.
 
-Examples:
+### Examples
 
-* Chatbot API communication.
-* Notification API communication.
-* Backend routes and services interaction.
+- Notification service functions.
+- Chatbot response generation.
+- Message validation.
+- Notification validation.
 
-Purpose:
+### Purpose
 
-* Ensure connected modules work correctly together.
+- Verify function-level correctness.
+- Detect logic errors early during development.
 
 ---
 
 ## 3. End-to-End Testing
 
-End-to-end testing validates the complete system workflow.
+End-to-end testing validates the complete application workflow from the user's perspective.
 
-Examples:
+### Examples
 
-* Complete chatbot interaction.
-* Complete notification workflow.
+- Complete chatbot conversation flow.
+- Complete notification workflow.
+- Full frontend-to-backend communication.
 
-Purpose:
+### Purpose
 
-* Ensure the entire application works correctly from the user's perspective.
+- Ensure the entire application functions correctly.
+- Validate complete user workflows.
 
 ---
 
@@ -342,24 +347,45 @@ Purpose:
 
 ## Frontend
 
-* React.js
-* Vite
+- React.js
+- Vite
 
 ## Backend
 
-* Node.js
-* Express.js
+- Node.js
+- Express.js
 
 ## Database
 
-* MySQL
+- MySQL (Notification Module)
 
 ## Testing Tools
 
-* Vitest
-* Supertest
-* Playwright
+- Vitest
+- Supertest
+- Playwright
 
 ---
 
 # Project Structure
+
+```text
+project-root
+│
+├── frontend
+│   ├── components
+│   │   ├── chatbot
+│   │   └── notification
+│   ├── pages
+│   └── tests
+│
+├── backend
+│   ├── controllers
+│   ├── routes
+│   ├── services
+│   ├── tests
+│   ├── app.js
+│   └── package.json
+│
+└── README.md
+```

@@ -2,22 +2,14 @@ import express from "express";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 
-
 const app = express();
 
 app.use(express.json());
 
-
-// Booking
 app.use("/", bookingRoutes);
-
-
-// Chatbot
 app.use("/api/chatbot", chatbotRoutes);
 
-
 export default app;
-
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(3000, () => {

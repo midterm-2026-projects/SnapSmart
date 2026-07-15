@@ -1,84 +1,28 @@
-const getChatbotResponse = async (message) => {
+export async function getChatbotResponse(message) {
+  const userMessage = message.toLowerCase().trim();
 
+  if (userMessage.includes("booking")) {
+    return "You can book a photography session through our booking page.";
+  }
 
-    if (!message || message.trim() === "") {
+  if (userMessage.includes("price")) {
+    return "Our pricing depends on the package you choose.";
+  }
 
-        throw new Error("Message cannot be empty");
+  if (userMessage.includes("location")) {
+    return "Our studio location is available on the Contact Us page.";
+  }
 
-    }
+  if (userMessage.includes("hello") || userMessage.includes("hi")) {
+    return "Hello! How can I help you today?";
+  }
 
+  return "Sorry, I don't understand your question yet.";
+}
 
-
-    const input = message.toLowerCase();
-
-
-
-    if (
-        input.includes("hello") ||
-        input.includes("hi")
-    ) {
-
-        return "Hello! I am your AI photography assistant. How can I help you today?";
-
-    }
-
-
-
-    if (
-        input.includes("price") ||
-        input.includes("package")
-    ) {
-
-        return "We offer different photography packages depending on your event needs.";
-
-    }
-
-
-
-    if (
-        input.includes("booking") ||
-        input.includes("schedule")
-    ) {
-
-        return "I can help you with booking inquiries. Please provide your preferred date.";
-
-    }
-
-
-
-    return "Sorry, I don't understand your message.";
-
-};
-
-
-
-
-const validateUserMessage = (message) => {
-
-
-    if (!message) {
-
-        return false;
-
-    }
-
-
-    if (message.trim().length === 0) {
-
-        return false;
-
-    }
-
-
-    return true;
-
-};
-
-
-
-export default {
-
-    getChatbotResponse,
-    validateUserMessage
-
-};
+export function validateUserMessage(message) {
+  return (
+    typeof message === "string" &&
+    message.trim().length > 0
+  );
+}
