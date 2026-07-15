@@ -5,9 +5,6 @@ import {
   createBooking,
   getBookingById,
   updateBookingStatus,
-  getDashboardSummary,
-  getBookingTrends,
-  getPerformanceMetrics,
 } from "../services/bookingService.js";
 
 // Mock the Model
@@ -15,16 +12,18 @@ vi.mock("../models/bookingModel.js", () => ({
   createBooking: vi.fn(),
   getBookingById: vi.fn(),
   updateBookingStatus: vi.fn(),
-  getAllBookings: vi.fn(),
 }));
 
 describe("Booking Service", () => {
+
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   describe("createBooking()", () => {
+
     test("should create booking with valid data", () => {
+
       bookingModel.createBooking.mockReturnValue({
         id: 4,
         clientName: "Franklin",
@@ -62,27 +61,35 @@ describe("Booking Service", () => {
         amount: 5000,
         rating: 5,
       });
+
     });
 
     test("should throw error when client name is missing", () => {
+
       expect(() =>
         createBooking({
           eventDate: "2026-07-20",
         })
       ).toThrow("Client Name is required");
+
     });
 
     test("should throw error when event date is missing", () => {
+
       expect(() =>
         createBooking({
           clientName: "Franklin",
         })
       ).toThrow("Event Date is required");
+
     });
+
   });
 
   describe("getBookingById()", () => {
+
     test("should return booking when found", () => {
+
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         clientName: "Franklin",
@@ -94,9 +101,11 @@ describe("Booking Service", () => {
       expect(booking.id).toBe(1);
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(1);
+
     });
 
     test("should return undefined when booking does not exist", () => {
+
       bookingModel.getBookingById.mockReturnValue(undefined);
 
       const booking = getBookingById(999);
@@ -104,11 +113,15 @@ describe("Booking Service", () => {
       expect(booking).toBeUndefined();
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(999);
+
     });
+
   });
 
   describe("updateBookingStatus()", () => {
+
     test("should update booking status successfully", () => {
+
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         status: "Pending",
@@ -129,9 +142,11 @@ describe("Booking Service", () => {
         1,
         "Approved"
       );
+
     });
 
     test("should throw error when booking is not found", () => {
+
       bookingModel.getBookingById.mockReturnValue(null);
 
       expect(() =>
@@ -139,6 +154,9 @@ describe("Booking Service", () => {
       ).toThrow("Booking not found");
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(99);
+
     });
+
   });
+
 });
