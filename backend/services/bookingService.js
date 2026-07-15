@@ -1,9 +1,6 @@
 import * as bookingModel from "../models/bookingModel.js";
 
-// ==============================
-// Booking Service
-// ==============================
-
+// Create Booking
 export function createBooking(data) {
   if (!data.clientName) {
     throw new Error("Client Name is required");
@@ -16,10 +13,12 @@ export function createBooking(data) {
   return bookingModel.createBooking(data);
 }
 
+// Get Booking by ID
 export function getBookingById(id) {
   return bookingModel.getBookingById(id);
 }
 
+// Update Booking Status
 export function updateBookingStatus(id, status) {
   const booking = bookingModel.getBookingById(id);
 
