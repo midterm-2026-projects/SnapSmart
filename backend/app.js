@@ -1,7 +1,6 @@
 import express from "express";
 
 import bookingRoutes from "./routes/bookingRoutes.js";
-import dashboardRoutes from "./routes/dashboardRoutes.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
 
@@ -14,7 +13,7 @@ app.use("/", galleryRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 
 // Dashboard Routes
-app.use("/", dashboardRoutes);
+
 
 export default app;
 

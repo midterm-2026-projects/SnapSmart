@@ -1,384 +1,158 @@
-# Objective 2 – Dashboard Module
+# Objective 2 - Backend Unit Testing
 
 ## Overview
 
-The Dashboard Module provides analytics and reporting features for the SnapSmart Booking System. It retrieves booking records from the Booking Model, processes the data through the Dashboard Service, and exposes the analytics using REST API endpoints. This module follows a layered architecture consisting of Routes, Controllers, Services, and Models.
+Objective 2 focuses on implementing and testing backend business logic using unit testing. The goal is to verify that backend services and models behave correctly under different scenarios before integrating them into the complete system.
 
 ---
 
-# Week 1 – Dashboard UI Components
+# Week 1 - Booking Model Unit Testing
 
-## Day 1 – Create Dashboard UI Components
+## Task
+Create unit tests for the Booking Model.
 
-### Objective
+### Implemented Functions
 
-Develop reusable Dashboard UI components using a component-based architecture and Test-Driven Development (TDD).
+- createBooking()
+- getBookingById()
+- updateBookingStatus()
+- getAllBookings()
 
-### Subtasks
+### Test Coverage
 
-- Create Dashboard layout component
-- Develop Summary Cards component
-- Implement Navigation component
-- Create reusable Dashboard UI structure
-- Perform unit testing using Vitest
+- Create booking successfully
+- Generate unique booking ID
+- Retrieve booking by existing ID
+- Return undefined for non-existing booking
+- Update booking status
+- Return null when booking does not exist
+- Retrieve all bookings
 
-### Deliverables
+### Expected Output
 
-- Dashboard Component
-- Summary Cards Component
-- Navigation Component
-- Unit Test Cases
-- Documentation
-
-### Test Suite
-
-- Verify Dashboard renders successfully
-- Verify Summary Cards display correctly
-- Verify Navigation renders correctly
-
----
-
-## Day 2 – Dashboard Functional Components
-
-### Objective
-
-Implement functional Dashboard components by integrating booking analytics into the user interface.
-
-### Subtasks
-
-- Connect Summary Cards to booking analytics
-- Display booking statistics
-- Display dashboard metrics
-- Render booking overview dynamically
-- Validate functional behavior
-
-### Deliverables
-
-- Functional Dashboard Components
-- Analytics Display
-- Updated Dashboard UI
-- Documentation
-
-### Test Suite
-
-- Verify booking statistics display correctly
-- Verify dashboard metrics update correctly
-- Verify analytics are rendered successfully
+- Booking is created correctly.
+- Booking data is stored properly.
+- Booking information is retrieved correctly.
+- Booking status updates successfully.
+- Invalid booking IDs are handled properly.
 
 ---
 
-# Week 2 – Dashboard API Preparation
+# Week 2 - Booking Service Unit Testing
 
-## Day 1 – Dashboard Analytics Service
+## Task
+Create unit tests for the Booking Service business logic.
 
-### Objective
+### Implemented Functions
 
-Develop backend business logic for dashboard analytics using booking data.
+- createBooking()
+- getBookingById()
+- updateBookingStatus()
 
-### Subtasks
+### Test Coverage
 
-- Retrieve booking records from Booking Model
-- Compute dashboard summary
-- Compute booking trends
-- Compute performance metrics
+#### createBooking()
 
-### Deliverables
+- Create booking successfully
+- Throw error when client name is missing
+- Throw error when event date is missing
 
-- Dashboard Service
-- Dashboard Analytics Functions
-- Documentation
+#### getBookingById()
 
-### Test Suite
+- Return booking when ID exists
+- Return undefined when booking does not exist
 
-- Verify dashboard summary computation
-- Verify booking trends computation
-- Verify performance metrics computation
+#### updateBookingStatus()
 
----
+- Update booking status successfully
+- Throw error when booking is not found
 
-## Day 2 – Dashboard API Design
+### Expected Output
 
-### Objective
-
-Design REST API endpoints required for Dashboard analytics integration.
-
-### API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/dashboard/summary` | Returns dashboard summary |
-| GET | `/dashboard/trends` | Returns monthly booking trends |
-| GET | `/dashboard/performance` | Returns dashboard performance metrics |
-
-### Deliverables
-
-- Dashboard API Design
-- Endpoint Structure
-- Documentation
+- Booking validation works correctly.
+- Invalid input throws proper errors.
+- Booking retrieval works correctly.
+- Booking status updates correctly.
 
 ---
 
-# Week 3 – Dashboard Backend Integration
+# Week 3 - Dashboard Service Unit Testing
 
-## Day 1 – Dashboard Analytics Unit Testing
+## Task
 
-### Objective
+Create unit tests for the Dashboard Service that generates dashboard analytics using booking records.
 
-Validate dashboard analytics business logic through unit testing.
+The dashboard service does not use fixed or hardcoded values. All analytics are generated from the booking data stored in the Booking Model.
 
-### Subtasks
+### Implemented Functions
 
-- Test Dashboard Summary computation
-- Test Booking Trends computation
-- Test Performance Metrics computation
+- getDashboardSummary()
+- getBookingTrends()
+- getPerformanceMetrics()
 
-### Deliverables
+### Data Source
 
-- Updated Booking Model
-- Dashboard Analytics Logic
-- Unit Test Cases
-- Documentation
-
-### Test Suite
-
-- Verify dashboard summary calculations
-- Verify booking trends calculations
-- Verify performance metrics calculations
-
----
-
-## Day 2 – Dashboard Backend Integration
-
-### Objective
-
-Integrate Dashboard backend components with the Booking Module and expose analytics through REST API endpoints.
-
-### Backend Architecture
+Dashboard analytics are generated from:
 
 ```
-Client
-   │
-   ▼
-Dashboard Routes
-   │
-   ▼
-Dashboard Controller
-   │
-   ▼
-Dashboard Service
-   │
-   ▼
 Booking Model
-   │
-   ▼
-JSON Response
-```
-
----
-
-## Components Developed
-
-### Dashboard Service
-
-Responsible for processing booking data and generating dashboard analytics.
-
-Implemented Functions:
-
-- `getDashboardSummary()`
-- `getBookingTrends()`
-- `getPerformanceMetrics()`
-
----
-
-### Dashboard Controller
-
-Handles incoming HTTP requests and returns JSON responses.
-
-Implemented Functions:
-
-- `getDashboardSummary()`
-- `getBookingTrends()`
-- `getPerformanceMetrics()`
-
----
-
-### Dashboard Routes
-
-Configured the following REST API endpoints:
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/dashboard/summary` | Retrieve dashboard summary |
-| GET | `/dashboard/trends` | Retrieve booking trends |
-| GET | `/dashboard/performance` | Retrieve performance metrics |
-
----
-
-### Express Application
-
-Registered Dashboard Routes inside the Express application.
-
-```javascript
-app.use("/", dashboardRoutes);
-```
-
----
-
-## Integration Flow
-
-```
-Client Request
-
-↓
-
-Dashboard Routes
-
-↓
-
-Dashboard Controller
-
-↓
-
+      ↓
+Booking Service
+      ↓
 Dashboard Service
-
-↓
-
-Booking Model
-
-↓
-
-JSON Response
 ```
 
----
+No hardcoded dashboard values are used.
 
-## Dashboard Analytics
+### Test Coverage
 
-### Dashboard Summary
+#### getDashboardSummary()
 
-Computes:
+- Returns dashboard summary successfully
+- Calculates total bookings
+- Calculates completed bookings
+- Calculates pending bookings
+- Throws error when no booking data exists
 
-- Total Bookings
-- Completed Bookings
-- Pending Bookings
-- Total Clients
-- Total Revenue
+#### getBookingTrends()
 
----
+- Returns monthly booking statistics
+- Groups bookings correctly by month
+- Throws error when no booking data exists
 
-### Booking Trends
+#### getPerformanceMetrics()
 
-Computes monthly booking counts for:
+- Calculates total revenue
+- Calculates average customer rating
+- Calculates completed booking percentage
+- Throws error when no booking data exists
 
-- January
-- February
-- March
-- April
-- May
-- June
+### Expected Output
 
----
-
-### Performance Metrics
-
-Computes:
-
-- Booking Completion Rate
-- Client Satisfaction Rating
+- Dashboard summary is generated correctly.
+- Booking trends are calculated correctly.
+- Performance metrics are calculated correctly.
+- Empty booking data is handled properly.
+- All dashboard values are dynamically generated from booking records.
 
 ---
 
-# Integration Testing
+# Testing Tools
 
-## Success Test Cases
-
-### Dashboard Summary
-
-- Retrieve dashboard summary successfully
-
-### Booking Trends
-
-- Retrieve booking trends successfully
-
-### Performance Metrics
-
-- Retrieve performance metrics successfully
-
----
-
-## Error Test Cases
-
-### Dashboard Summary
-
-- Return **404** when no booking data exists
-
-### Booking Trends
-
-- Return **404** when no booking data exists
-
-### Performance Metrics
-
-- Return **404** when no booking data exists
-
----
-
-# Files Modified
-
-```
-backend/
-│
-├── app.js
-│
-├── controllers/
-│   └── dashboardController.js
-│
-├── routes/
-│   └── dashboardRoutes.js
-│
-├── services/
-│   ├── bookingService.js
-│   └── dashboardService.js
-│
-├── models/
-│   └── bookingModel.js
-│
-└── tests/
-    ├── bookingModel.test.js
-    ├── bookingService.test.js
-    └── dashboardIntegration.test.js
-```
-
----
-
-# Test Results
-
-```
-✓ bookingModel.test.js
-
-✓ bookingService.test.js
-
-✓ bookingIntegration.test.js
-
-✓ dashboardIntegration.test.js
-
-23 Tests Passed
-```
+- Vitest
+- Node.js
+- JavaScript (ES Modules)
 
 ---
 
 # Summary
 
-The Dashboard Backend Integration successfully connects the Dashboard Module with the Booking Module through the Service Layer. Dashboard analytics are generated using booking records from the Booking Model and exposed through REST API endpoints. Integration testing validates both successful responses and error handling, ensuring reliable communication between backend components.
+Objective 2 demonstrates backend unit testing for both booking management and dashboard analytics.
 
----
+Completed Deliverables:
 
-## Completion Status
+- Week 1 - Booking Model Unit Testing
+- Week 2 - Booking Service Unit Testing
+- Week 3 - Dashboard Service Unit Testing
 
-| Week | Day | Task | Status |
-|------|-----|------|--------|
-| Week 1 | Day 1 | Dashboard UI Components | ✅ Completed |
-| Week 1 | Day 2 | Dashboard Functional Components | ✅ Completed |
-| Week 2 | Day 1 | Dashboard Analytics Service | ✅ Completed |
-| Week 2 | Day 2 | Dashboard API Design | ✅ Completed |
-| Week 3 | Day 1 | Dashboard Analytics Unit Testing | ✅ Completed |
-| Week 3 | Day 2 | Dashboard Backend Integration | ✅ Completed |
+All implemented functions are verified through unit tests to ensure correctness, validation, and reliable backend business logic.
