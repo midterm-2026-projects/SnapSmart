@@ -1,5 +1,4 @@
 import express from "express";
-
 import bookingRoutes from "./routes/bookingRoutes.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 
