@@ -13,12 +13,19 @@ export function createGallery(data) {
     throw new Error("Event Type is required");
   }
 
+  
+  if (data.fileSize && data.fileSize > 500) {
+    throw new Error("File size exceeds the 500 MB limit");
+  }
+
   return galleryModel.createGallery(data);
 }
+
 
 export function getGalleryById(id) {
   return galleryModel.getGalleryById(id);
 }
+
 
 export function deleteGallery(id) {
   const gallery = galleryModel.getGalleryById(id);
