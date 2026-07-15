@@ -5,6 +5,9 @@ import {
   createBooking,
   getBookingById,
   updateBookingStatus,
+  getDashboardSummary,
+  getBookingTrends,
+  getPerformanceMetrics,
 } from "../services/bookingService.js";
 
 // Mock the Model
@@ -12,6 +15,7 @@ vi.mock("../models/bookingModel.js", () => ({
   createBooking: vi.fn(),
   getBookingById: vi.fn(),
   updateBookingStatus: vi.fn(),
+  getAllBookings: vi.fn(),
 }));
 
 describe("Booking Service", () => {
@@ -22,15 +26,31 @@ describe("Booking Service", () => {
   describe("createBooking()", () => {
     test("should create booking with valid data", () => {
       bookingModel.createBooking.mockReturnValue({
-        id: 1,
+        id: 4,
         clientName: "Franklin",
         eventDate: "2026-07-20",
+        month: "Jul",
+        amount: 5000,
+        rating: 5,
         status: "Pending",
       });
 
       const booking = createBooking({
         clientName: "Franklin",
         eventDate: "2026-07-20",
+        month: "Jul",
+        amount: 5000,
+        rating: 5,
+      });
+
+      expect(booking).toEqual({
+        id: 4,
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        month: "Jul",
+        amount: 5000,
+        rating: 5,
+        status: "Pending",
       });
 
       expect(booking.clientName).toBe("Franklin");
@@ -38,6 +58,9 @@ describe("Booking Service", () => {
       expect(bookingModel.createBooking).toHaveBeenCalledWith({
         clientName: "Franklin",
         eventDate: "2026-07-20",
+        month: "Jul",
+        amount: 5000,
+        rating: 5,
       });
     });
 
