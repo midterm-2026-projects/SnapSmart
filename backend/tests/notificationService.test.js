@@ -185,6 +185,39 @@ describe("getNotificationsByCustomer()", () => {
 
 
 
+    test("should return empty array if customer has no notifications", async () => {
+
+
+        notificationModel.findByCustomerId
+            .mockResolvedValue([]);
+
+
+
+        const result =
+            await getNotificationsByCustomer(999);
+
+
+
+        expect(notificationModel.findByCustomerId)
+            .toHaveBeenCalledWith(999);
+
+
+
+        expect(Array.isArray(result))
+            .toBe(true);
+
+
+
+        expect(result.length)
+            .toBe(0);
+
+
+
+    });
+
+
+
+
     test("should throw error if customer id is missing", async () => {
 
 
