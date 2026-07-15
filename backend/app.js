@@ -10,8 +10,6 @@ app.use(express.json());
 app.use("/", bookingRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 
-app.use("/", galleryRoutes);
-
 export default app;
 
 if (process.env.NODE_ENV !== "test") {
