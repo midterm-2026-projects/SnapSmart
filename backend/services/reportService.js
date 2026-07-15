@@ -48,8 +48,3 @@ export function downloadReport(id) {
 
   return report;
 }
-
-// Clear Generated Reports (used in unit tests)
-export function clearGeneratedReports() {
-  generatedReports.length = 0;
-}

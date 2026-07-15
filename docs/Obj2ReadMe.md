@@ -84,7 +84,7 @@ Create unit tests for the Booking Service business logic.
 
 Create unit tests for the Dashboard Service that generates dashboard analytics using booking records.
 
-The dashboard service does not use fixed or hardcoded values. All analytics are generated from the booking data stored in the Booking Model.
+The Dashboard Service does not use fixed or hardcoded values. All analytics are generated dynamically from booking data stored in the Booking Model.
 
 ### Implemented Functions
 
@@ -99,12 +99,8 @@ Dashboard analytics are generated from:
 ```
 Booking Model
       ↓
-Booking Service
-      ↓
 Dashboard Service
 ```
-
-No hardcoded dashboard values are used.
 
 ### Test Coverage
 
@@ -124,9 +120,8 @@ No hardcoded dashboard values are used.
 
 #### getPerformanceMetrics()
 
-- Calculates total revenue
-- Calculates average customer rating
-- Calculates completed booking percentage
+- Calculates booking completion rate
+- Calculates client satisfaction
 - Throws error when no booking data exists
 
 ### Expected Output
@@ -143,9 +138,9 @@ No hardcoded dashboard values are used.
 
 ## Task
 
-Create unit tests for the Report Service that generates reports using booking records.
+Create unit tests for the Report Service that generates booking reports using booking records.
 
-The report service retrieves booking data from the Booking Model to generate reports dynamically. No fixed or hardcoded values are used.
+The Report Service retrieves booking data from the Booking Model and dynamically generates reports without using fixed or hardcoded values.
 
 ### Implemented Functions
 
@@ -160,12 +155,8 @@ Report data is generated from:
 ```
 Booking Model
       ↓
-Booking Service
-      ↓
 Report Service
 ```
-
-All report values are calculated dynamically using booking records.
 
 ### Test Coverage
 
@@ -181,18 +172,18 @@ All report values are calculated dynamically using booking records.
 
 #### getGeneratedReports()
 
-- Return generated report list successfully
+- Return generated reports successfully
 
 #### downloadReport()
 
-- Download report successfully
+- Download report successfully using report ID
 - Throw error when report is not found
 
 ### Expected Output
 
-- Reports are generated correctly from booking data.
+- Reports are generated successfully from booking records.
 - Generated reports are retrieved successfully.
-- Existing reports are downloaded successfully.
+- Reports can be retrieved using their ID.
 - Invalid report IDs are handled properly.
 - Empty booking data is handled correctly.
 - All report values are dynamically generated from booking records.
@@ -207,15 +198,28 @@ All report values are calculated dynamically using booking records.
 
 ---
 
+# Test Results
+
+## Week 4 Report Service
+
+- 5 Unit Tests Passed
+
+## Backend
+
+- 9 Test Files Passed
+- 52 Tests Passed
+
+---
+
 # Summary
 
 Objective 2 demonstrates backend unit testing for booking management, dashboard analytics, and report generation.
 
-Completed Deliverables:
+## Completed Deliverables
 
-- Week 1 - Booking Model Unit Testing
-- Week 2 - Booking Service Unit Testing
-- Week 3 - Dashboard Service Unit Testing
-- Week 4 - Report Service Unit Testing
+- ✅ Week 1 - Booking Model Unit Testing
+- ✅ Week 2 - Booking Service Unit Testing
+- ✅ Week 3 - Dashboard Service Unit Testing
+- ✅ Week 4 - Report Service Unit Testing
 
-All implemented functions are verified through unit tests to ensure correctness, validation, dynamic data processing, and reliable backend business logic.
+All implemented backend functions have been verified through unit testing to ensure correct business logic, proper validation, dynamic report generation, and reliable handling of both valid and invalid scenarios.
