@@ -4,18 +4,28 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
+import reportRoutes from "./routes/reportRoutes.js";
 
 const app = express();
 
 app.use(express.json());
 
+// Booking Routes
 app.use("/", bookingRoutes);
+
+// Gallery Routes
 app.use("/", galleryRoutes);
+
+// Chatbot Routes
 app.use("/api/chatbot", chatbotRoutes);
+
+// Notification Routes
 app.use("/api/notifications", notificationRoutes);
 
-// Dashboard Routes
+// Report Routes
+app.use("/reports", reportRoutes);
 
+// Dashboard Routes
 
 export default app;
 

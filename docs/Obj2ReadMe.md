@@ -1,8 +1,8 @@
-# Objective 2 - Backend Unit Testing
+# Objective 2 - Backend Testing
 
 ## Overview
 
-Objective 2 focuses on implementing and testing backend business logic using unit testing. The goal is to verify that backend services and models behave correctly under different scenarios before integrating them into the complete system.
+Objective 2 focuses on validating backend functionality through unit testing and integration testing. The objective ensures that business logic, API endpoints, and backend components behave correctly before full system integration.
 
 ---
 
@@ -84,7 +84,7 @@ Create unit tests for the Booking Service business logic.
 
 Create unit tests for the Dashboard Service that generates dashboard analytics using booking records.
 
-The Dashboard Service does not use fixed or hardcoded values. All analytics are generated dynamically from booking data stored in the Booking Model.
+The Dashboard Service dynamically generates analytics from booking records stored in the Booking Model without using fixed or hardcoded values.
 
 ### Implemented Functions
 
@@ -93,8 +93,6 @@ The Dashboard Service does not use fixed or hardcoded values. All analytics are 
 - getPerformanceMetrics()
 
 ### Data Source
-
-Dashboard analytics are generated from:
 
 ```
 Booking Model
@@ -130,17 +128,17 @@ Dashboard Service
 - Booking trends are calculated correctly.
 - Performance metrics are calculated correctly.
 - Empty booking data is handled properly.
-- All dashboard values are dynamically generated from booking records.
+- Dashboard values are dynamically generated from booking records.
 
 ---
 
-# Week 4 - Report Service Unit Testing
+# Week 4 Day 1 - Report Service Unit Testing
 
 ## Task
 
-Create unit tests for the Report Service that generates booking reports using booking records.
+Create unit tests for the Report Service that generates booking reports.
 
-The Report Service retrieves booking data from the Booking Model and dynamically generates reports without using fixed or hardcoded values.
+The Report Service dynamically generates reports from booking records stored in the Booking Model.
 
 ### Implemented Functions
 
@@ -149,8 +147,6 @@ The Report Service retrieves booking data from the Booking Model and dynamically
 - downloadReport()
 
 ### Data Source
-
-Report data is generated from:
 
 ```
 Booking Model
@@ -162,37 +158,112 @@ Report Service
 
 #### generateReport()
 
-- Generate report successfully using booking data
+- Generate report successfully
 - Calculate total bookings
 - Calculate completed bookings
 - Calculate pending bookings
 - Calculate cancelled bookings
 - Calculate total revenue
-- Generate report when no booking data exists
+- Handle empty booking records
 
 #### getGeneratedReports()
 
-- Return generated reports successfully
+- Return all generated reports
 
 #### downloadReport()
 
-- Download report successfully using report ID
+- Return report by ID
 - Throw error when report is not found
 
 ### Expected Output
 
-- Reports are generated successfully from booking records.
+- Reports are generated successfully.
 - Generated reports are retrieved successfully.
-- Reports can be retrieved using their ID.
-- Invalid report IDs are handled properly.
-- Empty booking data is handled correctly.
-- All report values are dynamically generated from booking records.
+- Reports are downloaded successfully.
+- Invalid report IDs are handled correctly.
+- Report values are dynamically generated from booking records.
+
+---
+
+# Week 4 Day 2 - Report Route-Controller Integration Testing
+
+## Task
+
+Create integration tests for the Report API endpoints to verify communication between Routes, Controllers, Services, and the Booking Model.
+
+### Tested API Endpoints
+
+- POST /reports/generate
+- GET /reports
+- GET /reports/:id
+
+### Integration Flow
+
+```
+HTTP Request
+      ↓
+app.js
+      ↓
+Report Routes
+      ↓
+Report Controller
+      ↓
+Report Service
+      ↓
+Booking Model (Mock Database)
+```
+
+### Test Coverage
+
+#### POST /reports/generate
+
+- Generate report successfully
+- Validate HTTP status code
+- Validate API response
+- Verify report is generated from booking records
+
+#### GET /reports
+
+- Retrieve all generated reports
+- Validate HTTP status code
+- Validate returned report collection
+
+#### GET /reports/:id
+
+- Retrieve report by ID
+- Validate returned report
+- Return 404 when report does not exist
+
+### API Response Validation
+
+The integration tests verify:
+
+- HTTP status codes
+- Success flag
+- Response body
+- Generated report data
+- Error handling
+
+### Database Verification
+
+The integration tests use the Booking Model as the mock data source.
+
+Booking records are first created through the Booking API, after which reports are generated dynamically from those records without using hardcoded values.
+
+### Expected Output
+
+- Report generation endpoint returns a successful response.
+- Reports endpoint returns generated reports.
+- Selected report endpoint returns the correct report.
+- Invalid report IDs return the appropriate error response.
+- Report data is generated dynamically from booking records.
 
 ---
 
 # Testing Tools
 
 - Vitest
+- Supertest
 - Node.js
 - JavaScript (ES Modules)
 
@@ -200,26 +271,23 @@ Report Service
 
 # Test Results
 
-## Week 4 Report Service
-
-- 5 Unit Tests Passed
-
 ## Backend
 
-- 9 Test Files Passed
-- 52 Tests Passed
+- 13 Test Files Passed
+- All Tests Passed Successfully
 
 ---
 
 # Summary
 
-Objective 2 demonstrates backend unit testing for booking management, dashboard analytics, and report generation.
+Objective 2 demonstrates backend unit testing and integration testing for booking management, dashboard analytics, report generation, and Report API integration.
 
 ## Completed Deliverables
 
 - ✅ Week 1 - Booking Model Unit Testing
 - ✅ Week 2 - Booking Service Unit Testing
 - ✅ Week 3 - Dashboard Service Unit Testing
-- ✅ Week 4 - Report Service Unit Testing
+- ✅ Week 4 Day 1 - Report Service Unit Testing
+- ✅ Week 4 Day 2 - Report Route-Controller Integration Testing
 
-All implemented backend functions have been verified through unit testing to ensure correct business logic, proper validation, dynamic report generation, and reliable handling of both valid and invalid scenarios.
+The backend implementation has been validated through unit testing and integration testing to ensure reliable business logic, correct API behavior, proper response validation, dynamic report generation, and successful interaction between Routes, Controllers, Services, and the Booking Model.
