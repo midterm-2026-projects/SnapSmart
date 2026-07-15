@@ -1,4 +1,5 @@
 import express from "express";
+
 import bookingRoutes from "./routes/bookingRoutes.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 
@@ -8,6 +9,8 @@ app.use(express.json());
 
 app.use("/", bookingRoutes);
 app.use("/api/chatbot", chatbotRoutes);
+
+app.use("/", galleryRoutes);
 
 export default app;
 

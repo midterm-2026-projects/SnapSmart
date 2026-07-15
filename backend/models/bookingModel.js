@@ -5,7 +5,11 @@ export const bookings = [];
 export function createBooking(data) {
   const booking = {
     id: bookings.length + 1,
-    ...data,
+    clientName: data.clientName,
+    eventDate: data.eventDate,
+    month: data.month,
+    amount: data.amount,
+    rating: data.rating,
     status: "Pending",
   };
 
@@ -30,4 +34,8 @@ export function updateBookingStatus(id, status) {
   booking.status = status;
 
   return booking;
+}
+
+export function getAllBookings() {
+  return bookings;
 }
