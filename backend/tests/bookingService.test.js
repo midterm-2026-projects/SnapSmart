@@ -15,15 +15,12 @@ vi.mock("../models/bookingModel.js", () => ({
 }));
 
 describe("Booking Service", () => {
-
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   describe("createBooking()", () => {
-
     test("should create booking with valid data", () => {
-
       bookingModel.createBooking.mockReturnValue({
         id: 4,
         clientName: "Franklin",
@@ -65,11 +62,9 @@ describe("Booking Service", () => {
         expense: 2000,
         rating: 5,
       });
-
     });
 
     test("should throw error when client name is missing", () => {
-
       expect(() =>
         createBooking({
           eventDate: "2026-07-20",
@@ -77,11 +72,9 @@ describe("Booking Service", () => {
           expense: 2000,
         })
       ).toThrow("Client Name is required");
-
     });
 
     test("should throw error when event date is missing", () => {
-
       expect(() =>
         createBooking({
           clientName: "Franklin",
@@ -89,23 +82,39 @@ describe("Booking Service", () => {
           expense: 2000,
         })
       ).toThrow("Event Date is required");
-
     });
 
-    test("should throw error when amount is missing", () => {
+    test("should allow booking creation when amount is missing", () => {
+      bookingModel.createBooking.mockReturnValue({
+        id: 4,
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        expense: 2000,
+        status: "Pending",
+      });
 
-      expect(() =>
-        createBooking({
-          clientName: "Franklin",
-          eventDate: "2026-07-20",
-          expense: 2000,
-        })
-      ).toThrow("Amount is required");
+      const booking = createBooking({
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        expense: 2000,
+      });
 
+      expect(booking).toEqual({
+        id: 4,
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        expense: 2000,
+        status: "Pending",
+      });
+
+      expect(bookingModel.createBooking).toHaveBeenCalledWith({
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        expense: 2000,
+      });
     });
 
     test("should throw error when amount is not a valid number", () => {
-
       expect(() =>
         createBooking({
           clientName: "Franklin",
@@ -114,11 +123,9 @@ describe("Booking Service", () => {
           expense: 2000,
         })
       ).toThrow("Amount must be a valid number");
-
     });
 
     test("should throw error when amount is negative", () => {
-
       expect(() =>
         createBooking({
           clientName: "Franklin",
@@ -127,23 +134,39 @@ describe("Booking Service", () => {
           expense: 2000,
         })
       ).toThrow("Amount cannot be negative");
-
     });
 
-    test("should throw error when expense is missing", () => {
+    test("should allow booking creation when expense is missing", () => {
+      bookingModel.createBooking.mockReturnValue({
+        id: 4,
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        amount: 5000,
+        status: "Pending",
+      });
 
-      expect(() =>
-        createBooking({
-          clientName: "Franklin",
-          eventDate: "2026-07-20",
-          amount: 5000,
-        })
-      ).toThrow("Expense is required");
+      const booking = createBooking({
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        amount: 5000,
+      });
 
+      expect(booking).toEqual({
+        id: 4,
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        amount: 5000,
+        status: "Pending",
+      });
+
+      expect(bookingModel.createBooking).toHaveBeenCalledWith({
+        clientName: "Franklin",
+        eventDate: "2026-07-20",
+        amount: 5000,
+      });
     });
 
     test("should throw error when expense is not a valid number", () => {
-
       expect(() =>
         createBooking({
           clientName: "Franklin",
@@ -152,11 +175,9 @@ describe("Booking Service", () => {
           expense: "2000",
         })
       ).toThrow("Expense must be a valid number");
-
     });
 
     test("should throw error when expense is negative", () => {
-
       expect(() =>
         createBooking({
           clientName: "Franklin",
@@ -165,15 +186,11 @@ describe("Booking Service", () => {
           expense: -2000,
         })
       ).toThrow("Expense cannot be negative");
-
     });
-
   });
 
   describe("getBookingById()", () => {
-
     test("should return booking when found", () => {
-
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         clientName: "Franklin",
@@ -185,11 +202,9 @@ describe("Booking Service", () => {
       expect(booking.id).toBe(1);
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(1);
-
     });
 
     test("should return undefined when booking does not exist", () => {
-
       bookingModel.getBookingById.mockReturnValue(undefined);
 
       const booking = getBookingById(999);
@@ -197,15 +212,11 @@ describe("Booking Service", () => {
       expect(booking).toBeUndefined();
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(999);
-
     });
-
   });
 
   describe("updateBookingStatus()", () => {
-
     test("should update booking status successfully", () => {
-
       bookingModel.getBookingById.mockReturnValue({
         id: 1,
         status: "Pending",
@@ -226,11 +237,9 @@ describe("Booking Service", () => {
         1,
         "Approved"
       );
-
     });
 
     test("should throw error when booking is not found", () => {
-
       bookingModel.getBookingById.mockReturnValue(null);
 
       expect(() =>
@@ -238,9 +247,6 @@ describe("Booking Service", () => {
       ).toThrow("Booking not found");
 
       expect(bookingModel.getBookingById).toHaveBeenCalledWith(99);
-
     });
-
   });
-
 });

@@ -6,7 +6,6 @@ import * as bookingModel from "../models/bookingModel.js";
 
 // Create Booking
 export function createBooking(data) {
-
   if (!data.clientName) {
     throw new Error("Client Name is required");
   }
@@ -15,28 +14,26 @@ export function createBooking(data) {
     throw new Error("Event Date is required");
   }
 
-  if (data.amount === undefined || data.amount === null) {
-    throw new Error("Amount is required");
+  // Amount (Optional)
+  if (data.amount !== undefined && data.amount !== null) {
+    if (typeof data.amount !== "number" || Number.isNaN(data.amount)) {
+      throw new Error("Amount must be a valid number");
+    }
+
+    if (data.amount < 0) {
+      throw new Error("Amount cannot be negative");
+    }
   }
 
-  if (typeof data.amount !== "number" || Number.isNaN(data.amount)) {
-    throw new Error("Amount must be a valid number");
-  }
+  // Expense (Optional)
+  if (data.expense !== undefined && data.expense !== null) {
+    if (typeof data.expense !== "number" || Number.isNaN(data.expense)) {
+      throw new Error("Expense must be a valid number");
+    }
 
-  if (data.amount < 0) {
-    throw new Error("Amount cannot be negative");
-  }
-
-  if (data.expense === undefined || data.expense === null) {
-    throw new Error("Expense is required");
-  }
-
-  if (typeof data.expense !== "number" || Number.isNaN(data.expense)) {
-    throw new Error("Expense must be a valid number");
-  }
-
-  if (data.expense < 0) {
-    throw new Error("Expense cannot be negative");
+    if (data.expense < 0) {
+      throw new Error("Expense cannot be negative");
+    }
   }
 
   return bookingModel.createBooking(data);
