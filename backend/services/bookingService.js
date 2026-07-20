@@ -6,12 +6,37 @@ import * as bookingModel from "../models/bookingModel.js";
 
 // Create Booking
 export function createBooking(data) {
+
   if (!data.clientName) {
     throw new Error("Client Name is required");
   }
 
   if (!data.eventDate) {
     throw new Error("Event Date is required");
+  }
+
+  if (data.amount === undefined || data.amount === null) {
+    throw new Error("Amount is required");
+  }
+
+  if (typeof data.amount !== "number" || Number.isNaN(data.amount)) {
+    throw new Error("Amount must be a valid number");
+  }
+
+  if (data.amount < 0) {
+    throw new Error("Amount cannot be negative");
+  }
+
+  if (data.expense === undefined || data.expense === null) {
+    throw new Error("Expense is required");
+  }
+
+  if (typeof data.expense !== "number" || Number.isNaN(data.expense)) {
+    throw new Error("Expense must be a valid number");
+  }
+
+  if (data.expense < 0) {
+    throw new Error("Expense cannot be negative");
   }
 
   return bookingModel.createBooking(data);

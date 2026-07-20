@@ -1,60 +1,68 @@
 import * as bookingModel from "../models/bookingModel.js";
 
 // ==============================
-// Dashboard Service
-// ==============================
-
 // Dashboard Summary
+// ==============================
 export function getDashboardSummary() {
   const bookings = bookingModel.getAllBookings();
 
-  if (bookings.length === 0) {
+  if (!bookings || bookings.length === 0) {
     throw new Error("No booking data available");
   }
 
+  const totalBookings = bookings.length;
+  const completed = bookings.filter(
+    (booking) => booking.status === "Completed"
+  ).length;
+  const pending = bookings.filter(
+    (booking) => booking.status === "Pending"
+  ).length;
+
+  const totalClients = new Set(
+    bookings.map((booking) => booking.clientName)
+  ).size;
+
+  const totalRevenue = bookings.reduce(
+    (sum, booking) => sum + (booking.amount || 0),
+    0
+  );
+
   return {
-    totalBookings: bookings.length,
-
-    completed: bookings.filter(
-      (booking) => booking.status === "Completed"
-    ).length,
-
-    pending: bookings.filter(
-      (booking) => booking.status === "Pending"
-    ).length,
-
-    totalClients: bookings.length,
-
-    totalRevenue: bookings.reduce(
-      (total, booking) => total + booking.amount,
-      0
-    ),
+    totalBookings,
+    completed,
+    pending,
+    totalClients,
+    totalRevenue,
   };
 }
 
+// ==============================
 // Booking Trends
+// ==============================
 export function getBookingTrends() {
   const bookings = bookingModel.getAllBookings();
 
-  if (bookings.length === 0) {
+  if (!bookings || bookings.length === 0) {
     throw new Error("No booking data available");
   }
 
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+  const monthlyBookings = {};
 
-  return months.map((month) => ({
-    month,
-    bookings: bookings.filter(
-      (booking) => booking.month === month
-    ).length,
-  }));
+  bookings.forEach((booking) => {
+    monthlyBookings[booking.month] =
+      (monthlyBookings[booking.month] || 0) + 1;
+  });
+
+  return monthlyBookings;
 }
 
+// ==============================
 // Performance Metrics
+// ==============================
 export function getPerformanceMetrics() {
   const bookings = bookingModel.getAllBookings();
 
-  if (bookings.length === 0) {
+  if (!bookings || bookings.length === 0) {
     throw new Error("No booking data available");
   }
 
@@ -62,19 +70,57 @@ export function getPerformanceMetrics() {
     (booking) => booking.status === "Completed"
   ).length;
 
-  const bookingCompletionRate =
-    Math.round((completed / bookings.length) * 100);
+  const completionRate = (completed / bookings.length) * 100;
 
-  const clientSatisfaction =
-    Math.round(
-      bookings.reduce(
-        (total, booking) => total + booking.rating,
-        0
-      ) / bookings.length
-    );
+  const averageRating =
+    bookings.reduce((sum, booking) => sum + (booking.rating || 0), 0) /
+    bookings.length;
 
   return {
-    bookingCompletionRate,
-    clientSatisfaction,
+    completionRate,
+    averageRating,
   };
+}
+
+// ==============================
+// Financial Analytics
+// ==============================
+
+// Calculate Total Revenue
+export function calculateRevenue() {
+  const bookings = bookingModel.getAllBookings();
+
+  if (!bookings || bookings.length === 0) {
+    throw new Error("No booking data available");
+  }
+
+  return bookings.reduce(
+    (total, booking) => total + (booking.amount || 0),
+    0
+  );
+}
+
+// Calculate Total Expenses
+export function calculateExpenses() {
+  const bookings = bookingModel.getAllBookings();
+
+  if (!bookings || bookings.length === 0) {
+    throw new Error("No booking data available");
+  }
+
+  return bookings.reduce(
+    (total, booking) => total + (booking.expense || 0),
+    0
+  );
+}
+
+// Calculate Net Profit
+export function calculateProfit() {
+  const bookings = bookingModel.getAllBookings();
+
+  if (!bookings || bookings.length === 0) {
+    throw new Error("No booking data available");
+  }
+
+  return calculateRevenue() - calculateExpenses();
 }

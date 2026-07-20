@@ -30,6 +30,7 @@ describe("Booking Service", () => {
         eventDate: "2026-07-20",
         month: "Jul",
         amount: 5000,
+        expense: 2000,
         rating: 5,
         status: "Pending",
       });
@@ -39,6 +40,7 @@ describe("Booking Service", () => {
         eventDate: "2026-07-20",
         month: "Jul",
         amount: 5000,
+        expense: 2000,
         rating: 5,
       });
 
@@ -48,6 +50,7 @@ describe("Booking Service", () => {
         eventDate: "2026-07-20",
         month: "Jul",
         amount: 5000,
+        expense: 2000,
         rating: 5,
         status: "Pending",
       });
@@ -59,6 +62,7 @@ describe("Booking Service", () => {
         eventDate: "2026-07-20",
         month: "Jul",
         amount: 5000,
+        expense: 2000,
         rating: 5,
       });
 
@@ -69,6 +73,8 @@ describe("Booking Service", () => {
       expect(() =>
         createBooking({
           eventDate: "2026-07-20",
+          amount: 5000,
+          expense: 2000,
         })
       ).toThrow("Client Name is required");
 
@@ -79,8 +85,86 @@ describe("Booking Service", () => {
       expect(() =>
         createBooking({
           clientName: "Franklin",
+          amount: 5000,
+          expense: 2000,
         })
       ).toThrow("Event Date is required");
+
+    });
+
+    test("should throw error when amount is missing", () => {
+
+      expect(() =>
+        createBooking({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+          expense: 2000,
+        })
+      ).toThrow("Amount is required");
+
+    });
+
+    test("should throw error when amount is not a valid number", () => {
+
+      expect(() =>
+        createBooking({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+          amount: "5000",
+          expense: 2000,
+        })
+      ).toThrow("Amount must be a valid number");
+
+    });
+
+    test("should throw error when amount is negative", () => {
+
+      expect(() =>
+        createBooking({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+          amount: -5000,
+          expense: 2000,
+        })
+      ).toThrow("Amount cannot be negative");
+
+    });
+
+    test("should throw error when expense is missing", () => {
+
+      expect(() =>
+        createBooking({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+          amount: 5000,
+        })
+      ).toThrow("Expense is required");
+
+    });
+
+    test("should throw error when expense is not a valid number", () => {
+
+      expect(() =>
+        createBooking({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+          amount: 5000,
+          expense: "2000",
+        })
+      ).toThrow("Expense must be a valid number");
+
+    });
+
+    test("should throw error when expense is negative", () => {
+
+      expect(() =>
+        createBooking({
+          clientName: "Franklin",
+          eventDate: "2026-07-20",
+          amount: 5000,
+          expense: -2000,
+        })
+      ).toThrow("Expense cannot be negative");
 
     });
 
