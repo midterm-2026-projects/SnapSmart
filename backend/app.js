@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 
+
 // Booking Routes
 app.use("/", bookingRoutes);
 
@@ -28,6 +29,8 @@ app.use("/reports", reportRoutes);
 
 // Dashboard Routes
 app.use("/dashboard", dashboardRoutes);
+// Gallery Routes
+app.use("/", galleryRoutes);
 
 export default app;
 
