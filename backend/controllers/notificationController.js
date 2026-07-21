@@ -4,7 +4,6 @@ import {
     markAsRead
 } from "../services/notificationService.js";
 
-
 // Create Notification
 export const createNotificationController = async (req, res) => {
 
@@ -13,14 +12,14 @@ export const createNotificationController = async (req, res) => {
         const notification =
             await createNotification(req.body);
 
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             data: notification
         });
 
     } catch (error) {
 
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: error.message
         });
@@ -40,14 +39,14 @@ export const getNotificationsController = async (req, res) => {
                 req.params.customerId
             );
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             data: notifications
         });
 
     } catch (error) {
 
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: error.message
         });
@@ -65,14 +64,14 @@ export const markAsReadController = async (req, res) => {
         const notification =
             await markAsRead(req.params.id);
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             data: notification
         });
 
     } catch (error) {
 
-        res.status(404).json({
+        return res.status(404).json({
             success: false,
             message: error.message
         });

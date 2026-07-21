@@ -1,7 +1,7 @@
 import express from "express";
 
-import bookingRoutes from "./routes/bookingRoutes.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
@@ -24,8 +24,6 @@ app.use("/api/notifications", notificationRoutes);
 
 // Report Routes
 app.use("/reports", reportRoutes);
-
-// Dashboard Routes
 
 export default app;
 
