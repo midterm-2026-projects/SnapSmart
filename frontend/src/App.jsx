@@ -1,58 +1,70 @@
 import "./App.css";
-import BookingForm from "./components/BookingForm";
+import "./styles/evaluator.css";
 
-import PerformanceMetrics from "./components/PerformanceMetrics";
-import RevenueAnalyticsChart from "./components/RevenueAnalyticsChart";
-import ReportActionButtons from "./components/ReportActionButtons";
+import Dashboard from "./pages/Dashboard";
+import Reports from "./pages/Reports";
+import Analytics from "./pages/Analytics";
 
-function App() {
-  const metrics = [
-    {
-      title: "Booking Completion",
-      value: 85,
-    },
-    {
-      title: "Customer Satisfaction",
-      value: 92,
-    },
-    {
-      title: "Revenue Growth",
-      value: 76,
-    },
-  ];
 
-  const revenueData = [
-    {
-      month: "January",
-      revenue: 25,
-    },
-    {
-      month: "February",
-      revenue: 45,
-    },
-    {
-      month: "March",
-      revenue: 70,
-    },
-  ];
+function App(){
 
-  function handleGenerate() {
-    alert("Generate Report clicked");
-  }
+return (
 
-  function handleDownload() {
-    alert("Download Report clicked");
-  }
+<div className="layout">
 
-  function handleExport() {
-    alert("Export Report clicked");
-  }
 
-  return (
-    <div>
-      <BookingForm />
-    </div>
-  );
+<aside className="sidebar">
+
+<h2>
+SnapSmart
+</h2>
+
+
+<nav>
+
+<p>📊 Dashboard</p>
+<p>📄 Reports</p>
+<p>📈 Analytics</p>
+
+</nav>
+
+
+</aside>
+
+
+
+<main className="main-content">
+
+
+<header className="top-header">
+
+<h1>
+Dashboard Overview
+</h1>
+
+<p>
+End-to-End Testing Evaluation System
+</p>
+
+</header>
+
+
+
+<Dashboard/>
+
+<Reports/>
+
+<Analytics/>
+
+
+</main>
+
+
+</div>
+
+)
+
 }
+
 
 export default App;
