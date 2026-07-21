@@ -10,6 +10,7 @@ describe("Photo Management API Integration Test", () => {
     galleries.length = 0;
   });
 
+  
   describe("POST /gallery/:id/photos", () => {
 
     test("should upload photo successfully", async () => {

@@ -31,6 +31,7 @@ export function createGallery(data) {
 
 }
 
+
 // Get Gallery by ID
 export function getGalleryById(id) {
 

@@ -95,18 +95,7 @@ describe("Gallery Service Unit Tests", () => {
 
     });
 
-    test("should throw error when file size exceeds 500 MB", () => {
-
-      expect(() =>
-        createGallery({
-          clientName: "Franklin",
-          imageName: "wedding.jpg",
-          eventType: "Wedding",
-          fileSize: 700,
-        })
-      ).toThrow("File size exceeds the 500 MB limit");
-
-    });
+   
 
     test("should throw error when file size exceeds 500 MB", () => {
       expect(() =>
@@ -168,287 +157,140 @@ describe("Gallery Service Unit Tests", () => {
     });
   });
 
-  /* ===========================
-      PHOTO MANAGEMENT TESTS
-  =========================== */
+ /* ===========================
+    PHOTO MANAGEMENT TESTS
+=========================== */
 
-  describe("uploadPhoto()", () => {
-    test("should upload photo successfully", () => {
-      galleryModel.getGalleryById.mockReturnValue({
-        id: 1,
-      });
+describe("uploadPhoto()", () => {
+  test("should upload photo successfully", () => {
+    galleryModel.getGalleryById.mockReturnValue({
+      id: 1,
+    });
 
-      galleryModel.uploadPhoto.mockReturnValue({
-        id: 1,
-        galleryId: 1,
+    galleryModel.uploadPhoto.mockReturnValue({
+      id: 1,
+      galleryId: 1,
+      photoName: "photo1.jpg",
+      fileSize: 120,
+    });
+
+    const photo = uploadPhoto(1, {
+      photoName: "photo1.jpg",
+      fileSize: 120,
+    });
+
+    expect(photo.id).toBe(1);
+
+    expect(galleryModel.uploadPhoto).toHaveBeenCalledWith(1, {
+      photoName: "photo1.jpg",
+      fileSize: 120,
+    });
+  });
+
+  test("should throw error when gallery ID is missing", () => {
+    expect(() =>
+      uploadPhoto(null, {
         photoName: "photo1.jpg",
         fileSize: 120,
-      });
+      })
+    ).toThrow("Gallery ID is required");
+  });
 
-      const photo = uploadPhoto(1, {
+  test("should throw error when gallery does not exist", () => {
+    galleryModel.getGalleryById.mockReturnValue(null);
+
+    expect(() =>
+      uploadPhoto(1, {
         photoName: "photo1.jpg",
         fileSize: 120,
-      });
+      })
+    ).toThrow("Gallery not found");
+  });
 
-      expect(photo.id).toBe(1);
+  test("should throw error when photo name is missing", () => {
+    expect(() =>
+      uploadPhoto(1, {
+        fileSize: 120,
+      })
+    ).toThrow("Photo Name is required");
+  });
 
-      expect(galleryModel.uploadPhoto).toHaveBeenCalledWith(1, {
+  test("should throw error when file size is missing", () => {
+    expect(() =>
+      uploadPhoto(1, {
         photoName: "photo1.jpg",
-        fileSize: 120,
-      });
-    });
-
-    test("should throw error when gallery ID is missing", () => {
-      expect(() =>
-        uploadPhoto(null, {
-          photoName: "photo1.jpg",
-          fileSize: 120,
-        })
-      ).toThrow("Gallery ID is required");
-    });
-
-    test("should throw error when gallery does not exist", () => {
-      galleryModel.getGalleryById.mockReturnValue(null);
-
-      expect(() =>
-        uploadPhoto(1, {
-          photoName: "photo1.jpg",
-          fileSize: 120,
-        })
-      ).toThrow("Gallery not found");
-    });
-
-    test("should throw error when photo name is missing", () => {
-      expect(() =>
-        uploadPhoto(1, {
-          fileSize: 120,
-        })
-      ).toThrow("Photo Name is required");
-    });
-
-    test("should throw error when file size is missing", () => {
-      expect(() =>
-        uploadPhoto(1, {
-          photoName: "photo1.jpg",
-        })
-      ).toThrow("File Size is required");
-    });
-
-    test("should reject file larger than 500 MB", () => {
-      expect(() =>
-        uploadPhoto(1, {
-          photoName: "photo1.jpg",
-          fileSize: 700,
-        })
-      ).toThrow("File size exceeds the 500 MB limit");
-    });
+      })
+    ).toThrow("File Size is required");
   });
 
-  describe("getPhotosByGallery()", () => {
-    test("should return gallery photos", () => {
-      const mockPhotos = [
-        {
-          id: 1,
-          photoName: "photo1.jpg",
-        },
-      ];
-
-      galleryModel.getGalleryById.mockReturnValue({ id: 1 });
-
-      galleryModel.getPhotosByGallery.mockReturnValue(mockPhotos);
-
-      const photos = getPhotosByGallery(1);
-
-      expect(photos).toEqual(mockPhotos);
-
-      expect(galleryModel.getPhotosByGallery).toHaveBeenCalledWith(1);
-    });
-
-    test("should throw error when gallery ID is missing", () => {
-      expect(() => getPhotosByGallery()).toThrow(
-        "Gallery ID is required"
-      );
-    });
-
-    test("should throw error when gallery does not exist", () => {
-      galleryModel.getGalleryById.mockReturnValue(null);
-
-      expect(() => getPhotosByGallery(99)).toThrow(
-        "Gallery not found"
-      );
-    });
-  });
-
-  describe("deletePhoto()", () => {
-    test("should delete photo successfully", () => {
-      galleryModel.deletePhoto.mockReturnValue({
-        id: 1,
-      });
-
-      const photo = deletePhoto(1);
-
-      expect(photo.id).toBe(1);
-
-      expect(galleryModel.deletePhoto).toHaveBeenCalledWith(1);
-    });
-
-    test("should throw error when photo does not exist", () => {
-      galleryModel.deletePhoto.mockReturnValue(null);
-
-      expect(() => deletePhoto(999)).toThrow("Photo not found");
-    });
-
-    test("should throw error when photo ID is missing", () => {
-      expect(() => deletePhoto()).toThrow("Photo ID is required");
-    });
-
-  });
-
-  /* ===========================
-      PHOTO MANAGEMENT TESTS
-  =========================== */
-
-  describe("uploadPhoto()", () => {
-
-    test("should upload photo successfully", () => {
-
-      galleryModel.createGallery.mockReturnValue({
-        id: 2,
-        galleryId: 1,
-        imageName: "photo1.jpg",
-        fileSize: 120,
-      });
-
-      const photo = uploadPhoto({
-        galleryId: 1,
+  test("should reject file larger than 500 MB", () => {
+    expect(() =>
+      uploadPhoto(1, {
         photoName: "photo1.jpg",
-        fileSize: 120,
-      });
-
-      expect(photo.id).toBe(2);
-
-    });
-
-    test("should throw error when gallery ID is missing", () => {
-
-      expect(() =>
-        uploadPhoto({
-          photoName: "photo1.jpg",
-          fileSize: 120,
-        })
-      ).toThrow("Gallery ID is required");
-
-    });
-
-    test("should throw error when photo name is missing", () => {
-
-      expect(() =>
-        uploadPhoto({
-          galleryId: 1,
-          fileSize: 120,
-        })
-      ).toThrow("Photo Name is required");
-
-    });
-
-    test("should throw error when file size is missing", () => {
-
-      expect(() =>
-        uploadPhoto({
-          galleryId: 1,
-          photoName: "photo1.jpg",
-        })
-      ).toThrow("File Size is required");
-
-    });
-
-    test("should reject file larger than 500 MB", () => {
-
-      expect(() =>
-        uploadPhoto({
-          galleryId: 1,
-          photoName: "photo1.jpg",
-          fileSize: 700,
-        })
-      ).toThrow("File size exceeds the 500 MB limit");
-
-    });
-
+        fileSize: 700,
+      })
+    ).toThrow("File size exceeds the 500 MB limit");
   });
+});
 
-  describe("getPhotosByGallery()", () => {
-
-    test("should return gallery photos", () => {
-
-      const mockPhotos = [
-        {
-          id: 1,
-          galleryId: 1,
-          imageName: "photo1.jpg",
-        },
-        {
-          id: 2,
-          galleryId: 1,
-          imageName: "photo2.jpg",
-        },
-      ];
-
-      galleryModel.getPhotosByGallery.mockReturnValue(mockPhotos);
-
-      const photos = getPhotosByGallery(1);
-
-      expect(photos).toEqual(mockPhotos);
-
-      expect(galleryModel.getPhotosByGallery).toHaveBeenCalledWith(1);
-
-    });
-
-    test("should throw error when gallery ID is missing", () => {
-
-      expect(() =>
-        getPhotosByGallery()
-      ).toThrow("Gallery ID is required");
-
-    });
-
-  });
-
-  describe("deletePhoto()", () => {
-
-    test("should delete photo successfully", () => {
-
-      galleryModel.getGalleryById.mockReturnValue({
+describe("getPhotosByGallery()", () => {
+  test("should return gallery photos", () => {
+    const mockPhotos = [
+      {
         id: 1,
-      });
+        photoName: "photo1.jpg",
+      },
+    ];
 
-      galleryModel.deleteGallery.mockReturnValue({
-        id: 1,
-      });
-
-      const photo = deletePhoto(1);
-
-      expect(photo.id).toBe(1);
-
+    galleryModel.getGalleryById.mockReturnValue({
+      id: 1,
     });
 
-    test("should throw error when photo does not exist", () => {
+    galleryModel.getPhotosByGallery.mockReturnValue(mockPhotos);
 
-      galleryModel.getGalleryById.mockReturnValue(null);
+    const photos = getPhotosByGallery(1);
 
-      expect(() =>
-        deletePhoto(999)
-      ).toThrow("Photo not found");
+    expect(photos).toEqual(mockPhotos);
 
-    });
-
-    test("should throw error when photo ID is missing", () => {
-
-      expect(() =>
-        deletePhoto()
-      ).toThrow("Photo ID is required");
-
-    });
-
+    expect(galleryModel.getPhotosByGallery).toHaveBeenCalledWith(1);
   });
 
+  test("should throw error when gallery ID is missing", () => {
+    expect(() => getPhotosByGallery()).toThrow(
+      "Gallery ID is required"
+    );
+  });
+
+  test("should throw error when gallery does not exist", () => {
+    galleryModel.getGalleryById.mockReturnValue(null);
+
+    expect(() => getPhotosByGallery(99)).toThrow(
+      "Gallery not found"
+    );
+  });
+});
+
+describe("deletePhoto()", () => {
+  test("should delete photo successfully", () => {
+    galleryModel.deletePhoto.mockReturnValue({
+      id: 1,
+    });
+
+    const photo = deletePhoto(1);
+
+    expect(photo.id).toBe(1);
+
+    expect(galleryModel.deletePhoto).toHaveBeenCalledWith(1);
+  });
+
+  test("should throw error when photo does not exist", () => {
+    galleryModel.deletePhoto.mockReturnValue(null);
+
+    expect(() => deletePhoto(999)).toThrow("Photo not found");
+  });
+
+  test("should throw error when photo ID is missing", () => {
+    expect(() => deletePhoto()).toThrow("Photo ID is required");
+  });
+});
 });

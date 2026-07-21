@@ -10,6 +10,7 @@ const app = express();
 
 app.use(express.json());
 
+
 // Booking Routes
 app.use("/", bookingRoutes);
 

@@ -19,6 +19,7 @@ export function createGallery(req, res) {
   }
 }
 
+
 export function getGalleryById(req, res) {
   try {
     const gallery = galleryService.getGalleryById(req.params.id);

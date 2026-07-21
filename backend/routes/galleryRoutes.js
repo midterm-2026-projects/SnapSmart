@@ -9,6 +9,7 @@ import {
   deletePhoto,
 } from "../controllers/galleryController.js";
 
+
 const router = express.Router();
 
 /* ===========================

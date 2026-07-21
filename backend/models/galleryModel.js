@@ -13,6 +13,7 @@ export function createGallery(data) {
   return gallery;
 }
 
+
 // Get Gallery by ID
 export function getGalleryById(id) {
   return galleries.find(
