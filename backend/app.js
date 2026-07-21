@@ -25,6 +25,9 @@ app.use("/api/notifications", notificationRoutes);
 // Report Routes
 app.use("/reports", reportRoutes);
 
+// Gallery Routes
+app.use("/", galleryRoutes);
+
 export default app;
 
 if (process.env.NODE_ENV !== "test") {

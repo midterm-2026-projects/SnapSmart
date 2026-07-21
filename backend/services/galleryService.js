@@ -4,7 +4,7 @@ import * as galleryModel from "../models/galleryModel.js";
    GALLERY FUNCTIONS
 =========================== */
 
-// Create Gallery / Upload Image
+// Create Gallery
 export function createGallery(data) {
 
   if (!data.clientName) {
@@ -61,9 +61,9 @@ export function deleteGallery(id) {
 =========================== */
 
 // Upload Photo
-export function uploadPhoto(data) {
+export function uploadPhoto(galleryId, data) {
 
-  if (!data.galleryId) {
+  if (!galleryId) {
     throw new Error("Gallery ID is required");
   }
 
@@ -79,14 +79,13 @@ export function uploadPhoto(data) {
     throw new Error("File size exceeds the 500 MB limit");
   }
 
-  // Save photo using Gallery Model
-  return galleryModel.createGallery({
-    clientName: data.clientName || "Unknown Client",
-    imageName: data.photoName,
-    eventType: data.eventType || "Unknown Event",
-    fileSize: data.fileSize,
-    galleryId: data.galleryId,
-  });
+  const gallery = galleryModel.getGalleryById(galleryId);
+
+  if (!gallery) {
+    throw new Error("Gallery not found");
+  }
+
+  return galleryModel.uploadPhoto(galleryId, data);
 
 }
 
@@ -95,6 +94,12 @@ export function getPhotosByGallery(galleryId) {
 
   if (!galleryId) {
     throw new Error("Gallery ID is required");
+  }
+
+  const gallery = galleryModel.getGalleryById(galleryId);
+
+  if (!gallery) {
+    throw new Error("Gallery not found");
   }
 
   return galleryModel.getPhotosByGallery(galleryId);
@@ -108,12 +113,12 @@ export function deletePhoto(id) {
     throw new Error("Photo ID is required");
   }
 
-  const photo = galleryModel.getGalleryById(id);
+  const photo = galleryModel.deletePhoto(id);
 
   if (!photo) {
     throw new Error("Photo not found");
   }
 
-  return galleryModel.deleteGallery(id);
+  return photo;
 
 }
