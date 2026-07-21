@@ -5,9 +5,41 @@ import notificationModel from "../models/notificationModel.js";
 export const createNotification = async (data) => {
 
 
+    if (!data) {
+
+        throw new Error(
+            "Customer ID, recipient, and message are required"
+        );
+
+    }
+
+
     if (
-        (!data.customerId && !data.userId) ||
-        (!data.message && !data.title)
+        !data.customerId &&
+        !data.userId
+    ) {
+
+        throw new Error(
+            "Customer ID, recipient, and message are required"
+        );
+
+    }
+
+
+    if (
+        !data.message
+    ) {
+
+        throw new Error(
+            "Customer ID, recipient, and message are required"
+        );
+
+    }
+
+
+    if (
+        !data.recipient &&
+        !data.title
     ) {
 
         throw new Error(
@@ -20,6 +52,7 @@ export const createNotification = async (data) => {
     return await notificationModel.create(data);
 
 };
+
 
 
 
@@ -39,6 +72,27 @@ export const getNotificationsByCustomer = async (customerId) => {
     return await notificationModel.findByCustomerId(customerId);
 
 };
+
+
+
+
+// Get User Notifications
+export const getNotificationsByUser = async (userId) => {
+
+
+    if (!userId) {
+
+        throw new Error(
+            "User ID is required"
+        );
+
+    }
+
+
+    return await notificationModel.findByUserId(userId);
+
+};
+
 
 
 
