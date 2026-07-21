@@ -1,6 +1,5 @@
 import notificationModel from "../models/notificationModel.js";
 
-
 // Create Notification
 export const createNotification = async (data) => {
 
@@ -16,7 +15,7 @@ export const createNotification = async (data) => {
 
     }
 
-    return await notificationModel.create(data);
+    return notificationModel.create(data);
 
 };
 
@@ -32,7 +31,7 @@ export const getNotificationsByCustomer = async (customerId) => {
 
     }
 
-    return await notificationModel.findByCustomerId(customerId);
+    return notificationModel.findByCustomerId(customerId);
 
 };
 
