@@ -4,19 +4,41 @@ import supabase from "../config/supabaseClient.js";
 const notificationModel = {
 
 
-    create: async(data)=>{
+
+    create: async (data) => {
 
 
-        const { data: result, error } =
+        const notification = {
+
+            user_id:
+                data.userId ||
+                data.customerId,
+
+
+            title:
+                data.title ||
+                "Notification",
+
+
+            message:
+                data.message,
+
+
+            is_read:
+                false
+
+        };
+
+
+
+        const {
+            data: result,
+            error
+        } =
             await supabase
             .from("notifications")
             .insert([
-                {
-                    user_id: data.userId || data.customerId,
-                    title: data.title,
-                    message: data.message,
-                    is_read:false
-                }
+                notification
             ])
             .select()
             .single();
@@ -24,13 +46,23 @@ const notificationModel = {
 
 
         if(error){
+
+            console.log(
+                "SUPABASE CREATE ERROR:",
+                error.message
+            );
+
             throw error;
+
         }
+
 
 
         return result;
 
+
     },
+
 
 
 
@@ -38,7 +70,10 @@ const notificationModel = {
     findByCustomerId: async(customerId)=>{
 
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabase
             .from("notifications")
             .select("*")
@@ -56,13 +91,18 @@ const notificationModel = {
 
 
         if(error){
+
             throw error;
+
         }
+
 
 
         return data;
 
+
     },
+
 
 
 
@@ -80,14 +120,20 @@ const notificationModel = {
 
 
 
+
     markAsRead: async(id)=>{
 
 
-        const { data,error } =
+        const {
+            data,
+            error
+        } =
             await supabase
             .from("notifications")
             .update({
+
                 is_read:true
+
             })
             .eq(
                 "id",
@@ -99,8 +145,11 @@ const notificationModel = {
 
 
         if(error){
+
             throw error;
+
         }
+
 
 
         return data;
@@ -110,6 +159,7 @@ const notificationModel = {
 
 
 };
+
 
 
 export default notificationModel;
