@@ -7,6 +7,7 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 
 const app = express();
@@ -36,6 +37,10 @@ app.use("/api/notifications", notificationRoutes);
 // Report Routes
 app.use("/reports", reportRoutes);
 
+// Dashboard Routes
+app.use("/dashboard", dashboardRoutes);
+// Gallery Routes
+app.use("/", galleryRoutes);
 
 export default app;
 
