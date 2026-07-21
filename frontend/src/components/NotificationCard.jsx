@@ -3,6 +3,33 @@ import React from "react";
 
 const NotificationCard = ({ notification }) => {
 
+
+  const displayDate = () => {
+
+
+    if (notification.date) {
+
+      return notification.date;
+
+    }
+
+
+    if (notification.created_at) {
+
+
+      return notification.created_at.split("T")[0];
+
+
+    }
+
+
+    return "";
+
+
+  };
+
+
+
   return (
 
     <div
@@ -10,28 +37,37 @@ const NotificationCard = ({ notification }) => {
       data-testid="notification-card"
     >
 
+
       <h3>
+
         {notification.title}
+
       </h3>
 
 
+
+
       <p>
+
         {notification.message}
+
       </p>
 
 
+
+
       <small>
-        {
-          notification.created_at
-          ? new Date(notification.created_at).toLocaleString()
-          : ""
-        }
+
+        {displayDate()}
+
       </small>
+
 
 
     </div>
 
   );
+
 
 };
 
