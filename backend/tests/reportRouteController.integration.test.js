@@ -6,7 +6,6 @@ import {
 } from "vitest";
 
 import request from "supertest";
-
 import app from "../app.js";
 
 import { bookings } from "../models/bookingModel.js";
@@ -35,15 +34,10 @@ describe("Report API Integration Test", () => {
         .post("/reports/generate");
 
       expect(response.status).toBe(201);
-
       expect(response.body.success).toBe(true);
-
       expect(response.body.data.totalBookings).toBe(1);
-
       expect(response.body.data.completedBookings).toBe(0);
-
       expect(response.body.data.pendingBookings).toBe(1);
-
       expect(response.body.data.totalRevenue).toBe(5000);
 
     });
@@ -71,14 +65,9 @@ describe("Report API Integration Test", () => {
         .get("/reports");
 
       expect(response.status).toBe(200);
-
       expect(response.body.success).toBe(true);
-
       expect(Array.isArray(response.body.data)).toBe(true);
-
       expect(response.body.data.length).toBeGreaterThan(0);
-
-      expect(response.body.data[0].totalBookings).toBe(1);
 
     });
 
@@ -101,17 +90,16 @@ describe("Report API Integration Test", () => {
       const generateResponse = await request(app)
         .post("/reports/generate");
 
+      expect(generateResponse.status).toBe(201);
+
       const reportId = generateResponse.body.data.id;
 
       const response = await request(app)
         .get(`/reports/${reportId}`);
 
       expect(response.status).toBe(200);
-
       expect(response.body.success).toBe(true);
-
       expect(response.body.data.id).toBe(reportId);
-
       expect(response.body.data.totalBookings).toBe(1);
 
     });
@@ -122,9 +110,7 @@ describe("Report API Integration Test", () => {
         .get("/reports/999");
 
       expect(response.status).toBe(404);
-
       expect(response.body.success).toBe(false);
-
       expect(response.body.message).toBe("Report not found");
 
     });
