@@ -5,9 +5,10 @@ on:
     branches: ["**"]
   pull_request:
     branches:
-    - "main"
+      - "main"
 
 jobs:
+
   # ─────────────────────────────────────────────
   # 1. BACKEND
   # ─────────────────────────────────────────────
@@ -20,23 +21,31 @@ jobs:
         working-directory: backend
 
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v4
+
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: "npm"
           cache-dependency-path: backend/package-lock.json
 
+
       - name: Install dependencies
         run: npm ci
+
 
       - name: Run unit tests
         run: npm run test
         env:
           NODE_ENV: test
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+
 
       - name: Upload backend coverage report
         uses: actions/upload-artifact@v4
@@ -44,6 +53,7 @@ jobs:
         with:
           name: backend-coverage
           path: backend/coverage/
+
 
   # ─────────────────────────────────────────────
   # 2. FRONTEND
@@ -57,8 +67,10 @@ jobs:
         working-directory: frontend
 
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v4
+
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -67,11 +79,14 @@ jobs:
           cache: "npm"
           cache-dependency-path: frontend/package-lock.json
 
+
       - name: Install dependencies
         run: npm ci
 
+
       - name: Run component tests
         run: npm run test
+
 
       - name: Upload frontend coverage report
         uses: actions/upload-artifact@v4
@@ -80,10 +95,11 @@ jobs:
           name: frontend-coverage
           path: frontend/coverage/
 
+
   # ─────────────────────────────────────────────
   # 3. E2E Tests
   # ─────────────────────────────────────────────
-
+  # Future implementation
 
 
   # ─────────────────────────────────────────────
