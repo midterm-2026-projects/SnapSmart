@@ -1,28 +1,73 @@
+import groq from "../config/groqClient.js";
+
+
 export async function getChatbotResponse(message) {
-  const userMessage = message.toLowerCase().trim();
 
-  if (userMessage.includes("booking")) {
-    return "You can book a photography session through our booking page.";
-  }
 
-  if (userMessage.includes("price")) {
-    return "Our pricing depends on the package you choose.";
-  }
+    try {
 
-  if (userMessage.includes("location")) {
-    return "Our studio location is available on the Contact Us page.";
-  }
+        const response =
+            await groq.chat.completions.create({
 
-  if (userMessage.includes("hello") || userMessage.includes("hi")) {
-    return "Hello! How can I help you today?";
-  }
+                model: "llama-3.1-8b-instant",
 
-  return "Sorry, I don't understand your question yet.";
+                messages: [
+
+                    {
+                        role: "system",
+                        content: `
+You are SnapSmart AI.
+
+SnapSmart is a photography booking and gallery management system.
+
+Rules:
+- Help customers with SnapSmart services only.
+- Explain booking process, packages, pricing, and galleries.
+- Do not invent features.
+- Do not mention mobile apps.
+- Do not mention other photographers.
+- Do not mention phone numbers or emails.
+- Payment is handled manually by the admin.
+- Keep responses short and professional.
+
+`
+                    },
+
+                    {
+                        role: "user",
+                        content: message
+                    }
+
+                ]
+
+            });
+
+
+        return response
+            .choices[0]
+            .message
+            .content;
+
+
+    } catch(error) {
+
+        console.error(
+            "Groq Error:",
+            error.message
+        );
+
+        throw error;
+
+    }
+
 }
 
+
 export function validateUserMessage(message) {
-  return (
-    typeof message === "string" &&
-    message.trim().length > 0
-  );
+
+    return (
+        typeof message === "string" &&
+        message.trim().length > 0
+    );
+
 }

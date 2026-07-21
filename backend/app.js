@@ -1,5 +1,5 @@
+import "dotenv/config";
 import express from "express";
-
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
