@@ -1,116 +1,113 @@
-let notifications = [];
+import supabase from "../config/supabaseClient.js";
 
 
 const notificationModel = {
 
 
-    create: async (data) => {
+    create: async(data)=>{
 
 
-        const notification = {
-
-            id: notifications.length + 1,
-
-            customerId:
-                data.customerId || data.userId,
-
-            recipient:
-                data.recipient || "customer",
-
-            message: data.message,
-
-            title:
-                data.title || "Notification",
-
-            isRead: false,
-
-            createdAt: new Date()
-
-        };
+        const { data: result, error } =
+            await supabase
+            .from("notifications")
+            .insert([
+                {
+                    user_id: data.userId || data.customerId,
+                    title: data.title,
+                    message: data.message,
+                    is_read:false
+                }
+            ])
+            .select()
+            .single();
 
 
-        notifications.push(notification);
+
+        if(error){
+            throw error;
+        }
 
 
-        return notification;
+        return result;
 
     },
 
 
 
-    findByCustomerId: async (customerId) => {
+
+    findByCustomerId: async(customerId)=>{
 
 
-        return notifications.filter(
-
-            (notification) =>
-
-                notification.customerId === Number(customerId)
-
-        );
-
-    },
-
-
-
-    findByUserId: async (userId) => {
-
-
-        return notifications.filter(
-
-            (notification) =>
-
-                notification.customerId === Number(userId)
-
-        );
-
-    },
-
-
-
-    findAdminNotifications: async () => {
-
-
-        return notifications.filter(
-
-            (notification) =>
-
-                notification.recipient === "admin"
-
-        );
-
-    },
-
-
-
-    markAsRead: async (id) => {
-
-
-        const notification =
-            notifications.find(
-
-                (notification) =>
-
-                    notification.id === Number(id)
-
+        const { data, error } =
+            await supabase
+            .from("notifications")
+            .select("*")
+            .eq(
+                "user_id",
+                customerId
+            )
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
             );
 
 
 
-        if (!notification) {
-
-            return null;
-
+        if(error){
+            throw error;
         }
 
 
+        return data;
 
-        notification.isRead = true;
+    },
 
 
-        return notification;
+
+
+    findByUserId: async(userId)=>{
+
+
+        return await notificationModel.findByCustomerId(
+            userId
+        );
+
+
+    },
+
+
+
+
+    markAsRead: async(id)=>{
+
+
+        const { data,error } =
+            await supabase
+            .from("notifications")
+            .update({
+                is_read:true
+            })
+            .eq(
+                "id",
+                id
+            )
+            .select()
+            .single();
+
+
+
+        if(error){
+            throw error;
+        }
+
+
+        return data;
+
 
     }
+
 
 };
 

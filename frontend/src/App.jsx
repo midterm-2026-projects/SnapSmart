@@ -1,11 +1,16 @@
 import "./App.css";
-import BookingForm from "./components/BookingForm";
+
+// import BookingForm from "./components/BookingForm";
+import ChatbotInterface from "./components/ChatbotInterface";
+import NotificationContainer from "./components/NotificationContainer";
 
 import PerformanceMetrics from "./components/PerformanceMetrics";
 import RevenueAnalyticsChart from "./components/RevenueAnalyticsChart";
 import ReportActionButtons from "./components/ReportActionButtons";
 
+
 function App() {
+
   const metrics = [
     {
       title: "Booking Completion",
@@ -20,6 +25,7 @@ function App() {
       value: 76,
     },
   ];
+
 
   const revenueData = [
     {
@@ -36,23 +42,38 @@ function App() {
     },
   ];
 
+
   function handleGenerate() {
     alert("Generate Report clicked");
   }
+
 
   function handleDownload() {
     alert("Download Report clicked");
   }
 
+
   function handleExport() {
     alert("Export Report clicked");
   }
 
+
   return (
     <div>
-      <BookingForm />
+
+
+      {/* <BookingForm /> */}
+
+
+      <ChatbotInterface />
+
+
+      <NotificationContainer />
+
+
     </div>
   );
 }
+
 
 export default App;
