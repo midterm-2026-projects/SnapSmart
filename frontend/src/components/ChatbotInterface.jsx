@@ -1,100 +1,328 @@
 import { useState } from "react";
 
+
 function MessageDisplay({ messages }) {
+
   return (
-    <div data-testid="message-display">
+
+    <div
+      className="message-display"
+      data-testid="message-display"
+    >
+
       {messages.length === 0 ? (
-        <p data-testid="empty-message">
+
+        <p className="empty-message">
           No messages yet.
         </p>
+
       ) : (
+
         messages.map((message) => (
-          <div 
+
+          <div
             key={message.id}
-            data-testid="message-item"
+            className={
+              message.sender === "User"
+                ? "message user-message"
+                : "message bot-message"
+            }
           >
-            <strong>{message.sender}:</strong>{" "}
+
             {message.text}
+
           </div>
+
         ))
+
       )}
+
     </div>
+
   );
+
 }
+
+
+
 
 
 function UserInput({ onSend }) {
+
   const [input, setInput] = useState("");
 
+
+
   const handleSubmit = (e) => {
+
     e.preventDefault();
+
 
     if (!input.trim()) return;
 
+
     onSend(input.trim());
+
+
     setInput("");
+
   };
 
+
+
   return (
-    <form 
+
+    <form
+      className="chat-input"
       data-testid="user-input-form"
       onSubmit={handleSubmit}
     >
+
       <input
+
         data-testid="user-input"
-        placeholder="Type your message..."
+
+        placeholder="Ask SnapSmart..."
+
         value={input}
+
         onChange={(e) => setInput(e.target.value)}
+
       />
 
+
       <button
+
         data-testid="send-button"
+
         type="submit"
+
       >
+
         Send
+
       </button>
+
+
     </form>
+
   );
+
 }
 
 
-export default function ChatbotInterface() {
+
+
+
+function ChatbotInterface() {
+
+
   const [messages, setMessages] = useState([]);
 
-  const handleSend = (text) => {
-    if (!text.trim()) return;
+
+
+
+
+  const handleSend = async (text) => {
+
+
+    const userMessage = {
+
+      id: Date.now(),
+
+      sender: "User",
+
+      text: text
+
+    };
+
+
+
+    const botMessage = {
+
+      id: Date.now() + 1,
+
+      sender: "Bot",
+
+      text: "Message received!"
+
+    };
+
+
+
+
+    // Immediately display messages for testing/UI response
 
     setMessages((previousMessages) => [
+
       ...previousMessages,
 
-      {
-        id: Date.now(),
-        sender: "User",
-        text: text,
-      },
+      userMessage,
 
-      {
-        id: Date.now() + 1,
-        sender: "Bot",
-        text: "Message received!",
-      },
+      botMessage
+
     ]);
+
+
+
+
+
+    try {
+
+
+      const response = await fetch(
+
+        "http://localhost:3000/api/chatbot",
+
+        {
+
+          method: "POST",
+
+          headers: {
+
+            "Content-Type": "application/json"
+
+          },
+
+
+          body: JSON.stringify({
+
+            message: text
+
+          })
+
+        }
+
+      );
+
+
+
+
+
+      const data = await response.json();
+
+
+
+
+
+      setMessages((previousMessages) =>
+
+        previousMessages.map((message) =>
+
+          message.id === botMessage.id
+
+            ? {
+
+                ...message,
+
+                text: data.response || "Message received!"
+
+              }
+
+            : message
+
+        )
+
+      );
+
+
+
+    } catch (error) {
+
+
+      console.log(
+        "Chatbot server unavailable:",
+        error
+      );
+
+
+    }
+
+
   };
 
 
+
+
+
+
+
   return (
-    <div 
+
+    <div
+
+      className="chatbot-container"
+
       data-testid="chatbot-interface"
+
     >
-      <h1>Chatbot</h1>
 
-      <MessageDisplay 
+
+      <div className="chatbot-header">
+
+
+        <div>
+
+
+          <h2>
+
+            SnapSmart AI Chatbot
+
+          </h2>
+
+
+
+          <small>
+
+            Photography Assistant
+
+          </small>
+
+
+
+        </div>
+
+
+
+
+        <span>
+
+          ● Online
+
+        </span>
+
+
+
+      </div>
+
+
+
+
+
+      <MessageDisplay
+
         messages={messages}
+
       />
 
-      <UserInput 
+
+
+
+
+      <UserInput
+
         onSend={handleSend}
+
       />
+
+
+
     </div>
+
   );
+
 }
+
+
+
+export default ChatbotInterface;
