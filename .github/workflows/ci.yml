@@ -7,6 +7,7 @@ on:
     branches:
       - "main"
 
+
 jobs:
 
   # ─────────────────────────────────────────────
@@ -55,8 +56,9 @@ jobs:
           path: backend/coverage/
 
 
+
   # ─────────────────────────────────────────────
-  # 2. FRONTEND
+  # 2. FRONTEND COMPONENT TESTS
   # ─────────────────────────────────────────────
   frontend-tests:
     name: "Frontend Tests"
@@ -96,12 +98,44 @@ jobs:
           path: frontend/coverage/
 
 
-  # ─────────────────────────────────────────────
-  # 3. E2E Tests
-  # ─────────────────────────────────────────────
-  # Future implementation
-
 
   # ─────────────────────────────────────────────
-  # 4. Final
+  # 3. PLAYWRIGHT END-TO-END TESTS
   # ─────────────────────────────────────────────
+  e2e-tests:
+    name: "Playwright E2E Tests"
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+
+      - name: Install dependencies
+        run: npm ci
+
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+
+      - name: Start frontend server
+        run: npm run dev &
+
+
+      - name: Run Playwright tests
+        run: npx playwright test
