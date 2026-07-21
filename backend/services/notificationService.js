@@ -4,6 +4,7 @@ import notificationModel from "../models/notificationModel.js";
 // Create Notification
 export const createNotification = async (data) => {
 
+
     if (
         (!data.customerId && !data.userId) ||
         (!data.message && !data.title)
