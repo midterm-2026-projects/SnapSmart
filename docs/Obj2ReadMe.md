@@ -260,6 +260,135 @@ Booking records are first created through the Booking API, after which reports a
 
 ---
 
+# Week 5 Day 1 - Financial Analytics Service Unit Testing
+
+## Task
+
+Create unit tests for the Dashboard Service financial analytics functions that calculate revenue, expenses, and net profit from booking records.
+
+The financial analytics are dynamically generated using booking data stored in the Booking Model without relying on hardcoded values.
+
+### Implemented Functions
+
+- calculateRevenue()
+- calculateExpenses()
+- calculateProfit()
+
+### Data Source
+
+```
+Booking Model
+      ↓
+Dashboard Service
+```
+
+### Test Coverage
+
+#### calculateRevenue()
+
+- Calculate total revenue successfully
+- Sum booking amounts correctly
+- Throw error when no booking data exists
+
+#### calculateExpenses()
+
+- Calculate total expenses successfully
+- Sum booking expenses correctly
+- Throw error when no booking data exists
+
+#### calculateProfit()
+
+- Calculate net profit successfully
+- Compute revenue minus expenses
+- Throw error when no booking data exists
+
+### Expected Output
+
+- Total revenue is calculated correctly.
+- Total expenses are calculated correctly.
+- Net profit is calculated correctly.
+- Empty booking data is handled properly.
+- Financial analytics are dynamically generated from booking records.
+
+---
+
+# Week 5 Day 2 - Financial Analytics API Integration Testing
+
+## Task
+
+Create integration tests for the Dashboard Financial Analytics API endpoints to verify communication between Routes, Controllers, Services, and the Booking Model.
+
+### Tested API Endpoints
+
+- GET /dashboard/revenue
+- GET /dashboard/expenses
+- GET /dashboard/profit
+
+### Integration Flow
+
+```
+HTTP Request
+      ↓
+app.js
+      ↓
+Dashboard Routes
+      ↓
+Dashboard Controller
+      ↓
+Dashboard Service
+      ↓
+Booking Model (Mock Database)
+```
+
+### Test Coverage
+
+#### GET /dashboard/revenue
+
+- Return total revenue successfully
+- Validate HTTP status code
+- Validate API response
+- Return error when no booking data exists
+
+#### GET /dashboard/expenses
+
+- Return total expenses successfully
+- Validate HTTP status code
+- Validate API response
+- Return error when no booking data exists
+
+#### GET /dashboard/profit
+
+- Return net profit successfully
+- Validate HTTP status code
+- Validate API response
+- Return error when no booking data exists
+
+### API Response Validation
+
+The integration tests verify:
+
+- HTTP status codes
+- Success flag
+- Response body
+- Financial analytics values
+- Error handling
+
+### Database Verification
+
+The integration tests use the Booking Model as the mock data source.
+
+Booking records are first created through the Booking API before requesting the dashboard analytics endpoints. The financial analytics are then calculated dynamically from those booking records without using hardcoded values.
+
+### Expected Output
+
+- Revenue endpoint returns the correct total revenue.
+- Expenses endpoint returns the correct total expenses.
+- Profit endpoint returns the correct net profit.
+- Empty booking records return the appropriate error response.
+- Financial analytics are dynamically generated from booking records.
+
+---
+
 # Testing Tools
 
 - Vitest
@@ -274,13 +403,14 @@ Booking records are first created through the Booking API, after which reports a
 ## Backend
 
 - 13 Test Files Passed
+- 84 Tests Passed
 - All Tests Passed Successfully
 
 ---
 
 # Summary
 
-Objective 2 demonstrates backend unit testing and integration testing for booking management, dashboard analytics, report generation, and Report API integration.
+Objective 2 demonstrates backend unit testing and integration testing for booking management, dashboard analytics, financial analytics, report generation, and API integration.
 
 ## Completed Deliverables
 
@@ -289,5 +419,7 @@ Objective 2 demonstrates backend unit testing and integration testing for bookin
 - ✅ Week 3 - Dashboard Service Unit Testing
 - ✅ Week 4 Day 1 - Report Service Unit Testing
 - ✅ Week 4 Day 2 - Report Route-Controller Integration Testing
+- ✅ Week 5 Day 1 - Financial Analytics Service Unit Testing
+- ✅ Week 5 Day 2 - Financial Analytics API Integration Testing
 
-The backend implementation has been validated through unit testing and integration testing to ensure reliable business logic, correct API behavior, proper response validation, dynamic report generation, and successful interaction between Routes, Controllers, Services, and the Booking Model.
+The backend implementation has been validated through unit testing and integration testing to ensure reliable business logic, correct API behavior, proper response validation, dynamic dashboard analytics, financial analytics generation, report generation, and successful interaction between Routes, Controllers, Services, and the Booking Model.
