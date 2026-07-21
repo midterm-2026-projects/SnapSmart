@@ -4,8 +4,10 @@ import {
   calculateProfit,
 } from "../services/dashboardService.js";
 
-// Get Total Revenue
-export const getRevenueController = async (req, res) => {
+// ==============================
+// Revenue Controller
+// ==============================
+export async function getRevenueController(req, res) {
   try {
     const revenue = await calculateRevenue();
 
@@ -21,10 +23,12 @@ export const getRevenueController = async (req, res) => {
       message: error.message,
     });
   }
-};
+}
 
-// Get Total Expenses
-export const getExpensesController = async (req, res) => {
+// ==============================
+// Expenses Controller
+// ==============================
+export async function getExpensesController(req, res) {
   try {
     const expenses = await calculateExpenses();
 
@@ -40,10 +44,12 @@ export const getExpensesController = async (req, res) => {
       message: error.message,
     });
   }
-};
+}
 
-// Get Net Profit
-export const getProfitController = async (req, res) => {
+// ==============================
+// Profit Controller
+// ==============================
+export async function getProfitController(req, res) {
   try {
     const profit = await calculateProfit();
 
@@ -59,4 +65,4 @@ export const getProfitController = async (req, res) => {
       message: error.message,
     });
   }
-};
+}
