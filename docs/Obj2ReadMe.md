@@ -1,212 +1,293 @@
-# Objective 2 – Week 3 Day 1
-## Unit Testing – Analytics Service
+# Objective 2 - Backend Testing
 
-### Student
-**Name:** Jeric De Castro
+## Overview
 
-### Branch
-`analytics-service-unit-testing`
+Objective 2 focuses on validating backend functionality through unit testing and integration testing. The objective ensures that business logic, API endpoints, and backend components behave correctly before full system integration.
 
 ---
 
-# Objective
+# Week 1 - Booking Model Unit Testing
 
-The objective of this task is to implement **unit tests** for the Analytics Service module using **Vitest**. The tests verify that each analytics function returns the expected data independently of the database by using mocked model functions.
+## Task
+
+Create unit tests for the Booking Model.
+
+### Implemented Functions
+
+- createBooking()
+- getBookingById()
+- updateBookingStatus()
+- getAllBookings()
+
+### Test Coverage
+
+- Create booking successfully
+- Generate unique booking ID
+- Retrieve booking by existing ID
+- Return undefined for non-existing booking
+- Update booking status
+- Return null when booking does not exist
+- Retrieve all bookings
+
+### Expected Output
+
+- Booking is created correctly.
+- Booking data is stored properly.
+- Booking information is retrieved correctly.
+- Booking status updates successfully.
+- Invalid booking IDs are handled properly.
 
 ---
 
-# Task Description
+# Week 2 - Booking Service Unit Testing
 
-Implement unit testing for the Analytics Service.
+## Task
 
-The following service functions were tested:
+Create unit tests for the Booking Service business logic.
+
+### Implemented Functions
+
+- createBooking()
+- getBookingById()
+- updateBookingStatus()
+
+### Test Coverage
+
+#### createBooking()
+
+- Create booking successfully
+- Throw error when client name is missing
+- Throw error when event date is missing
+
+#### getBookingById()
+
+- Return booking when ID exists
+- Return undefined when booking does not exist
+
+#### updateBookingStatus()
+
+- Update booking status successfully
+- Throw error when booking is not found
+
+### Expected Output
+
+- Booking validation works correctly.
+- Invalid input throws proper errors.
+- Booking retrieval works correctly.
+- Booking status updates correctly.
+
+---
+
+# Week 3 - Dashboard Service Unit Testing
+
+## Task
+
+Create unit tests for the Dashboard Service that generates dashboard analytics using booking records.
+
+The Dashboard Service dynamically generates analytics from booking records stored in the Booking Model without using fixed or hardcoded values.
+
+### Implemented Functions
 
 - getDashboardSummary()
 - getBookingTrends()
 - getPerformanceMetrics()
 
----
-
-# Files Created
+### Data Source
 
 ```
-backend/
-│
-├── models/
-│   └── analyticsModel.js
-│
-├── services/
-│   └── analyticsService.js
-│
-└── tests/
-    └── analyticsService.test.js
+Booking Model
+      ↓
+Dashboard Service
 ```
 
+### Test Coverage
+
+#### getDashboardSummary()
+
+- Returns dashboard summary successfully
+- Calculates total bookings
+- Calculates completed bookings
+- Calculates pending bookings
+- Throws error when no booking data exists
+
+#### getBookingTrends()
+
+- Returns monthly booking statistics
+- Groups bookings correctly by month
+- Throws error when no booking data exists
+
+#### getPerformanceMetrics()
+
+- Calculates booking completion rate
+- Calculates client satisfaction
+- Throws error when no booking data exists
+
+### Expected Output
+
+- Dashboard summary is generated correctly.
+- Booking trends are calculated correctly.
+- Performance metrics are calculated correctly.
+- Empty booking data is handled properly.
+- Dashboard values are dynamically generated from booking records.
+
 ---
 
-# File Description
+# Week 4 Day 1 - Report Service Unit Testing
 
-## analyticsModel.js
+## Task
 
-Contains the analytics data source.
+Create unit tests for the Report Service that generates booking reports.
 
-For this activity, the model returns **mock analytics data** instead of retrieving information from the database.
+The Report Service dynamically generates reports from booking records stored in the Booking Model.
 
-Functions:
+### Implemented Functions
 
-- getDashboardSummary()
-- getBookingTrends()
-- getPerformanceMetrics()
+- generateReport()
+- getGeneratedReports()
+- downloadReport()
 
----
+### Data Source
 
-## analyticsService.js
-
-Contains the business logic for the Analytics module.
-
-The service receives requests and calls the corresponding functions from the Analytics Model.
-
-Functions:
-
-- getDashboardSummary()
-- getBookingTrends()
-- getPerformanceMetrics()
-
----
-
-## analyticsService.test.js
-
-Contains the unit tests for the Analytics Service using **Vitest**.
-
-The Analytics Model is mocked using:
-
-```javascript
-vi.mock("../models/analyticsModel.js");
+```
+Booking Model
+      ↓
+Report Service
 ```
 
-This allows the service logic to be tested without depending on the database.
+### Test Coverage
+
+#### generateReport()
+
+- Generate report successfully
+- Calculate total bookings
+- Calculate completed bookings
+- Calculate pending bookings
+- Calculate cancelled bookings
+- Calculate total revenue
+- Handle empty booking records
+
+#### getGeneratedReports()
+
+- Return all generated reports
+
+#### downloadReport()
+
+- Return report by ID
+- Throw error when report is not found
+
+### Expected Output
+
+- Reports are generated successfully.
+- Generated reports are retrieved successfully.
+- Reports are downloaded successfully.
+- Invalid report IDs are handled correctly.
+- Report values are dynamically generated from booking records.
 
 ---
 
-# Unit Tests Implemented
+# Week 4 Day 2 - Report Route-Controller Integration Testing
 
-## 1. getDashboardSummary()
+## Task
 
-Purpose:
+Create integration tests for the Report API endpoints to verify communication between Routes, Controllers, Services, and the Booking Model.
 
-Verifies that the Analytics Service returns the correct dashboard summary.
+### Tested API Endpoints
 
-Expected Output:
+- POST /reports/generate
+- GET /reports
+- GET /reports/:id
 
-- Total Bookings
-- Completed Bookings
-- Pending Bookings
-- Total Clients
-- Total Revenue
+### Integration Flow
 
-Status:
-
-✔ Passed
-
----
-
-## 2. getBookingTrends()
-
-Purpose:
-
-Verifies that the Analytics Service returns the expected booking trend data.
-
-Expected Output:
-
-- Monthly booking records
-- Correct month labels
-- Correct booking values
-
-Status:
-
-✔ Passed
-
----
-
-## 3. getPerformanceMetrics()
-
-Purpose:
-
-Verifies that the Analytics Service returns the expected performance metrics.
-
-Expected Output:
-
-- Booking Completion Rate
-- Client Satisfaction
-- Revenue Growth
-- Service Quality Score
-
-Status:
-
-✔ Passed
-
----
-
-# Test Result
-
-Command:
-
-```bash
-npx vitest run
+```
+HTTP Request
+      ↓
+app.js
+      ↓
+Report Routes
+      ↓
+Report Controller
+      ↓
+Report Service
+      ↓
+Booking Model (Mock Database)
 ```
 
-Result:
+### Test Coverage
 
-```text
-✓ tests/bookingService.test.js (7 tests)
-✓ tests/analyticsService.test.js (3 tests)
+#### POST /reports/generate
 
-Test Files  2 passed (2)
-Tests      10 passed (10)
-```
+- Generate report successfully
+- Validate HTTP status code
+- Validate API response
+- Verify report is generated from booking records
+
+#### GET /reports
+
+- Retrieve all generated reports
+- Validate HTTP status code
+- Validate returned report collection
+
+#### GET /reports/:id
+
+- Retrieve report by ID
+- Validate returned report
+- Return 404 when report does not exist
+
+### API Response Validation
+
+The integration tests verify:
+
+- HTTP status codes
+- Success flag
+- Response body
+- Generated report data
+- Error handling
+
+### Database Verification
+
+The integration tests use the Booking Model as the mock data source.
+
+Booking records are first created through the Booking API, after which reports are generated dynamically from those records without using hardcoded values.
+
+### Expected Output
+
+- Report generation endpoint returns a successful response.
+- Reports endpoint returns generated reports.
+- Selected report endpoint returns the correct report.
+- Invalid report IDs return the appropriate error response.
+- Report data is generated dynamically from booking records.
 
 ---
 
-# Test Suite / Acceptance Criteria
+# Testing Tools
 
-| Acceptance Criteria | Status |
-|---------------------|--------|
-| getDashboardSummary() returns correct summary | ✔ Passed |
-| getBookingTrends() returns expected analytics data | ✔ Passed |
-| getPerformanceMetrics() calculates metrics correctly | ✔ Passed |
-
----
-
-# Technologies Used
-
-- JavaScript (ES Modules)
-- Node.js
 - Vitest
+- Supertest
+- Node.js
+- JavaScript (ES Modules)
+
+---
+
+# Test Results
+
+## Backend
+
+- 13 Test Files Passed
+- All Tests Passed Successfully
 
 ---
 
 # Summary
 
-The Analytics Service was successfully unit tested using mocked model functions. The service correctly returned dashboard summaries, booking trends, and performance metrics. All unit tests passed successfully, confirming that the Analytics Service business logic works as expected without relying on a live database.
+Objective 2 demonstrates backend unit testing and integration testing for booking management, dashboard analytics, report generation, and Report API integration.
 
----
+## Completed Deliverables
 
-# Sprint Reference
+- ✅ Week 1 - Booking Model Unit Testing
+- ✅ Week 2 - Booking Service Unit Testing
+- ✅ Week 3 - Dashboard Service Unit Testing
+- ✅ Week 4 Day 1 - Report Service Unit Testing
+- ✅ Week 4 Day 2 - Report Route-Controller Integration Testing
 
-**Objective 2**
-
-**Week 3 – Day 1**
-
-Task:
-
-> Unit Testing – Analytics Service
-
-Deliverables:
-
-- Dashboard Summary Unit Tests
-- Booking Trends Unit Tests
-- Performance Metrics Unit Tests
-
-Status:
-
-**Completed**
+The backend implementation has been validated through unit testing and integration testing to ensure reliable business logic, correct API behavior, proper response validation, dynamic report generation, and successful interaction between Routes, Controllers, Services, and the Booking Model.
