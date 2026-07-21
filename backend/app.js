@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
@@ -8,8 +9,11 @@ import reportRoutes from "./routes/reportRoutes.js";
 
 const app = express();
 
-app.use(express.json());
+// Enable CORS
+app.use(cors());
 
+// Parse JSON
+app.use(express.json());
 
 // Booking Routes
 app.use("/", bookingRoutes);
@@ -25,9 +29,6 @@ app.use("/api/notifications", notificationRoutes);
 
 // Report Routes
 app.use("/reports", reportRoutes);
-
-// Gallery Routes
-app.use("/", galleryRoutes);
 
 export default app;
 

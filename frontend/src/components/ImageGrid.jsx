@@ -1,6 +1,5 @@
 function ImageGrid() {
   const images = [
-    
     {
       id: 1,
       src: "/image1.jpg",
@@ -20,13 +19,18 @@ function ImageGrid() {
 
   return (
     <div>
-      {images.map((image) => (
-        <img
-          key={image.id}
-          src={image.src}
-          alt={image.alt}
-        />
-      ))}
+      <h2>Gallery</h2>
+
+      <div data-testid="gallery-grid">
+        {images.map((image) => (
+          <img
+            key={image.id}
+            src={image.src}
+            alt={image.alt}
+            data-testid="gallery-image"
+          />
+        ))}
+      </div>
     </div>
   );
 }
