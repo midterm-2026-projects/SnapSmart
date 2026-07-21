@@ -1,19 +1,30 @@
 import * as bookingModel from "../models/bookingModel.js";
 
 // ==============================
-// Dashboard Summary
+// Helper Function
 // ==============================
-export function getDashboardSummary() {
+function getBookingsOrThrow() {
   const bookings = bookingModel.getAllBookings();
 
   if (!bookings || bookings.length === 0) {
     throw new Error("No booking data available");
   }
 
+  return bookings;
+}
+
+// ==============================
+// Dashboard Summary
+// ==============================
+export function getDashboardSummary() {
+  const bookings = getBookingsOrThrow();
+
   const totalBookings = bookings.length;
+
   const completed = bookings.filter(
     (booking) => booking.status === "Completed"
   ).length;
+
   const pending = bookings.filter(
     (booking) => booking.status === "Pending"
   ).length;
@@ -40,11 +51,7 @@ export function getDashboardSummary() {
 // Booking Trends
 // ==============================
 export function getBookingTrends() {
-  const bookings = bookingModel.getAllBookings();
-
-  if (!bookings || bookings.length === 0) {
-    throw new Error("No booking data available");
-  }
+  const bookings = getBookingsOrThrow();
 
   const monthlyBookings = {};
 
@@ -60,11 +67,7 @@ export function getBookingTrends() {
 // Performance Metrics
 // ==============================
 export function getPerformanceMetrics() {
-  const bookings = bookingModel.getAllBookings();
-
-  if (!bookings || bookings.length === 0) {
-    throw new Error("No booking data available");
-  }
+  const bookings = getBookingsOrThrow();
 
   const completed = bookings.filter(
     (booking) => booking.status === "Completed"
@@ -73,8 +76,10 @@ export function getPerformanceMetrics() {
   const completionRate = (completed / bookings.length) * 100;
 
   const averageRating =
-    bookings.reduce((sum, booking) => sum + (booking.rating || 0), 0) /
-    bookings.length;
+    bookings.reduce(
+      (sum, booking) => sum + (booking.rating || 0),
+      0
+    ) / bookings.length;
 
   return {
     completionRate,
@@ -88,11 +93,7 @@ export function getPerformanceMetrics() {
 
 // Calculate Total Revenue
 export function calculateRevenue() {
-  const bookings = bookingModel.getAllBookings();
-
-  if (!bookings || bookings.length === 0) {
-    throw new Error("No booking data available");
-  }
+  const bookings = getBookingsOrThrow();
 
   return bookings.reduce(
     (total, booking) => total + (booking.amount || 0),
@@ -102,11 +103,7 @@ export function calculateRevenue() {
 
 // Calculate Total Expenses
 export function calculateExpenses() {
-  const bookings = bookingModel.getAllBookings();
-
-  if (!bookings || bookings.length === 0) {
-    throw new Error("No booking data available");
-  }
+  const bookings = getBookingsOrThrow();
 
   return bookings.reduce(
     (total, booking) => total + (booking.expense || 0),
@@ -116,11 +113,5 @@ export function calculateExpenses() {
 
 // Calculate Net Profit
 export function calculateProfit() {
-  const bookings = bookingModel.getAllBookings();
-
-  if (!bookings || bookings.length === 0) {
-    throw new Error("No booking data available");
-  }
-
   return calculateRevenue() - calculateExpenses();
 }
