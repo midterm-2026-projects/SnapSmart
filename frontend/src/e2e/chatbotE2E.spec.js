@@ -1,16 +1,50 @@
 import { test, expect } from "@playwright/test";
 
 
-test("Check homepage content", async ({ page }) => {
-
-    await page.goto("/");
+test("Chatbot displays bot response", async ({ page }) => {
 
 
-    console.log(await page.title());
+    await page.route(
+        "http://localhost:3000/api/chatbot",
+        async route => {
 
-    console.log(
-        await page.locator("body").innerText()
+            await route.fulfill({
+
+                status: 200,
+
+                contentType: "application/json",
+
+                body: JSON.stringify({
+
+                    response:
+                    "Hello! I am your SnapSmart AI assistant."
+
+                })
+
+            });
+
+        }
     );
+
+
+    await page.goto("http://localhost:5173");
+
+
+    await page
+        .getByPlaceholder("Ask SnapSmart...")
+        .fill("Hello");
+
+
+    await page
+        .getByRole("button", { name: "Send" })
+        .click();
+
+
+    await expect(
+        page.getByText(
+            "Hello! I am your SnapSmart AI assistant."
+        )
+    ).toBeVisible();
 
 
 });
