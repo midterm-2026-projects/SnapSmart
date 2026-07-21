@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-SnapSmart is a photography booking and gallery management system designed to assist customers in managing photography services, bookings, galleries, and notifications.
+SnapSmart is a photography booking and gallery management system designed to help customers manage photography services, bookings, galleries, notifications, and chatbot assistance.
 
-This project focuses on implementing backend services and applying different testing approaches to ensure system reliability, correct business logic, API communication, and database operations.
+This project focuses on developing backend services and applying different testing approaches to ensure system reliability, correct business logic implementation, API communication, and database operations.
 
-The system includes:
+The system includes the following modules:
 
 * Booking Management
 * Gallery Management
@@ -31,6 +31,10 @@ The system includes:
 
 * Supabase PostgreSQL
 
+## AI Integration
+
+* Groq API
+
 ## Testing Tools
 
 * Vitest
@@ -42,54 +46,87 @@ The system includes:
 
 ## Booking Management
 
-Handles customer booking transactions and booking status management.
+Handles customer photography booking transactions and booking status management.
 
-Features:
+### Features:
 
 * Create bookings
 * Manage booking status
 * Associate bookings with photography packages
+* Store booking information in the database
 
 ---
 
-## Gallery Management
+# Gallery Management
 
-Handles photography gallery information.
+Handles photography gallery information and uploaded photo records.
 
-Features:
+### Features:
 
 * Manage gallery records
-* Manage uploaded photo information
+* Manage photo information
+* Retrieve gallery data
 
 ---
 
-## Notification System
+# Notification System
 
-Handles system-generated notifications for users.
-
-Features:
-
-* Create notifications
-* Retrieve user notifications
-* Update notification status
+Handles system-generated notifications for customers.
 
 The notification module uses Supabase PostgreSQL for data persistence.
 
+### Features:
+
+* Create notifications
+* Retrieve customer notifications
+* Mark notifications as read
+* Store notification records permanently
+
 ---
 
-## AI Chatbot System
+# Notification Database Structure
 
-The chatbot provides automated responses based on user messages.
+Notifications are stored in the `notifications` table.
 
-Features:
+Example structure:
+
+```
+notifications
+
+├── id
+├── user_id
+├── title
+├── message
+├── is_read
+└── created_at
+```
+
+Database relationship:
+
+```
+profiles
+    |
+    |
+    ↓
+notifications.user_id
+```
+
+Each notification is associated with a specific customer profile.
+
+---
+
+# AI Chatbot System
+
+The chatbot provides automated assistance for customers using AI-generated responses.
+
+### Features:
 
 * Receive user messages
 * Validate user input
-* Generate AI mock responses
+* Generate AI responses using Groq API
+* Return chatbot responses through API endpoints
 
-Note:
-
-The chatbot does not use a database. Conversation storage and chat history are not part of the current implementation.
+The chatbot currently does not store conversations or chat history in the database.
 
 ---
 
@@ -99,7 +136,8 @@ The chatbot does not use a database. Conversation storage and chat history are n
 backend
 │
 ├── config
-│   └── supabaseClient.js
+│   ├── supabaseClient.js
+│   └── groqClient.js
 │
 ├── controllers
 │   ├── chatbotController.js
@@ -119,7 +157,10 @@ backend
 │
 └── tests
     ├── chatbotAPI.test.js
+    ├── chatbotE2E.test.js
+    ├── chatbotValidation.test.js
     ├── notificationService.test.js
+    ├── notificationValidation.test.js
     ├── notificationRouteController.integration.test.js
     └── NotificationDatabase.test.js
 ```
@@ -128,7 +169,7 @@ backend
 
 # Testing Approach
 
-The project applies multiple testing layers:
+The project applies multiple testing layers to verify different parts of the system.
 
 ```
 Component Testing
@@ -149,7 +190,7 @@ Validation Testing
 End-to-End Testing
 ```
 
-Each testing layer focuses on a different part of the system.
+Each testing layer focuses on a specific system responsibility.
 
 ---
 
@@ -164,18 +205,21 @@ Route
  ↓
 Controller
  ↓
-AI Chatbot Service
+Chatbot Service
+ ↓
+Groq API
 ```
 
 ## Objective
 
-Verify that the chatbot API correctly receives user messages and returns appropriate responses.
+Verify that the chatbot API correctly receives user messages and returns valid AI-generated responses.
 
 ## Tests Implemented
 
 * Test chatbot POST endpoint
 * Test controller response handling
 * Test chatbot service execution
+* Verify chatbot response generation
 
 ## Expected Results
 
@@ -205,7 +249,7 @@ Verify notification business logic without depending on an actual database.
 ## Tests Implemented
 
 * Create notification logic
-* Retrieve notifications logic
+* Retrieve notification logic
 * Update notification status logic
 * Required field validation
 
@@ -213,7 +257,7 @@ Verify notification business logic without depending on an actual database.
 
 * Service functions return correct results
 * Invalid data is rejected
-* Service errors are handled correctly
+* Service errors are properly handled
 
 ---
 
@@ -235,18 +279,18 @@ Mock Model
 
 ## Objective
 
-Verify that notification API endpoints correctly communicate with controllers and services.
+Verify that notification API endpoints correctly communicate between routes, controllers, and services.
 
 ## Tests Implemented
 
 * Create notification API request
-* Retrieve notification API request
-* Update notification API request
+* Retrieve customer notifications
+* Mark notification as read
 
 ## Expected Results
 
 * API endpoints return correct responses
-* Controller-service communication works properly
+* Controller and service communication works properly
 
 ---
 
@@ -271,9 +315,9 @@ Verify Data Persistence
 
 ## Objective
 
-Verify that the notification service can communicate with the actual database and perform database operations successfully.
+Verify that notification services can communicate with the actual database and perform database operations successfully.
 
-Unlike API Integration Testing, this testing focuses on service-to-database communication.
+Unlike API Integration Testing, this focuses on service-to-database communication.
 
 ---
 
@@ -283,21 +327,21 @@ Unlike API Integration Testing, this testing focuses on service-to-database comm
 
 Purpose:
 
-Verify that notification records can be successfully inserted into the database.
+Verify that notification records can be inserted successfully.
 
 Flow:
 
 ```
 Notification Data
         ↓
-Insert Operation
+Database Insert Operation
         ↓
-Supabase Database
+Supabase Notifications Table
         ↓
-Return Created Record
+Created Notification Record
 ```
 
-Expected Result:
+Expected Results:
 
 * Notification record is saved
 * Database generates record ID
@@ -309,7 +353,7 @@ Expected Result:
 
 Purpose:
 
-Verify that stored notifications can be retrieved from the database.
+Verify that stored notifications can be retrieved based on user ID.
 
 Flow:
 
@@ -318,13 +362,13 @@ User ID
    ↓
 Query Notifications Table
    ↓
-Return Notifications
+Return Customer Notifications
 ```
 
-Expected Result:
+Expected Results:
 
 * Correct notification records are retrieved
-* Data belongs to the specified user
+* Returned notifications belong to the requested user
 
 ---
 
@@ -332,7 +376,7 @@ Expected Result:
 
 Purpose:
 
-Verify that existing notification records can be updated.
+Verify that notification read status can be updated.
 
 Flow:
 
@@ -344,30 +388,28 @@ Update is_read Status
 Return Updated Record
 ```
 
-Expected Result:
+Expected Results:
 
-* Notification status is updated successfully
-* Updated record is returned
+* Notification status changes successfully
+* Updated notification record is returned
 
----
+Example:
 
-## Database Relationship Testing
+Before:
 
-The notification database integration also verifies relational constraints.
-
-Database relationship:
-
-```
-auth.users
-    |
-    ↓
-profiles
-    |
-    ↓
-notifications
+```json
+{
+  "is_read": false
+}
 ```
 
-Invalid user references are rejected to maintain database integrity.
+After:
+
+```json
+{
+  "is_read": true
+}
+```
 
 ---
 
@@ -382,14 +424,12 @@ User Input
      ↓
 Validation Logic
      ↓
-AI Chatbot Service
+Chatbot Service
 ```
 
 ## Objective
 
-Verify that the chatbot only processes valid user messages before generating responses.
-
-Since the chatbot does not store data in a database, validation focuses only on input handling.
+Verify that the chatbot only processes valid user messages.
 
 ## Tests Implemented
 
@@ -402,7 +442,7 @@ Since the chatbot does not store data in a database, validation focuses only on 
 
 * Invalid messages are rejected
 * Valid messages are processed
-* AI mock response is generated correctly
+* AI responses are generated correctly
 
 ---
 
@@ -419,12 +459,12 @@ Validation Logic
         ↓
 Notification Service
         ↓
-Database
+Database Operation
 ```
 
 ## Objective
 
-Verify that notification data is valid before performing database operations.
+Verify that notification data is validated before database operations.
 
 ## Tests Implemented
 
@@ -437,7 +477,7 @@ Verify that notification data is valid before performing database operations.
 
 * Invalid notification data is rejected
 * Required fields are enforced
-* Only valid notifications are processed
+* Only valid notifications are stored
 
 ---
 
@@ -447,14 +487,14 @@ Verify that notification data is valid before performing database operations.
 
 ## Objective
 
-Verify the complete workflow of the system.
+Verify the complete workflow of the system from user interaction to backend processing.
 
 System Flow:
 
 ```
 User
  ↓
-Frontend
+Frontend Interface
  ↓
 API Request
  ↓
@@ -462,16 +502,46 @@ Controller
  ↓
 Service
  ↓
-Database / AI Response
+Database / AI Service
  ↓
 System Response
+```
+
+## Tested Features
+
+### Chatbot Flow
+
+```
+User Message
+      ↓
+Chatbot UI
+      ↓
+Chatbot API
+      ↓
+Groq AI Response
+      ↓
+Display Response
+```
+
+### Notification Flow
+
+```
+Notification Data
+        ↓
+Frontend Request
+        ↓
+Notification API
+        ↓
+Supabase Database
+        ↓
+Display Notification
 ```
 
 ## Expected Results
 
 * Complete user workflow functions correctly
 * System components communicate properly
-* Expected outputs are produced
+* Expected outputs are displayed
 
 ---
 
@@ -488,9 +558,14 @@ Create `.env` file:
 ```
 SUPABASE_URL=your_supabase_url
 SUPABASE_SECRET_KEY=your_supabase_secret_key
+GROQ_API_KEY=your_groq_api_key
 ```
 
-Run tests:
+---
+
+# Running Tests
+
+Run backend tests:
 
 ```bash
 npm test
@@ -506,9 +581,9 @@ npm test
 | Notification Service Unit Testing         | Completed |
 | Notification API Integration Testing      | Completed |
 | Notification Database Integration Testing | Completed |
-| Chatbot Validation Testing                | Pending   |
-| Notification Validation Testing           | Pending   |
-| End-to-End Testing                        | Pending   |
+| Chatbot Validation Testing                | Completed |
+| Notification Validation Testing           | Completed |
+| End-to-End Testing                        | Completed |
 
 ---
 
@@ -516,4 +591,6 @@ npm test
 
 The testing implementation ensures that SnapSmart modules work correctly across different system layers.
 
-Unit testing verifies individual service logic, API integration testing verifies backend communication, database integration testing verifies real data persistence using Supabase, and validation testing ensures that invalid inputs are properly handled before processing.
+Unit testing verifies individual service logic, API integration testing verifies backend communication, database integration testing verifies real data persistence using Supabase PostgreSQL, validation testing ensures invalid inputs are properly handled, and end-to-end testing confirms that complete user workflows function correctly.
+
+Through these testing approaches, the reliability and maintainability of the SnapSmart system are improved.
