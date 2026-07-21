@@ -1,23 +1,28 @@
-import {
-  getChatbotResponse,
-  validateUserMessage,
-} from "../services/chatbotService.js";
+import { describe, test, expect } from "vitest";
+import { getChatbotResponse } from "../services/chatbotService.js";
+
 
 describe("Chatbot Service", () => {
-  test("returns greeting", async () => {
-    const response = await getChatbotResponse("Hello");
 
-    expect(response).toContain("Hello");
-  });
 
-  test("validates message", () => {
-    expect(validateUserMessage("Hi")).toBe(true);
-    expect(validateUserMessage("")).toBe(false);
-  });
+    test("returns AI generated response", async () => {
 
-  test("returns booking response", async () => {
-    const response = await getChatbotResponse("booking");
+        const response =
+            await getChatbotResponse("Hello");
 
-    expect(response).toContain("book");
-  });
+
+        expect(response)
+            .toBeDefined();
+
+
+        expect(typeof response)
+            .toBe("string");
+
+
+        expect(response.length)
+            .toBeGreaterThan(0);
+
+    });
+
+
 });

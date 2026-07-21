@@ -4,7 +4,7 @@ import supabase from "../config/supabaseClient.js";
 const notificationDatabaseModel = {
 
 
-    create: async(data)=>{
+    create: async (data) => {
 
 
         const { data: result, error } =
@@ -12,19 +12,28 @@ const notificationDatabaseModel = {
             .from("notifications")
             .insert([
                 {
-                    user_id:data.userId,
-                    title:data.title,
-                    message:data.message,
-                    is_read:false
+                    user_id: data.userId,
+                    title: data.title,
+                    message: data.message,
+                    is_read: false
                 }
             ])
             .select()
             .single();
 
 
-        if(error){
+
+        if (error) {
+
+            console.error(
+                "SUPABASE INSERT ERROR:",
+                error
+            );
+
             throw error;
+
         }
+
 
 
         return result;
@@ -33,7 +42,8 @@ const notificationDatabaseModel = {
 
 
 
-    findByUserId: async(userId)=>{
+
+    findByUserId: async (userId) => {
 
 
         const { data, error } =
@@ -46,9 +56,18 @@ const notificationDatabaseModel = {
             );
 
 
-        if(error){
+
+        if (error) {
+
+            console.error(
+                "SUPABASE FETCH ERROR:",
+                error
+            );
+
             throw error;
+
         }
+
 
 
         return data;
@@ -57,14 +76,17 @@ const notificationDatabaseModel = {
 
 
 
-    updateReadStatus: async(id)=>{
+
+    updateReadStatus: async (id) => {
 
 
-        const { data,error } =
+        const { data, error } =
             await supabase
             .from("notifications")
             .update({
-                is_read:true
+
+                is_read: true
+
             })
             .eq(
                 "id",
@@ -75,9 +97,17 @@ const notificationDatabaseModel = {
 
 
 
-        if(error){
+        if (error) {
+
+            console.error(
+                "SUPABASE UPDATE ERROR:",
+                error
+            );
+
             throw error;
+
         }
+
 
 
         return data;
