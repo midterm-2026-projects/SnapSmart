@@ -8,7 +8,8 @@ export function createBooking(data) {
     clientName: data.clientName,
     eventDate: data.eventDate,
     month: data.month,
-    amount: data.amount,
+    amount: data.amount,       // Revenue from client
+    expense: data.expense,     // Internal cost of the booking
     rating: data.rating,
     status: "Pending",
   };
@@ -36,6 +37,7 @@ export function updateBookingStatus(id, status) {
   return booking;
 }
 
+// Get All Bookings
 export function getAllBookings() {
   return bookings;
 }

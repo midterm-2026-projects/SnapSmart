@@ -11,13 +11,15 @@ describe("Booking API Integration Test", () => {
   describe("POST /bookings", () => {
     test("should create a booking successfully", async () => {
       const response = await request(app)
-        .post("/bookings")
-        .send({
-          clientName: "Franklin",
-          eventDate: "2026-07-20",
-        });
+  .post("/bookings")
+  .send({
+    clientName: "Franklin",
+    eventDate: "2026-07-20",
+  });
 
-      expect(response.status).toBe(201);
+
+
+expect(response.status).toBe(201);
 
       expect(response.body.message).toBe(
         "Booking created successfully"
