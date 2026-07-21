@@ -1,4 +1,3 @@
-// Mock Database
 export const photos = [];
 
 // Upload Photo
@@ -13,15 +12,17 @@ export function uploadPhoto(data) {
   return photo;
 }
 
-// Get Photo By ID
-export function getPhotoById(id) {
-  return photos.find((photo) => photo.id === Number(id));
-}
-
 // Get Photos By Gallery
 export function getPhotosByGallery(galleryId) {
   return photos.filter(
     (photo) => photo.galleryId === Number(galleryId)
+  );
+}
+
+// Get Photo By ID
+export function getPhotoById(id) {
+  return photos.find(
+    (photo) => photo.id === Number(id)
   );
 }
 

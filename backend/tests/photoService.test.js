@@ -8,7 +8,6 @@ import {
   deletePhoto,
 } from "../services/photoService.js";
 
-// Mock the Photo Model
 vi.mock("../models/photoModel.js", () => ({
   uploadPhoto: vi.fn(),
   getPhotoById: vi.fn(),
