@@ -1,391 +1,519 @@
-# Chatbot and Notification System Testing Documentation
+# SnapSmart - Booking and Gallery Management System
 
 ## Project Overview
 
-This project focuses on the development and testing of a chatbot and notification system. The implementation includes reusable frontend components, chatbot interaction features, notification interfaces, backend services, API testing, and complete system validation.
+SnapSmart is a photography booking and gallery management system designed to assist customers in managing photography services, bookings, galleries, and notifications.
 
-The project follows a structured software testing approach where system components are developed first, followed by integration testing, service validation, and end-to-end testing.
+This project focuses on implementing backend services and applying different testing approaches to ensure system reliability, correct business logic, API communication, and database operations.
 
-The main objectives of this project are:
+The system includes:
 
-- Develop chatbot user interface components.
-- Implement chatbot message interaction features.
-- Create notification management components.
-- Perform chatbot API integration testing.
-- Perform notification service and validation testing.
-- Validate chatbot and notification workflows.
-- Perform end-to-end testing to ensure complete system functionality.
+* Booking Management
+* Gallery Management
+* Notification System
+* AI Chatbot Assistance
 
 ---
 
-# Development and Testing Schedule
+# Technology Stack
 
-# Week 1 - Day 1: Create Chatbot UI Components
+## Frontend
 
-## Components Developed
+* React
+* Vite
 
-- ChatbotInterface Component
-- MessageDisplay Component
-- UserInput Component
+## Backend
 
-## Description
+* Node.js
+* Express.js
 
-The first stage focuses on developing the main chatbot interface and supporting components. These components manage the chatbot layout, display conversation messages, and allow users to send messages.
+## Database
 
-## Testing Criteria
+* Supabase PostgreSQL
 
-- ChatbotInterface component renders correctly.
-- MessageDisplay component displays messages correctly.
-- UserInput component accepts valid input correctly.
+## Testing Tools
 
----
-
-# Week 2 - Day 1: Create Chatbot Message Components
-
-## Components Developed
-
-- BotMessage Component
-- UserMessage Component
-- TypingIndicator Component
-
-## Description
-
-This stage improves chatbot interaction by separating bot responses, user messages, and typing indicators into reusable components.
-
-## Testing Criteria
-
-- BotMessage displays bot responses correctly.
-- UserMessage displays user messages correctly.
-- TypingIndicator appears while waiting for chatbot responses.
+* Vitest
+* Supertest
 
 ---
 
-# Week 2 - Day 2: Create Notification UI Components
+# System Modules
 
-## Components Developed
+## Booking Management
 
-- NotificationList Component
-- NotificationCard Component
-- SendNotificationModal Component
+Handles customer booking transactions and booking status management.
 
-## Description
+Features:
 
-This stage focuses on building the notification interface where users can view notifications and manage notification actions.
-
-## Testing Criteria
-
-- NotificationList displays notifications correctly.
-- NotificationCard displays notification details correctly.
-- SendNotificationModal displays required form fields correctly.
+* Create bookings
+* Manage booking status
+* Associate bookings with photography packages
 
 ---
 
-# Week 3 - Day 1: Chatbot API Integration Testing
+## Gallery Management
 
-## Tests Implemented
+Handles photography gallery information.
 
-- Test `POST /api/chatbot`
-- Test chatbot response handling.
-- Test invalid chatbot requests.
+Features:
 
-## Test Categories
-
-- Chatbot API Integration Tests
-- API Response Validation
-- Error Handling Tests
-
-## Testing Objectives
-
-This stage verifies that the chatbot API endpoint, controller, and service communicate correctly and return valid responses.
-
-## Expected Results
-
-- Chatbot API returns valid responses.
-- User messages are processed correctly.
-- Invalid requests return appropriate error responses.
+* Manage gallery records
+* Manage uploaded photo information
 
 ---
 
-# Week 3 - Day 2: Notification Service Unit Testing
+## Notification System
 
-## Tests Implemented
+Handles system-generated notifications for users.
 
-- Test `createNotification()`
-- Test `getNotifications()`
-- Test `markAsRead()`
+Features:
 
-## Test Categories
+* Create notifications
+* Retrieve user notifications
+* Update notification status
 
-- Notification Creation Unit Tests
-- Notification Retrieval Unit Tests
-- Read Status Unit Tests
-
-## Testing Objectives
-
-This stage validates notification service functions independently.
-
-## Expected Results
-
-- `createNotification()` creates notifications successfully.
-- `getNotifications()` retrieves notification records correctly.
-- `markAsRead()` updates notification status successfully.
+The notification module uses Supabase PostgreSQL for data persistence.
 
 ---
 
-# Week 4 - Day 1: Notification API Integration Testing
+## AI Chatbot System
 
-## Tests Implemented
+The chatbot provides automated responses based on user messages.
 
-- Test `POST /notifications`
-- Test `GET /notifications`
-- Test `PATCH /notifications/:id/read`
+Features:
 
-## Test Categories
+* Receive user messages
+* Validate user input
+* Generate AI mock responses
 
-- Notification API Integration Tests
-- API Response Validation
-- Service Communication Tests
+Note:
 
-## Testing Objectives
-
-This stage verifies communication between notification routes, services, and application modules.
-
-## Expected Results
-
-- Notification creation endpoint works correctly.
-- Notification list endpoint returns notification data.
-- Notification update endpoint processes requests successfully.
+The chatbot does not use a database. Conversation storage and chat history are not part of the current implementation.
 
 ---
 
-# Week 4 - Day 2: Chatbot Response Validation Testing
+# Backend Structure
 
-## Tests Implemented
-
-- Test chatbot response generation.
-- Test user message validation.
-- Test fallback chatbot responses.
-
-## Test Categories
-
-- Chatbot Service Tests
-- Response Validation Tests
-- Input Validation Tests
-
-## Testing Objectives
-
-This stage validates chatbot response generation and message validation without relying on a database.
-
-## Expected Results
-
-- Valid user messages generate appropriate chatbot responses.
-- Invalid user messages are rejected.
-- Unknown messages return fallback responses.
-
----
-
-# Week 5 - Day 1: Chatbot API Response Testing
-
-## Tests Implemented
-
-- Test chatbot responses for different user inputs.
-- Test chatbot response consistency.
-- Test API response format.
-
-## Test Categories
-
-- Chatbot Response Tests
-- API Response Validation
-- Response Consistency Tests
-
-## Testing Objectives
-
-This stage verifies that the chatbot API consistently returns valid responses for different user scenarios.
-
-## Expected Results
-
-- Chatbot responses are returned successfully.
-- API response structure remains consistent.
-- Different user inputs receive appropriate responses.
-
----
-
-# Week 5 - Day 2: Notification Validation Unit Testing
-
-## Tests Implemented
-
-- Test notification input validation.
-- Test recipient validation.
-- Test empty notification message handling.
-
-## Test Categories
-
-- Notification Validation Unit Tests
-- Input Validation Tests
-- Error Handling Tests
-
-## Testing Objectives
-
-This stage ensures invalid notification data is detected before processing.
-
-## Expected Results
-
-- Invalid notification input is rejected.
-- Invalid recipients are handled correctly.
-- Empty notification messages are prevented.
-
----
-
-# Week 6 - Day 1: End-to-End Testing - Chatbot and Notification System
-
-## Tests Implemented
-
-- Test complete chatbot workflow.
-- Test complete notification workflow.
-- Test user interaction scenarios.
-- Test system error handling.
-
-## Test Categories
-
-- End-to-End System Tests
-- User Workflow Validation
-- Complete Application Flow Testing
-
-## Testing Objectives
-
-This stage validates the complete system workflow by testing frontend components, backend services, APIs, and interactions from the user's perspective.
-
-## Chatbot Workflow
-
-The following workflow will be tested:
-
-1. User opens the chatbot interface.
-2. User enters a message.
-3. Frontend sends the request to the chatbot API.
-4. Backend validates the request.
-5. Chatbot service generates a response.
-6. Response is returned to the frontend.
-7. Chatbot response is displayed to the user.
-
-## Notification Workflow
-
-The following workflow will be tested:
-
-1. User or administrator creates a notification.
-2. Notification request is submitted.
-3. Backend validates the request.
-4. Notification is processed and stored.
-5. Notification is displayed to the user.
-
-## Expected Results
-
-- Complete chatbot workflow executes successfully.
-- Chatbot responses are displayed correctly.
-- Notifications are created successfully.
-- Notifications are displayed correctly.
-- All integrated system features work as expected.
+```
+backend
+│
+├── config
+│   └── supabaseClient.js
+│
+├── controllers
+│   ├── chatbotController.js
+│   └── notificationController.js
+│
+├── models
+│   ├── notificationModel.js
+│   └── notificationDatabaseModel.js
+│
+├── routes
+│   ├── chatbotRoutes.js
+│   └── notificationRoutes.js
+│
+├── services
+│   ├── chatbotService.js
+│   └── notificationService.js
+│
+└── tests
+    ├── chatbotAPI.test.js
+    ├── notificationService.test.js
+    ├── notificationRouteController.integration.test.js
+    └── NotificationDatabase.test.js
+```
 
 ---
 
 # Testing Approach
 
-The project follows a layered software testing approach.
+The project applies multiple testing layers:
 
-## 1. Integration Testing
-
-Integration testing verifies communication between different application modules.
-
-### Examples
-
-- Chatbot API communication.
-- Notification API communication.
-- Backend routes and services interaction.
-
-### Purpose
-
-- Ensure integrated modules communicate correctly.
-- Validate API request and response handling.
-
----
-
-## 2. Unit Testing
-
-Unit testing validates individual services and validation functions independently.
-
-### Examples
-
-- Notification service functions.
-- Chatbot response generation.
-- Message validation.
-- Notification validation.
-
-### Purpose
-
-- Verify function-level correctness.
-- Detect logic errors early during development.
-
----
-
-## 3. End-to-End Testing
-
-End-to-end testing validates the complete application workflow from the user's perspective.
-
-### Examples
-
-- Complete chatbot conversation flow.
-- Complete notification workflow.
-- Full frontend-to-backend communication.
-
-### Purpose
-
-- Ensure the entire application functions correctly.
-- Validate complete user workflows.
-
----
-
-# Technologies Used
-
-## Frontend
-
-- React.js
-- Vite
-
-## Backend
-
-- Node.js
-- Express.js
-
-## Database
-
-- MySQL (Notification Module)
-
-## Testing Tools
-
-- Vitest
-- Supertest
-- Playwright
-
----
-
-# Project Structure
-
-```text
-project-root
-│
-├── frontend
-│   ├── components
-│   │   ├── chatbot
-│   │   └── notification
-│   ├── pages
-│   └── tests
-│
-├── backend
-│   ├── controllers
-│   ├── routes
-│   ├── services
-│   ├── tests
-│   ├── app.js
-│   └── package.json
-│
-└── README.md
 ```
+Component Testing
+        |
+        ↓
+API Integration Testing
+        |
+        ↓
+Service Unit Testing
+        |
+        ↓
+Database Integration Testing
+        |
+        ↓
+Validation Testing
+        |
+        ↓
+End-to-End Testing
+```
+
+Each testing layer focuses on a different part of the system.
+
+---
+
+# Week 3 Day 1
+
+# Chatbot API Integration Testing
+
+## Testing Layer
+
+```
+Route
+ ↓
+Controller
+ ↓
+AI Chatbot Service
+```
+
+## Objective
+
+Verify that the chatbot API correctly receives user messages and returns appropriate responses.
+
+## Tests Implemented
+
+* Test chatbot POST endpoint
+* Test controller response handling
+* Test chatbot service execution
+
+## Expected Results
+
+* Valid messages are accepted
+* Chatbot returns a response
+* Invalid requests return proper errors
+
+---
+
+# Week 3 Day 2
+
+# Notification Service Unit Testing
+
+## Testing Layer
+
+```
+Notification Service
+        |
+        ↓
+Mock Notification Model
+```
+
+## Objective
+
+Verify notification business logic without depending on an actual database.
+
+## Tests Implemented
+
+* Create notification logic
+* Retrieve notifications logic
+* Update notification status logic
+* Required field validation
+
+## Expected Results
+
+* Service functions return correct results
+* Invalid data is rejected
+* Service errors are handled correctly
+
+---
+
+# Week 4 Day 1
+
+# Notification API Integration Testing
+
+## Testing Layer
+
+```
+Route
+ ↓
+Controller
+ ↓
+Service
+ ↓
+Mock Model
+```
+
+## Objective
+
+Verify that notification API endpoints correctly communicate with controllers and services.
+
+## Tests Implemented
+
+* Create notification API request
+* Retrieve notification API request
+* Update notification API request
+
+## Expected Results
+
+* API endpoints return correct responses
+* Controller-service communication works properly
+
+---
+
+# Week 4 Day 2
+
+# Notification Database Integration Testing
+
+## Testing Layer
+
+```
+Notification Service
+        |
+        ↓
+Database Model
+        |
+        ↓
+Supabase PostgreSQL
+        |
+        ↓
+Verify Data Persistence
+```
+
+## Objective
+
+Verify that the notification service can communicate with the actual database and perform database operations successfully.
+
+Unlike API Integration Testing, this testing focuses on service-to-database communication.
+
+---
+
+# Database Integration Tests Implemented
+
+## 1. Notification Insertion Testing
+
+Purpose:
+
+Verify that notification records can be successfully inserted into the database.
+
+Flow:
+
+```
+Notification Data
+        ↓
+Insert Operation
+        ↓
+Supabase Database
+        ↓
+Return Created Record
+```
+
+Expected Result:
+
+* Notification record is saved
+* Database generates record ID
+* Inserted data is returned
+
+---
+
+## 2. Notification Retrieval Testing
+
+Purpose:
+
+Verify that stored notifications can be retrieved from the database.
+
+Flow:
+
+```
+User ID
+   ↓
+Query Notifications Table
+   ↓
+Return Notifications
+```
+
+Expected Result:
+
+* Correct notification records are retrieved
+* Data belongs to the specified user
+
+---
+
+## 3. Notification Update Testing
+
+Purpose:
+
+Verify that existing notification records can be updated.
+
+Flow:
+
+```
+Notification ID
+        ↓
+Update is_read Status
+        ↓
+Return Updated Record
+```
+
+Expected Result:
+
+* Notification status is updated successfully
+* Updated record is returned
+
+---
+
+## Database Relationship Testing
+
+The notification database integration also verifies relational constraints.
+
+Database relationship:
+
+```
+auth.users
+    |
+    ↓
+profiles
+    |
+    ↓
+notifications
+```
+
+Invalid user references are rejected to maintain database integrity.
+
+---
+
+# Week 5 Day 1
+
+# Chatbot Validation Testing
+
+## Testing Layer
+
+```
+User Input
+     ↓
+Validation Logic
+     ↓
+AI Chatbot Service
+```
+
+## Objective
+
+Verify that the chatbot only processes valid user messages before generating responses.
+
+Since the chatbot does not store data in a database, validation focuses only on input handling.
+
+## Tests Implemented
+
+* Empty message validation
+* Blank message validation
+* Invalid data type validation
+* Valid message acceptance
+
+## Expected Results
+
+* Invalid messages are rejected
+* Valid messages are processed
+* AI mock response is generated correctly
+
+---
+
+# Week 5 Day 2
+
+# Notification Validation Testing
+
+## Testing Layer
+
+```
+Notification Data
+        ↓
+Validation Logic
+        ↓
+Notification Service
+        ↓
+Database
+```
+
+## Objective
+
+Verify that notification data is valid before performing database operations.
+
+## Tests Implemented
+
+* Validate user ID
+* Validate notification title
+* Validate notification message
+* Reject incomplete notification data
+
+## Expected Results
+
+* Invalid notification data is rejected
+* Required fields are enforced
+* Only valid notifications are processed
+
+---
+
+# Week 6 Day 1
+
+# End-to-End Testing
+
+## Objective
+
+Verify the complete workflow of the system.
+
+System Flow:
+
+```
+User
+ ↓
+Frontend
+ ↓
+API Request
+ ↓
+Controller
+ ↓
+Service
+ ↓
+Database / AI Response
+ ↓
+System Response
+```
+
+## Expected Results
+
+* Complete user workflow functions correctly
+* System components communicate properly
+* Expected outputs are produced
+
+---
+
+# Environment Setup
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create `.env` file:
+
+```
+SUPABASE_URL=your_supabase_url
+SUPABASE_SECRET_KEY=your_supabase_secret_key
+```
+
+Run tests:
+
+```bash
+npm test
+```
+
+---
+
+# Testing Summary
+
+| Testing Layer                             | Status    |
+| ----------------------------------------- | --------- |
+| Chatbot API Integration Testing           | Completed |
+| Notification Service Unit Testing         | Completed |
+| Notification API Integration Testing      | Completed |
+| Notification Database Integration Testing | Completed |
+| Chatbot Validation Testing                | Pending   |
+| Notification Validation Testing           | Pending   |
+| End-to-End Testing                        | Pending   |
+
+---
+
+# Conclusion
+
+The testing implementation ensures that SnapSmart modules work correctly across different system layers.
+
+Unit testing verifies individual service logic, API integration testing verifies backend communication, database integration testing verifies real data persistence using Supabase, and validation testing ensures that invalid inputs are properly handled before processing.

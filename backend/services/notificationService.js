@@ -1,12 +1,13 @@
 import notificationModel from "../models/notificationModel.js";
 
+
 // Create Notification
 export const createNotification = async (data) => {
 
+
     if (
-        !data.customerId ||
-        !data.message ||
-        !data.recipient
+        (!data.customerId && !data.userId) ||
+        (!data.message && !data.title)
     ) {
 
         throw new Error(
@@ -15,13 +16,16 @@ export const createNotification = async (data) => {
 
     }
 
-    return notificationModel.create(data);
+
+    return await notificationModel.create(data);
 
 };
 
 
+
 // Get Customer Notifications
 export const getNotificationsByCustomer = async (customerId) => {
+
 
     if (!customerId) {
 
@@ -31,13 +35,16 @@ export const getNotificationsByCustomer = async (customerId) => {
 
     }
 
-    return notificationModel.findByCustomerId(customerId);
+
+    return await notificationModel.findByCustomerId(customerId);
 
 };
 
 
+
 // Mark Notification as Read
 export const markAsRead = async (id) => {
+
 
     if (!id) {
 
@@ -47,8 +54,11 @@ export const markAsRead = async (id) => {
 
     }
 
+
     const notification =
         await notificationModel.markAsRead(id);
+
+
 
     if (!notification) {
 
@@ -57,6 +67,7 @@ export const markAsRead = async (id) => {
         );
 
     }
+
 
     return notification;
 
