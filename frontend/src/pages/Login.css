@@ -1,0 +1,393 @@
+.login-card {
+
+    width:450px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.08);
+
+}
+
+
+
+
+
+
+.login-header {
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.login-header h1 {
+
+    font-size:36px;
+
+    color:#111827;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.login-header p {
+
+    color:#6b7280;
+
+}
+
+
+
+
+
+
+
+
+.login-form {
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+
+}
+
+
+
+
+
+
+
+.input-group {
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+
+}
+
+
+
+
+
+.input-group label {
+
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#374151;
+
+
+}
+
+
+
+
+
+
+.input-group input {
+
+
+    padding:14px;
+
+
+    border-radius:10px;
+
+
+    border:1px solid #d1d5db;
+
+
+    font-size:16px;
+
+
+    transition:.2s;
+
+
+}
+
+
+
+
+
+
+.input-group input:focus {
+
+
+    outline:none;
+
+
+    border-color:#2563eb;
+
+
+    box-shadow:
+    0 0 0 3px rgba(37,99,235,.15);
+
+
+}
+
+
+
+
+
+
+
+
+.login-button {
+
+
+    margin-top:10px;
+
+
+    padding:14px;
+
+
+    border:none;
+
+
+    border-radius:10px;
+
+
+    background:#2563eb;
+
+
+    color:white;
+
+
+    font-size:16px;
+
+
+    font-weight:600;
+
+
+    cursor:pointer;
+
+
+    transition:.2s;
+
+
+}
+
+
+
+
+
+
+
+.login-button:hover {
+
+
+    background:#1d4ed8;
+
+
+}
+
+
+
+
+
+
+
+.login-button:disabled {
+
+
+    opacity:.7;
+
+
+    cursor:not-allowed;
+
+
+}
+
+
+
+
+
+
+
+
+
+.register-link {
+
+
+    margin-top:25px;
+
+
+    text-align:center;
+
+
+}
+
+
+
+
+
+.register-link p {
+
+
+    color:#6b7280;
+
+
+}
+
+
+
+
+
+.register-link button {
+
+
+    margin-left:5px;
+
+
+    border:none;
+
+
+    background:none;
+
+
+    color:#2563eb;
+
+
+    font-weight:600;
+
+
+    cursor:pointer;
+
+
+    font-size:15px;
+
+
+}
+
+
+
+
+
+.register-link button:hover {
+
+
+    text-decoration:underline;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================
+   SWEET ALERT CUSTOM DESIGN
+========================== */
+
+
+
+.snapsmart-popup {
+
+
+    border-radius:20px !important;
+
+
+    box-shadow:
+
+    0 20px 50px rgba(0,0,0,.15)
+
+    !important;
+
+
+    padding:35px !important;
+
+
+}
+
+
+
+
+
+
+.swal2-title {
+
+
+    font-size:28px !important;
+
+
+    font-weight:700 !important;
+
+
+    color:#111827 !important;
+
+
+}
+
+
+
+
+
+
+
+.swal2-html-container {
+
+
+    font-size:16px !important;
+
+
+    color:#6b7280 !important;
+
+
+}
+
+
+
+
+
+
+
+.swal2-confirm {
+
+
+    border-radius:10px !important;
+
+
+    padding:12px 28px !important;
+
+
+    font-weight:600 !important;
+
+
+}
+
+
+
+
+
+
+
+.swal2-icon {
+
+
+    margin-top:10px !important;
+
+
+}

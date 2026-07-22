@@ -8,6 +8,7 @@ import galleryRoutes from "./routes/galleryRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import packageRoutes from "./routes/packageRoutes.js";
 
 
 const app = express();
@@ -41,6 +42,9 @@ app.use("/reports", reportRoutes);
 app.use("/dashboard", dashboardRoutes);
 // Gallery Routes
 app.use("/", galleryRoutes);
+
+// Package Routes
+app.use("/api", packageRoutes);
 
 export default app;
 

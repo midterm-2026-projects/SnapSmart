@@ -1,0 +1,194 @@
+.register-card{
+
+    width:450px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.08);
+
+}
+
+
+
+.register-header{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.register-header h1{
+
+    font-size:36px;
+
+    color:#111827;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.register-header p{
+
+    color:#6b7280;
+
+}
+
+
+
+
+
+.register-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+
+
+
+.name-row{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+
+
+.name-row .input-group{
+
+    width:50%;
+
+}
+
+
+
+
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+
+
+
+
+.input-group label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+.input-group input{
+
+    padding:14px;
+
+    border-radius:10px;
+
+    border:1px solid #d1d5db;
+
+    font-size:16px;
+
+}
+
+
+
+.input-group input:focus{
+
+    outline:none;
+
+    border-color:#2563eb;
+
+}
+
+
+
+
+
+.register-button{
+
+    margin-top:10px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+
+.register-button:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+
+
+
+.login-link{
+
+    text-align:center;
+
+    margin-top:25px;
+
+}
+
+
+
+.login-link button{
+
+    margin-left:5px;
+
+    border:none;
+
+    background:none;
+
+    color:#2563eb;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}

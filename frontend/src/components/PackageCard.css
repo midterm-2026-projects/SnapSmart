@@ -1,0 +1,89 @@
+.package-card {
+
+    width:300px;
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+    padding-bottom:25px;
+
+    transition:transform .2s ease, box-shadow .2s ease;
+
+}
+
+
+.package-card:hover {
+
+    transform:translateY(-6px);
+
+    box-shadow:
+    0 18px 38px rgba(0,0,0,.10);
+
+}
+
+
+
+.package-card img {
+
+    width:100%;
+
+    height:200px;
+
+    object-fit:cover;
+
+}
+
+
+
+.package-card h3 {
+
+    margin:20px;
+
+    color:#111827;
+
+}
+
+
+
+.package-card p {
+
+    margin:0 20px 20px;
+
+    color:#6b7280;
+
+}
+
+
+
+.package-card button {
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:transform .2s ease, background .2s ease;
+
+}
+
+
+.package-card button:hover {
+
+    transform:translateY(-1px);
+
+    background:#1d4ed8;
+
+}
