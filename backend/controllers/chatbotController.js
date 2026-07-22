@@ -6,21 +6,54 @@ import {
 
 export async function chat(req, res) {
 
+  console.log("Incoming chatbot request:", req.body);
+
+
   const { message } = req.body;
 
 
   if (!validateUserMessage(message)) {
+
     return res.status(400).json({
       error: "Invalid message"
     });
+
   }
 
 
-  const response = await getChatbotResponse(message);
+  try {
+
+    const response = await getChatbotResponse(message);
 
 
-  res.json({
-    message,
-    response
-  });
+    console.log("AI response:", response);
+
+
+    res.json({
+
+      message,
+
+      response
+
+    });
+
+
+  } catch(error) {
+
+
+    console.error(
+      "Chatbot error:",
+      error.message
+    );
+
+
+    res.status(500).json({
+
+      error:"Chatbot failed"
+
+    });
+
+
+  }
+
 }

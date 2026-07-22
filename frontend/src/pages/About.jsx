@@ -31,7 +31,6 @@ function About() {
 
 	return (
 		<div className="about-page">
-			<Navbar />
 
 			<main className="about-shell">
 				<section className="about-hero">

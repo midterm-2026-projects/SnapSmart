@@ -16,6 +16,7 @@ import Booking from "./pages/Booking";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Gallery from "./pages/Gallery";
+import MyGallery from "./pages/MyGallery";
 
 
 // ======================
@@ -23,6 +24,8 @@ import Gallery from "./pages/Gallery";
 // ======================
 
 import AuthLayout from "./layouts/AuthLayout";
+import PublicLayout from "./layouts/PublicLayout";
+
 
 
 // ======================
@@ -62,35 +65,65 @@ function App() {
 
 
                 <Route
-                    path="/"
-                    element={<Home />}
-                />
+    path="/"
+    element={
+        <PublicLayout>
+            <Home />
+        </PublicLayout>
+    }
+/>
 
-
-                <Route
-                    path="/about"
-                    element={<About />}
-                />
-
-
-                <Route
-                    path="/packages"
-                    element={<Packages />}
-                />
 
 
                 <Route
-                    path="/booking"
-                    element={<Booking />}
-                />
+    path="/about"
+    element={
+        <PublicLayout>
+            <About />
+        </PublicLayout>
+    }
+/>
+
+
+
+               <Route
+    path="/packages"
+    element={
+        <PublicLayout>
+            <Packages />
+        </PublicLayout>
+    }
+/>
+
 
 
                 <Route
-                    path="/gallery"
-                    element={<Gallery />}
-                />
+    path="/booking"
+    element={
+        <PublicLayout>
+            <Booking />
+        </PublicLayout>
+    }
+/>
+
+<Route
+    path="/gallery"
+    element={
+        <PublicLayout>
+            <Gallery />
+        </PublicLayout>
+    }
+/>
 
 
+<Route
+    path="/my-gallery"
+    element={
+        <PublicLayout>
+            <MyGallery />
+        </PublicLayout>
+    }
+/>
 
                 <Route
                     path="/login"

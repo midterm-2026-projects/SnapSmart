@@ -1,41 +1,41 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
 import PackageCard from "../components/PackageCard";
-import Footer from "../components/Footer";
+import ChatBot from "../components/ChatBot";
+import Hero from "../components/Hero";
 
+import assets1 from "../assets/1.jpg";
+import assets2 from "../assets/2.jpg";
+import assets3 from "../assets/3.jpg";
 
 import "./Home.css";
-
 
 
 function Home(){
 
 
-    const packages=[
+    const packages = [
 
         {
-            title:"Wedding Events",
-            image:"/wedding.jpg",
+            title: "Wedding Events",
+            image: assets1,
             description:
-            "Elegant photography and event coverage."
+            "Elegant photography and event coverage for your most special day."
         },
 
 
         {
-            title:"Birthday Celebrations",
-            image:"/birthday.jpg",
+            title: "Birthday Celebrations",
+            image: assets2,
             description:
-            "Capture every fun and memorable moment."
+            "Capture every fun and memorable moment with your loved ones."
         },
 
 
         {
-            title:"Christening Events",
-            image:"/christening.jpg",
+            title: "Christening Events",
+            image: assets3,
             description:
-            "Preserve your family's special memories."
+            "Preserve your family's precious memories forever."
         }
-
 
     ];
 
@@ -46,32 +46,37 @@ function Home(){
         <div className="home">
 
 
-            <Navbar />
-
-
+            {/* Hero Component */}
             <Hero />
 
 
 
+            {/* Featured Packages Section */}
             <section className="featured">
 
+
                 <div className="section-intro">
+
 
                     <p className="section-kicker">
                         Curated for every celebration
                     </p>
 
 
-                <h2>
-                    Featured Packages
-                </h2>
+                    <h2>
+                        Featured Packages
+                    </h2>
+
 
                     <p>
                         Pick from our most popular event photography packages,
                         designed to make booking fast and stress-free.
                     </p>
 
+
                 </div>
+
+
 
 
 
@@ -79,7 +84,7 @@ function Home(){
 
 
                     {
-                        packages.map((item,index)=>(
+                        packages.map((item, index) => (
 
                             <PackageCard
 
@@ -105,7 +110,8 @@ function Home(){
 
 
 
-            <Footer />
+            {/* AI Chatbot */}
+            <ChatBot />
 
 
         </div>

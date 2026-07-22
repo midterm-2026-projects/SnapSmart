@@ -1,0 +1,541 @@
+.my-gallery-container{
+
+
+    position:relative;
+
+
+    max-width:1400px;
+
+
+    margin:50px auto;
+
+
+    padding:20px;
+
+
+}
+
+
+
+
+
+
+/* BACK BUTTON */
+
+.my-gallery-back{
+
+
+    position:absolute;
+
+
+    top:20px;
+
+
+    left:20px;
+
+
+    background:#111827;
+
+
+    color:white;
+
+
+    border:none;
+
+
+    padding:12px 25px;
+
+
+    border-radius:30px;
+
+
+    font-size:16px;
+
+
+    font-weight:600;
+
+
+    cursor:pointer;
+
+
+    transition:.3s;
+
+
+    z-index:10;
+
+
+}
+
+
+
+.my-gallery-back:hover{
+
+
+    background:#2563eb;
+
+
+    transform:translateX(-5px);
+
+
+}
+
+
+
+
+
+
+
+
+/* HEADER */
+
+
+.my-gallery-heading{
+
+
+    text-align:center;
+
+
+    margin-bottom:60px;
+
+
+}
+
+
+
+.my-gallery-heading h1{
+
+
+    font-size:48px;
+
+
+    font-weight:700;
+
+
+    color:#111827;
+
+
+}
+
+
+
+.my-gallery-heading p{
+
+
+    font-size:18px;
+
+
+    color:#6b7280;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* GRID */
+
+
+.my-gallery-grid{
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+
+    repeat(auto-fill,minmax(300px,1fr));
+
+
+    gap:30px;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* CARD */
+
+
+.my-gallery-card{
+
+
+    position:relative;
+
+
+    height:320px;
+
+
+    overflow:hidden;
+
+
+    border-radius:22px;
+
+
+    cursor:pointer;
+
+
+    box-shadow:
+
+
+    0 10px 30px rgba(0,0,0,.12);
+
+
+    animation:fadeUp .6s ease forwards;
+
+
+    opacity:0;
+
+
+}
+
+
+
+
+
+
+
+
+.my-gallery-card img{
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    object-fit:cover;
+
+
+    transition:.5s;
+
+
+}
+
+
+
+
+
+
+.my-gallery-card:hover img{
+
+
+    transform:scale(1.1);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* OVERLAY */
+
+
+.my-gallery-overlay{
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    justify-content:flex-end;
+
+
+    align-items:center;
+
+
+    padding-bottom:30px;
+
+
+    background:
+
+
+    linear-gradient(
+
+        to top,
+
+        rgba(0,0,0,.75),
+
+        transparent
+
+    );
+
+
+    opacity:0;
+
+
+    transition:.4s;
+
+
+}
+
+
+
+
+
+.my-gallery-card:hover .my-gallery-overlay{
+
+
+    opacity:1;
+
+
+}
+
+
+
+
+
+
+
+
+.my-gallery-overlay h3{
+
+
+    color:white;
+
+
+    font-size:22px;
+
+
+    margin-bottom:10px;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* DOWNLOAD BUTTON */
+
+
+.download-btn{
+
+
+    display:inline-flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    gap:8px;
+
+
+    margin-top:15px;
+
+
+    padding:12px 30px;
+
+
+    background:white;
+
+
+    color:#2563eb;
+
+
+    border-radius:50px;
+
+
+    text-decoration:none;
+
+
+    font-size:15px;
+
+
+    font-weight:700;
+
+
+    letter-spacing:.3px;
+
+
+    box-shadow:
+
+
+    0 8px 20px rgba(0,0,0,.18);
+
+
+    transition:
+
+
+    transform .25s ease,
+
+    background .25s ease,
+
+    color .25s ease,
+
+    box-shadow .25s ease;
+
+
+}
+
+
+
+
+
+
+
+.download-btn::before{
+
+
+    content:"⬇";
+
+
+    font-size:16px;
+
+
+}
+
+
+
+
+
+
+
+
+.download-btn:hover{
+
+
+    transform:translateY(-4px);
+
+
+    background:#2563eb;
+
+
+    color:white;
+
+
+    box-shadow:
+
+
+    0 12px 28px rgba(37,99,235,.35);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ANIMATION */
+
+
+@keyframes fadeUp{
+
+
+    from{
+
+
+        opacity:0;
+
+
+        transform:translateY(30px);
+
+
+    }
+
+
+    to{
+
+
+        opacity:1;
+
+
+        transform:none;
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* RESPONSIVE */
+
+
+@media(max-width:768px){
+
+
+
+    .my-gallery-heading h1{
+
+
+        font-size:32px;
+
+
+    }
+
+
+
+
+
+    .my-gallery-grid{
+
+
+        grid-template-columns:1fr;
+
+
+    }
+
+
+
+
+
+    .my-gallery-back{
+
+
+        top:10px;
+
+
+        left:10px;
+
+
+    }
+
+
+}

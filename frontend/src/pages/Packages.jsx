@@ -45,7 +45,6 @@ function Packages() {
 
   return (
     <div className="packages-page">
-      <Navbar />
 
       <main className="packages-shell">
         <section className="packages-grid">
@@ -91,7 +90,6 @@ function Packages() {
         </section>
       </main>
 
-      <Footer />
     </div>
   );
 }

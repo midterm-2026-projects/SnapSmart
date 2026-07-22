@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Swal from "sweetalert2";
+import qrCode from "../assets/qr.png";
 
 import packages from "../data/packages";
 import photographer1 from "../assets/photographer1.png";
@@ -68,6 +67,8 @@ function Booking() {
   ]);
   const [message, setMessage] = useState("");
 
+  const [showQR, setShowQR] = useState(false);
+
   const selectedPackage = useMemo(
     () => packages.find((item) => item.id === selectedPackageId) ?? packages[0],
     [selectedPackageId]
@@ -132,35 +133,113 @@ function Booking() {
     );
   };
 
-  const handleSubmit = (e) => {
+ const handleSubmit = async (e) => {
+
     e.preventDefault();
 
+
     const hasClientError = clients.some((client) => {
-      return (
-        !client.fullName.trim() ||
-        !client.contactNumber.trim()
-      );
+
+        return (
+            !client.fullName.trim() ||
+            !client.contactNumber.trim()
+        );
+
     });
 
+
+
     if (
-      !selectedPackageId ||
-      !eventType ||
-      (eventType === "Other" && !otherEventType.trim()) ||
-      !eventDate ||
-      !eventTime ||
-      !venue.trim() ||
-      !motif.trim() ||
-      !selectedPhotographerId ||
-      hasClientError
+
+        !selectedPackageId ||
+        !eventType ||
+        (eventType === "Other" && !otherEventType.trim()) ||
+        !eventDate ||
+        !eventTime ||
+        !venue.trim() ||
+        !motif.trim() ||
+        !selectedPhotographerId ||
+        hasClientError
+
     ) {
-      setMessage("Please complete all booking fields before submitting.");
-      return;
+
+
+        Swal.fire({
+
+            title:"Incomplete Details",
+
+            text:
+            "Please complete all booking fields before continuing.",
+
+            icon:"warning",
+
+            confirmButtonColor:"#2563eb"
+
+        });
+
+
+        return;
+
     }
 
-    setMessage(
-      `Booking request submitted for ${selectedPackage.name} with ${selectedPhotographer.name}.`
-    );
-  };
+
+
+
+    const result = await Swal.fire({
+
+
+        title:"Confirm Booking?",
+
+
+        html:`
+
+            <p>
+                Package:
+                <strong>${selectedPackage.name}</strong>
+            </p>
+
+            <p>
+                Photographer:
+                <strong>${selectedPhotographer.name}</strong>
+            </p>
+
+            <p>
+                Scan QR code to finalize your booking.
+            </p>
+
+        `,
+
+
+        icon:"question",
+
+
+        showCancelButton:true,
+
+
+        confirmButtonText:"Continue",
+
+
+        cancelButtonText:"Review Again",
+
+
+        confirmButtonColor:"#2563eb"
+
+
+    });
+
+
+
+    if(result.isConfirmed){
+
+
+        setShowQR(true);
+
+
+    }
+
+
+};
+
 
   const effectiveEventType =
     eventType === "Other" && otherEventType.trim()
@@ -169,7 +248,6 @@ function Booking() {
 
   return (
     <div className="booking-page">
-      <Navbar />
 
       <main className="booking-shell">
         <section className="booking-layout">
@@ -414,9 +492,13 @@ function Booking() {
         </section>
       </main>
 
-      <Footer />
+
+
+
     </div>
+
   );
+
 }
 
 export default Booking;

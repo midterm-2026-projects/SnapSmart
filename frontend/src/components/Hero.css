@@ -6,6 +6,8 @@
 
     align-items:center;
 
+    justify-content:space-between;
+
     padding:0 8%;
 
     background:
@@ -23,6 +25,7 @@
     overflow:hidden;
 
 }
+
 
 
 .hero::before {
@@ -44,6 +47,7 @@
     filter:blur(10px);
 
 }
+
 
 
 .hero::after {
@@ -68,6 +72,8 @@
 
 
 
+
+
 .hero-content {
 
     max-width:700px;
@@ -80,6 +86,22 @@
 
 
 
+.brand-name {
+
+    font-size:2rem;
+
+    margin-bottom:20px;
+
+    font-weight:700;
+
+    letter-spacing:-.02em;
+
+}
+
+
+
+
+
 .hero h1 {
 
     font-size:clamp(3rem,6vw,4.75rem);
@@ -89,6 +111,8 @@
     letter-spacing:-.03em;
 
 }
+
+
 
 
 
@@ -106,6 +130,8 @@
 
 
 
+
+
 .hero-buttons {
 
     display:flex;
@@ -113,6 +139,8 @@
     gap:20px;
 
 }
+
+
 
 
 
@@ -134,9 +162,12 @@
 
     font-weight:600;
 
-    transition:transform .2s ease, box-shadow .2s ease;
+    transition:
+    transform .2s ease,
+    box-shadow .2s ease;
 
-    box-shadow:0 10px 22px rgba(15,23,42,.18);
+    box-shadow:
+    0 10px 22px rgba(15,23,42,.18);
 
     text-decoration:none;
 
@@ -147,11 +178,16 @@
 }
 
 
+
+
+
 .hero-button:hover {
 
     transform:translateY(-2px);
 
 }
+
+
 
 
 
@@ -168,23 +204,132 @@
 }
 
 
-@media (max-width: 640px) {
+
+
+
+
+/* RIGHT SIDE LOGO */
+
+.hero-logo {
+
+    width:45%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    z-index:1;
+
+}
+
+
+
+
+
+.hero-logo img {
+
+    width:550px;
+
+    max-width:none;
+
+    height:auto;
+
+    object-fit:contain;
+
+    filter:drop-shadow(
+        0 20px 30px rgba(0,0,0,.25)
+    );
+
+
+
+}
+
+
+
+
+
+
+@media (max-width:640px) {
+
 
     .hero {
+
 
         min-height:auto;
 
         padding:72px 20px;
 
+        flex-direction:column;
+
+        text-align:center;
+
     }
+
+
+
+
+    .hero-content {
+
+        width:100%;
+
+    }
+
+
+
+
+
+  .hero-logo img {
+
+    width:420px;
+
+    max-width:100%;
+
+    height:auto;
+
+    object-fit:contain;
+
+    filter:drop-shadow(
+        0 20px 30px rgba(0,0,0,.25)
+    );
+
+}
+
+
+
+
+
+    .hero-logo img {
+
+    width:420px;
+
+    max-width:100%;
+
+    height:auto;
+
+    object-fit:contain;
+
+    filter:drop-shadow(
+        0 20px 30px rgba(0,0,0,.25)
+    );
+
+}
+
+
+
 
 
     .hero-buttons {
 
+
         flex-direction:column;
 
-        align-items:flex-start;
+        align-items:center;
 
     }
+
 
 }

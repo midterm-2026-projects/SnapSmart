@@ -1,8 +1,31 @@
 import "./Hero.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import logo from "../assets/logo.png";
 
 
 function Hero(){
+
+    const navigate = useNavigate();
+
+
+    const handleBooking = () => {
+
+        const user = sessionStorage.getItem("user");
+
+
+        if(user){
+
+            navigate("/booking");
+
+        } else {
+
+            navigate("/login");
+
+        }
+
+    };
+
 
 
     return (
@@ -10,7 +33,11 @@ function Hero(){
         <section className="hero">
 
 
+
             <div className="hero-content">
+
+
+
 
 
                 <h1>
@@ -20,13 +47,12 @@ function Hero(){
                 </h1>
 
 
-                <p>
 
+                <p>
                     Professional photography,
                     videography, and event services
                     designed to preserve your
                     special memories.
-
                 </p>
 
 
@@ -34,17 +60,21 @@ function Hero(){
                 <div className="hero-buttons">
 
 
-                    <Link to="/packages" className="hero-button">
+                    <Link 
+                        to="/packages" 
+                        className="hero-button"
+                    >
                         Explore Packages
                     </Link>
 
 
 
-                    <Link to="/packages" className="hero-button secondary">
-
+                    <button
+                        onClick={handleBooking}
+                        className="hero-button secondary"
+                    >
                         Book Now
-
-                    </Link>
+                    </button>
 
 
 
@@ -53,6 +83,19 @@ function Hero(){
 
             </div>
 
+
+
+
+            <div className="hero-logo">
+
+
+                <img
+                    src={logo}
+                    alt="SnapSmart Logo"
+                />
+
+
+            </div>
 
 
 
