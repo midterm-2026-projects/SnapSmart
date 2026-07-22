@@ -17,6 +17,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Gallery from "./pages/Gallery";
 import MyGallery from "./pages/MyGallery";
+import MyBookings from "./pages/MyBookings";
+
+
 
 
 // ======================
@@ -73,6 +76,10 @@ function App() {
     }
 />
 
+<Route
+    path="/my-bookings"
+    element={<MyBookings />}
+/>
 
 
                 <Route

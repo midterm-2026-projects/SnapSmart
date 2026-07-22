@@ -1,56 +1,158 @@
-import * as bookingModel from "../models/bookingModel.js";
+import { supabase } from "../config/supabase.js";
 
-// ==============================
-// Booking Service
-// ==============================
 
-// Create Booking
-export function createBooking(data) {
-  if (!data.clientName) {
-    throw new Error("Client Name is required");
-  }
+// CREATE BOOKING
+export async function createBooking(bookingData) {
 
-  if (!data.eventDate) {
-    throw new Error("Event Date is required");
-  }
 
-  // Amount (Optional)
-  if (data.amount !== undefined && data.amount !== null) {
-    if (typeof data.amount !== "number" || Number.isNaN(data.amount)) {
-      throw new Error("Amount must be a valid number");
+    const { data, error } = await supabase
+
+        .from("bookings")
+
+        .insert([bookingData])
+
+        .select()
+
+        .single();
+
+
+
+    if(error){
+
+        throw error;
+
     }
 
-    if (data.amount < 0) {
-      throw new Error("Amount cannot be negative");
-    }
-  }
 
-  // Expense (Optional)
-  if (data.expense !== undefined && data.expense !== null) {
-    if (typeof data.expense !== "number" || Number.isNaN(data.expense)) {
-      throw new Error("Expense must be a valid number");
-    }
+    return data;
 
-    if (data.expense < 0) {
-      throw new Error("Expense cannot be negative");
-    }
-  }
-
-  return bookingModel.createBooking(data);
 }
 
-// Get Booking by ID
-export function getBookingById(id) {
-  return bookingModel.getBookingById(id);
+
+
+
+
+
+// GET BOOKING BY ID
+
+export async function getBookingById(id){
+
+
+    const { data, error } = await supabase
+
+        .from("bookings")
+
+        .select("*")
+
+        .eq(
+            "id",
+            id
+        )
+
+        .single();
+
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    return data;
+
 }
 
-// Update Booking Status
-export function updateBookingStatus(id, status) {
-  const booking = bookingModel.getBookingById(id);
 
-  if (!booking) {
-    throw new Error("Booking not found");
-  }
 
-  return bookingModel.updateBookingStatus(id, status);
+
+
+
+// GET CUSTOMER BOOKINGS
+
+export async function getCustomerBookings(customerId){
+
+
+    const { data, error } = await supabase
+
+        .from("bookings")
+
+        .select("*")
+
+        .eq(
+
+            "customer_id",
+
+            customerId
+
+        )
+
+        .order(
+
+            "created_at",
+
+            {
+                ascending:false
+            }
+
+        );
+
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    return data;
+
+}
+
+
+
+
+
+
+
+// UPDATE STATUS
+
+export async function updateBookingStatus(id,status){
+
+
+    const { data,error } = await supabase
+
+        .from("bookings")
+
+        .update({
+
+            status
+
+        })
+
+        .eq(
+
+            "id",
+
+            id
+
+        )
+
+        .select()
+
+        .single();
+
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    return data;
+
 }

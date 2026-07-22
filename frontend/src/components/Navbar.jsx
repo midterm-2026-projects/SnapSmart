@@ -4,38 +4,36 @@ import { useEffect, useState } from "react";
 import "./Navbar.css";
 
 
-
 function Navbar() {
-
 
     const navigate = useNavigate();
 
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
+    const [user, setUser] = useState(null);
 
 
 
     useEffect(() => {
 
-
         function checkLogin(){
 
+            const loggedIn =
+                sessionStorage.getItem("isLoggedIn") === "true";
 
-            setIsLoggedIn(
 
-                sessionStorage.getItem("isLoggedIn") === "true"
+            const savedUser =
+                JSON.parse(
+                    sessionStorage.getItem("user")
+                );
 
-            );
 
+            setIsLoggedIn(loggedIn);
+            setUser(savedUser);
 
         }
 
 
-
         checkLogin();
-
 
 
         window.addEventListener(
@@ -44,15 +42,12 @@ function Navbar() {
         );
 
 
-
         return () => {
-
 
             window.removeEventListener(
                 "storage",
                 checkLogin
             );
-
 
         };
 
@@ -62,12 +57,7 @@ function Navbar() {
 
 
 
-
-
-
-
     function handleLogout(){
-
 
         sessionStorage.removeItem(
             "isLoggedIn"
@@ -79,19 +69,13 @@ function Navbar() {
         );
 
 
-
         setIsLoggedIn(false);
-
+        setUser(null);
 
 
         navigate("/");
 
-
     }
-
-
-
-
 
 
 
@@ -102,21 +86,15 @@ function Navbar() {
 
         if(isLoggedIn){
 
-
             navigate("/booking");
 
-
         }
-
 
         else{
 
-
             navigate("/login");
 
-
         }
-
 
     }
 
@@ -126,31 +104,20 @@ function Navbar() {
 
 
 
-
-
     return (
 
-
-
         <nav className="navbar">
-
-
-
 
 
             {/* BRAND */}
 
             <div className="navbar-brand">
 
-
                 <h2>
                     SnapSmart
                 </h2>
 
-
             </div>
-
-
 
 
 
@@ -168,43 +135,28 @@ function Navbar() {
 
 
 
-
-
                 {
+                    isLoggedIn && user?.role !== "admin"
 
-
-                    isLoggedIn ?
-
-
+                    ?
 
                     (
 
                         <Link to="/my-gallery">
-
                             My Gallery
-
                         </Link>
-
 
                     )
 
-
-
                     :
-
-
 
                     (
 
                         <Link to="/gallery">
-
                             Gallery
-
                         </Link>
 
-
                     )
-
 
                 }
 
@@ -213,26 +165,35 @@ function Navbar() {
 
 
 
+                {
+                    isLoggedIn &&
+                    user?.role !== "admin" &&
+
+                    (
+
+                        <Link to="/my-bookings">
+                            My Bookings
+                        </Link>
+
+                    )
+
+                }
+
+
+
+
 
                 <Link to="/packages">
-
                     Packages
-
                 </Link>
-
-
 
 
 
 
 
                 <Link to="/about">
-
                     About Us
-
                 </Link>
-
-
 
 
 
@@ -245,25 +206,18 @@ function Navbar() {
 
 
 
-
             {/* ACTION BUTTONS */}
-
 
             <div className="navbar-actions">
 
 
 
-
-
                 {
+                    !isLoggedIn
 
-
-                    !isLoggedIn ?
-
-
+                    ?
 
                     (
-
 
                         <Link
 
@@ -277,17 +231,12 @@ function Navbar() {
 
                         </Link>
 
-
                     )
-
 
 
                     :
 
-
-
                     (
-
 
                         <button
 
@@ -301,10 +250,7 @@ function Navbar() {
 
                         </button>
 
-
                     )
-
-
 
                 }
 
@@ -312,27 +258,17 @@ function Navbar() {
 
 
 
-
-
-
-
                 <button
-
 
                     className="book-btn"
 
-
                     onClick={handleBooking}
-
 
                 >
 
                     Book Now
 
-
                 </button>
-
-
 
 
 
@@ -340,17 +276,12 @@ function Navbar() {
 
 
 
-
-
-
         </nav>
-
 
     );
 
 
 }
-
 
 
 export default Navbar;
