@@ -30,4 +30,5 @@ Thumbs.db
 # JetBrains IDE
 .idea/
 
-.env/
+.env
+frontend/.env
