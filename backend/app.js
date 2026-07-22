@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
@@ -6,9 +7,14 @@ import galleryRoutes from "./routes/galleryRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import photoRoutes from "./routes/photoRoutes.js";
 
 const app = express();
 
+// Enable CORS
+app.use(cors());
+
+// Parse JSON
 app.use(express.json());
 
 
@@ -29,8 +35,9 @@ app.use("/reports", reportRoutes);
 
 // Dashboard Routes
 app.use("/dashboard", dashboardRoutes);
-// Gallery Routes
-app.use("/", galleryRoutes);
+
+// Photo Routes
+app.use("/api/photos", photoRoutes);
 
 export default app;
 

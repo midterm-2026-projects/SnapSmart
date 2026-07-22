@@ -1,4 +1,5 @@
 import { describe, test, expect } from "vitest";
+import supabase from "../config/supabaseClient.js";
 
 
 const isCI = process.env.CI;
@@ -11,21 +12,43 @@ describe.skipIf(isCI)(
 
         let notificationDatabaseModel;
 
-
-        const TEST_USER_ID =
-            "8e375b9c-dba7-41d3-af37-0291f8a4cd2b";
+        let TEST_USER_ID;
 
 
 
         test.beforeAll(async () => {
 
+
             const module =
                 await import("../models/notificationDatabaseModel.js");
+
 
             notificationDatabaseModel =
                 module.default;
 
+
+
+            // Get existing user from profiles table
+            const { data, error } =
+                await supabase
+                .from("profiles")
+                .select("id")
+                .limit(1)
+                .single();
+
+
+
+            if(error){
+                throw error;
+            }
+
+
+
+            TEST_USER_ID = data.id;
+
+
         });
+
 
 
 
@@ -50,11 +73,13 @@ describe.skipIf(isCI)(
 
 
                 expect(result)
-                    .toHaveProperty("id");
+                .toHaveProperty("id");
 
 
             }
         );
+
+
 
 
 
@@ -71,12 +96,16 @@ describe.skipIf(isCI)(
 
 
 
-                expect(Array.isArray(result))
-                    .toBe(true);
+                expect(
+                    Array.isArray(result)
+                )
+                .toBe(true);
+
 
 
             }
         );
+
 
 
     }
