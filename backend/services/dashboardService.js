@@ -10,6 +10,9 @@ async function getBookingsOrThrow() {
     await bookingDatabaseModel.getAllBookings();
 
 
+  console.log("BOOKINGS FROM DATABASE:", bookings);
+
+
   if (!bookings || bookings.length === 0) {
     throw new Error("No booking data available");
   }
@@ -30,10 +33,8 @@ export async function getDashboardSummary() {
     await getBookingsOrThrow();
 
 
-
   const totalBookings =
     bookings.length;
-
 
 
   const completed =
@@ -41,7 +42,6 @@ export async function getDashboardSummary() {
       booking =>
         booking.status?.toLowerCase() === "completed"
     ).length;
-
 
 
   const pending =
@@ -64,13 +64,10 @@ export async function getDashboardSummary() {
 
 
 
-
   const totalRevenue =
     bookings.reduce(
       (sum, booking) => {
 
-
-        // Supabase database format
         if (booking.packages?.price) {
 
           return (
@@ -87,8 +84,6 @@ export async function getDashboardSummary() {
         }
 
 
-
-        // Unit test mock format
         return (
           sum +
           Number(
@@ -98,31 +93,21 @@ export async function getDashboardSummary() {
           )
         );
 
-
       },
       0
     );
 
 
 
-
   return {
-
     totalBookings,
-
     completed,
-
     pending,
-
     totalClients,
-
     totalRevenue
-
   };
 
 }
-
-
 
 
 
@@ -135,20 +120,16 @@ export async function getBookingTrends() {
     await getBookingsOrThrow();
 
 
-
   const monthlyBookings = {};
-
 
 
   bookings.forEach(
     booking => {
 
-
       const date =
         new Date(
           booking.event_date
         );
-
 
 
       const month =
@@ -160,21 +141,16 @@ export async function getBookingTrends() {
         );
 
 
-
       monthlyBookings[month] =
         (monthlyBookings[month] || 0) + 1;
-
 
     }
   );
 
 
-
   return monthlyBookings;
 
 }
-
-
 
 
 
@@ -189,7 +165,6 @@ export async function getPerformanceMetrics() {
 
 
 
-
   const completed =
     bookings.filter(
       booking =>
@@ -199,11 +174,8 @@ export async function getPerformanceMetrics() {
 
 
 
-
   const completionRate =
     (completed / bookings.length) * 100;
-
-
 
 
 
@@ -220,8 +192,6 @@ export async function getPerformanceMetrics() {
 
 
 
-
-
   const averageRating =
     ratings.length > 0
     ?
@@ -234,18 +204,12 @@ export async function getPerformanceMetrics() {
 
 
 
-
   return {
-
     completionRate,
-
     averageRating
-
   };
 
 }
-
-
 
 
 
@@ -257,10 +221,11 @@ export async function getPerformanceMetrics() {
 // Total Revenue
 export async function calculateRevenue() {
 
-
   const bookings =
     await getBookingsOrThrow();
 
+
+  console.log("REVENUE DATA:", bookings);
 
 
 
@@ -268,9 +233,7 @@ export async function calculateRevenue() {
     (total, booking)=>{
 
 
-      // Supabase format
       if (booking.packages?.price) {
-
 
         return (
           total +
@@ -287,8 +250,6 @@ export async function calculateRevenue() {
 
 
 
-
-      // Unit test format
       return (
         total +
         Number(
@@ -303,20 +264,18 @@ export async function calculateRevenue() {
     0
   );
 
-
 }
-
-
 
 
 
 // Total Expenses
 export async function calculateExpenses() {
 
-
   const bookings =
     await getBookingsOrThrow();
 
+
+  console.log("EXPENSE DATA:", bookings);
 
 
 
@@ -343,8 +302,6 @@ export async function calculateExpenses() {
 
 
 
-
-
 // Net Profit
 export async function calculateProfit() {
 
@@ -353,9 +310,13 @@ export async function calculateProfit() {
     await calculateRevenue();
 
 
-
   const expenses =
     await calculateExpenses();
+
+
+
+  console.log("REVENUE:", revenue);
+  console.log("EXPENSES:", expenses);
 
 
 

@@ -1,7 +1,10 @@
 import supabase from "../config/supabaseClient.js";
 
+
 const bookingDatabaseModel = {
+
   async getAllBookings() {
+
     const { data, error } = await supabase
       .from("bookings")
       .select(`
@@ -11,22 +14,33 @@ const bookingDatabaseModel = {
         status,
         payment_status,
         event_date,
-        profiles (
-          first_name,
-          last_name
-        ),
-        packages (
+
+        packages!bookings_package_id_fkey (
           package_name,
           price
         )
       `);
 
+
+
     if (error) {
+
+      console.error(
+        "BOOKING DATABASE ERROR:",
+        error
+      );
+
       throw new Error(error.message);
+
     }
 
-    return data;
-  },
+
+
+    return data || [];
+
+  }
+
 };
+
 
 export default bookingDatabaseModel;

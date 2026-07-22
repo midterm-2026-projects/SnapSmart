@@ -1,172 +1,418 @@
 import { useState } from "react";
 
+
 function EventInformation({
   event,
   setEvent,
   errors,
   setErrors,
 }) {
+
+
   const [message, setMessage] = useState("");
 
-  const handleSubmit = () => {
-    const newErrors = {};
 
-    if (!event.eventType.trim()) {
-      newErrors.eventType = "Event Type is required";
-    }
 
-    if (!event.eventDate) {
-      newErrors.eventDate = "Event Date is required";
-    }
+  const handleChange = (e) => {
 
-    if (!event.venue.trim()) {
-      newErrors.venue = "Venue is required";
-    }
+    const { name, value } = e.target;
 
-    setErrors((prev) => ({
+
+    setEvent((prev)=>({
+
       ...prev,
-      ...newErrors,
+
+      [name]: value
+
     }));
 
+
+    if(value.trim()){
+
+      setErrors((prev)=>({
+
+        ...prev,
+
+        [name]: ""
+
+      }));
+
+    }
+
+  };
+
+
+
+
+
+  const handleSubmit = () => {
+
+
+    setMessage("");
+
+    const newErrors = {};
+
+
+
+    if(!event.eventType.trim()){
+
+      newErrors.eventType = "Event Type is required";
+
+    }
+
+
+
+    if(!event.eventDate){
+
+      newErrors.eventDate = "Event Date is required";
+
+    }
+
+
+
+    if(!event.venue.trim()){
+
+      newErrors.venue = "Venue is required";
+
+    }
+
+
+
+    setErrors(newErrors);
+
+
+
+
     const allEmpty =
+
       !event.eventType.trim() &&
+
       !event.eventDate &&
+
       !event.venue.trim();
 
+
+
+
     const allComplete =
+
       event.eventType.trim() &&
+
       event.eventDate &&
+
       event.venue.trim();
 
-    if (allEmpty) {
+
+
+
+
+
+    if(allEmpty){
+
       setMessage(
         "Please complete all Event Information fields."
       );
+
       return;
+
     }
 
-    if (!allComplete) {
+
+
+
+
+    if(!allComplete){
+
       setMessage(
         "Please complete the missing Event Information fields."
       );
+
       return;
+
     }
+
+
+
+
 
     setMessage(
       "Event Information Submitted Successfully!"
     );
+
+
   };
 
+
+
+
+
   return (
-    <div>
-      <h3>Event Information</h3>
 
-      <div className="field-group">
+    <div className="
+      grid
+      grid-cols-1
+      gap-5
+    ">
+
+
+
+
+
+      {/* Event Type */}
+
+      <div>
+
+
+        <label className="
+          block
+          text-sm
+          font-medium
+          text-gray-700
+          mb-2
+        ">
+          Event Type
+        </label>
+
+
+
         <input
+
           type="text"
-          placeholder="Event Type"
+
+          name="eventType"
+
           value={event.eventType}
-          onChange={(e) => {
-            const value = e.target.value;
 
-            setEvent({
-              ...event,
-              eventType: value,
-            });
+          onChange={handleChange}
 
-            if (value.trim()) {
-              setErrors((prev) => ({
-                ...prev,
-                eventType: "",
-              }));
-            }
-          }}
+          placeholder="Event Type"
+
+          className="
+            w-full
+            border
+            border-gray-300
+            rounded-lg
+            px-4
+            py-3
+          "
+
         />
 
-        {errors.eventType && (
-          <p className="error">
-            {errors.eventType}
-          </p>
-        )}
+
+
+        {
+          errors.eventType && (
+
+            <p className="
+              text-red-500
+              text-sm
+              mt-1
+            ">
+
+              {errors.eventType}
+
+            </p>
+
+          )
+        }
+
+
       </div>
 
-      <div className="field-group">
+
+
+
+
+
+
+      {/* Event Date */}
+
+      <div>
+
+
+        <label className="
+          block
+          text-sm
+          font-medium
+          text-gray-700
+          mb-2
+        ">
+          Event Date
+        </label>
+
+
+
         <input
+
           type="date"
+
+          name="eventDate"
+
           value={event.eventDate}
-          onChange={(e) => {
-            const value = e.target.value;
 
-            setEvent({
-              ...event,
-              eventDate: value,
-            });
+          onChange={handleChange}
 
-            if (value) {
-              setErrors((prev) => ({
-                ...prev,
-                eventDate: "",
-              }));
-            }
-          }}
+          className="
+            w-full
+            border
+            border-gray-300
+            rounded-lg
+            px-4
+            py-3
+          "
+
         />
 
-        {errors.eventDate && (
-          <p className="error">
-            {errors.eventDate}
-          </p>
-        )}
+
+
+        {
+          errors.eventDate && (
+
+            <p className="
+              text-red-500
+              text-sm
+              mt-1
+            ">
+
+              {errors.eventDate}
+
+            </p>
+
+          )
+        }
+
+
       </div>
 
-      <div className="field-group">
+
+
+
+
+
+
+
+      {/* Venue */}
+
+      <div>
+
+
+        <label className="
+          block
+          text-sm
+          font-medium
+          text-gray-700
+          mb-2
+        ">
+          Venue
+        </label>
+
+
+
+
         <input
+
           type="text"
-          placeholder="Venue"
+
+          name="venue"
+
           value={event.venue}
-          onChange={(e) => {
-            const value = e.target.value;
 
-            setEvent({
-              ...event,
-              venue: value,
-            });
+          onChange={handleChange}
 
-            if (value.trim()) {
-              setErrors((prev) => ({
-                ...prev,
-                venue: "",
-              }));
-            }
-          }}
+          placeholder="Venue"
+
+          className="
+            w-full
+            border
+            border-gray-300
+            rounded-lg
+            px-4
+            py-3
+          "
+
         />
 
-        {errors.venue && (
-          <p className="error">
-            {errors.venue}
-          </p>
-        )}
+
+
+        {
+          errors.venue && (
+
+            <p className="
+              text-red-500
+              text-sm
+              mt-1
+            ">
+
+              {errors.venue}
+
+            </p>
+
+          )
+        }
+
+
+
       </div>
+
+
+
+
+
+
+      {/* Submit Button */}
 
       <button
+
         type="button"
+
         onClick={handleSubmit}
+
+        className="
+          bg-purple-600
+          text-white
+          px-5
+          py-3
+          rounded-lg
+        "
+
       >
+
         Submit Event Booking
+
       </button>
 
-      {message && (
-        <p
-          className={
-            message.includes("Successfully")
-              ? "success"
-              : "error"
-          }
-        >
-          {message}
-        </p>
-      )}
+
+
+
+
+
+
+      {/* Message */}
+
+      {
+        message && (
+
+          <p className="
+            text-purple-600
+            font-semibold
+          ">
+
+            {message}
+
+          </p>
+
+        )
+      }
+
+
+
+
+
     </div>
+
   );
+
 }
+
 
 export default EventInformation;
